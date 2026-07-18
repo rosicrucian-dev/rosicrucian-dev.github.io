@@ -1,0 +1,20 @@
+node_modules
+.next
+out
+dist
+*.tsbuildinfo
+.env
+.env.*
+!.env.example
+.vscode/*
+!.vscode/settings.json
+.DS_Store
+*.log
+.vercel
+
+# The Tailwind Plus source kit — reference only, not part of the build.
+/oatmeal-olive-instrument
+
+# Claude Code (local only)
+CLAUDE.md
+.claude/
