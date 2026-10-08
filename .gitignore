@@ -1,0 +1,26 @@
+node_modules
+.next
+out
+dist
+*.tsbuildinfo
+.env
+.env.*
+!.env.example
+.vscode/*
+!.vscode/settings.json
+.DS_Store
+*.log
+.vercel
+
+# Local HTTPS certificates from `npm run dev:https`.
+certificates
+
+# The Tailwind Plus source kit — reference only, not part of the build.
+/oatmeal-olive-instrument
+
+# Claude Code (local only)
+CLAUDE.md
+.claude/
+
+# Scans kept for reference while building the 3D models; not for publishing.
+.reference/
