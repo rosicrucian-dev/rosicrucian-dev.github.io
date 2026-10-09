@@ -16,6 +16,12 @@ pieces, so once you know one you can find your way around the others.
 A model's scene folder may have a `README.md` mapping its files; the Tree
 of Life's does.
 
+The Shem HaMephorash (`/shem-hamephorash`) is not a model but a project
+of its own, listed on the home page: a flat figure, drawn as SVG. It
+borrows the models' frame (`ModelShell`, with `back` pointing its emblem
+home) and their settings, but has its own metadata and sitemap row, and
+the rules about drawing on demand and loading three.js don't apply to it.
+
 Every model's files are named for its route: the page in `src/app/<slug>/`,
 the scene in `src/components/<slug>/`, and its data in
 `src/lib/<slugInCamelCase>.ts`. The Tree of Life and the Tree of Life

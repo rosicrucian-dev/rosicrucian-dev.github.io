@@ -3,6 +3,10 @@
 
 import { useEffect, useState } from 'react'
 
+// The face for Hebrew letters, as a CSS font family, wherever they are
+// set: on a canvas, in SVG or in the page.
+export const HEBREW_FONT = `'Times New Roman', 'Arial Hebrew', 'David', serif`
+
 export interface Fonts {
   serif: string
   hebrew: string
@@ -25,7 +29,7 @@ export function useFonts(): Fonts | null {
     }
     const loaded: Fonts = {
       serif: family('--font-instrument-serif', 'serif'),
-      hebrew: `'Times New Roman', 'Arial Hebrew', 'David', serif`,
+      hebrew: HEBREW_FONT,
       caps: family('--font-inter', 'system-ui, sans-serif'),
       astro: 'Astronomicon',
     }

@@ -14,6 +14,12 @@ projects for the aquarian age. Its main feature is a set of interactive 3D
 - **Tree of Life Sphere**: the Tree projected onto the sky, with the zodiac
   and the stars.
 
+Beside the models, at
+[rosicrucian.dev/shem-hamephorash](https://rosicrucian.dev/shem-hamephorash):
+
+- **Shem HaMephorash**: the 72 Names on a wheel with a turning pentagram,
+  after Dan Moore's Pentagram Technique, and the Names' cards.
+
 ## Getting started
 
 You need Node.js 22.18 or newer (the tests and scripts run TypeScript

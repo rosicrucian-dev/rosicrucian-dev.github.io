@@ -69,3 +69,16 @@ domain). How they were exported is in `models/body/README.md`.
 Google's [Draco](https://github.com/google/draco) mesh decoder, copied
 unchanged from three.js, used to load the compressed body models. Licensed
 under the Apache License 2.0.
+
+## `src/lib/shemHaMephorash.ts` — the Names' meanings and the formulas
+
+The short meaning given for each of the 72 Names, and the five-Name
+formulas, are from Dan Moore's chart "Shem HaMephorash: Chart Showing the 4
+complimentary Names to any Essential Name using the Pentagram", published
+with his article "Introducing the Shem HaMephorash Pentagram Technique for
+Working the 72 Angelic Names" on
+[pansophers.com](https://pansophers.com/shemhamphorash-72-angelic-names/)
+(2020). The meanings follow Yehuda Berg's _The 72 Names of God_ (2003) in
+part. No licence is stated; they are used here with credit. The Hebrew
+Names (Exodus 14:19–21) and the angels' names (Lenain, 1823) are in the
+public domain.

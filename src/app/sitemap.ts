@@ -9,7 +9,13 @@ export const dynamic = 'force-static'
 
 // Every page on the site: the pages below, and every registered model
 // (lib/models.ts). A new page that isn't a model adds a row here.
-const routes = ['/', '/jonathan', '/models', ...MODELS.map((m) => `/${m.slug}`)]
+const routes = [
+  '/',
+  '/jonathan',
+  '/models',
+  '/shem-hamephorash',
+  ...MODELS.map((m) => `/${m.slug}`),
+]
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date()

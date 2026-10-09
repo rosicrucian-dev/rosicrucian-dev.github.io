@@ -19,6 +19,12 @@ const projects = [
     description:
       'Interactive 3D models of the symbols of the Rosicrucian Tradition.',
   },
+  {
+    name: 'Shem HaMephorash',
+    href: '/shem-hamephorash',
+    description:
+      'The 72 Names on a wheel with a turning pentagram: the five-Name formulas of Dan Moore’s Pentagram Technique.',
+  },
 ]
 
 export default function Home() {

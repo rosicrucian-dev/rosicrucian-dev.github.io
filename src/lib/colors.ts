@@ -4,7 +4,9 @@
 //
 //   Golden Dawn  PALETTE and the scales built on it (PLANET_COLORS,
 //                SIGN_COLORS, LETTER_COLORS, SEPHIRAH_COLORS,
-//                ELEMENT_COLORS). The Vault and the Tree of Life Sphere.
+//                ELEMENT_COLORS, and LETTER_SCALES for the letters in all
+//                four scales). The Vault, the Tree of Life Sphere and the
+//                Shem HaMephorash.
 //   BOTA         Paul Foster Case's colour wheel: BOTA_SCREEN_PALETTE (the
 //                Cube of Space), BOTA_POSTER_PALETTE and
 //                BOTA_SEPHIRAH_COLORS, sampled from BOTA's painting of the
@@ -166,6 +168,104 @@ export const ELEMENT_COLORS = {
   mercury: 'blue',
   salt: 'yellow',
 } as const satisfies Record<string, ColorName>
+
+// ---- The letters in all four scales ---------------------------------------------
+
+// Each letter's colour in the three scales below the King's: the Queen
+// (Briah), the Prince (Yetzirah) and the Princess (Assiah), for showing a
+// letter as its power comes down through the four worlds (the King's is
+// LETTER_COLORS). The names are those of Liber 777's columns XVI–XVIII,
+// which follow the Golden Dawn's own scales; each reading of a name is a
+// choice made here, as for PALETTE. Where a colour is compound ("emerald,
+// flecked gold"), its ground colour is given here and the fleck or ray in
+// LETTER_MARKS below.
+// The colours below that more than one letter shares.
+const SCALE = {
+  skyBlue: '#7ec0ee',
+  red: '#d02020',
+  purple: '#7b3fa8',
+  blueBlack: '#141a33',
+} as const
+
+export const LETTER_SCALES: Record<
+  string,
+  { queen: string; prince: string; princess: string }
+> = {
+  // Sky blue; blue emerald green; emerald, flecked gold.
+  א: { queen: SCALE.skyBlue, prince: '#1aa38a', princess: PALETTE.emerald },
+  // Purple; grey; indigo, rayed violet.
+  ב: { queen: SCALE.purple, prince: PALETTE.grey, princess: PALETTE.indigo },
+  // Silver; cold pale blue; silver, rayed sky blue.
+  ג: { queen: '#c8ccd4', prince: '#a9c6e8', princess: '#d4dbe6' },
+  // Sky blue; early spring green; bright rose or cerise, rayed pale green.
+  ד: { queen: SCALE.skyBlue, prince: '#8fd16a', princess: '#e0457b' },
+  // Red; brilliant flame; glowing red.
+  ה: { queen: SCALE.red, prince: '#ff6a1a', princess: '#ff3b2f' },
+  // Deep indigo; deep warm olive; rich brown.
+  ו: { queen: '#2e2470', prince: '#6b6a2a', princess: '#6b3a1e' },
+  // Pale mauve; new yellow leather; reddish grey inclined to mauve.
+  ז: { queen: '#c9a6d6', prince: '#d9b26a', princess: '#9a7f86' },
+  // Maroon; rich bright russet; dark greenish brown.
+  ח: { queen: '#7a1f2b', prince: '#b0532a', princess: '#4a4a2a' },
+  // Deep purple; grey; reddish yellow.
+  ט: { queen: '#4e1f6e', prince: PALETTE.grey, princess: '#e8a02a' },
+  // Slate grey; green grey; plum.
+  י: { queen: '#6b7280', prince: '#7f8c7a', princess: '#8e4585' },
+  // Blue; rich purple; bright blue, rayed yellow.
+  כ: { queen: PALETTE.blue, prince: '#6a2c91', princess: '#2f8cff' },
+  // Blue; deep blue-green; pale green.
+  ל: { queen: PALETTE.blue, prince: '#0f6b6b', princess: '#a8e0a0' },
+  // Sea green; deep olive-green; white, flecked purple.
+  מ: { queen: '#2e8b72', prince: '#4b5a1f', princess: PALETTE.white },
+  // Dull brown; very dark brown; livid indigo brown.
+  נ: { queen: '#6b5236', prince: '#3a2616', princess: '#3b2f4a' },
+  // Yellow; green; dark vivid blue.
+  ס: { queen: PALETTE.yellow, prince: '#2e9e4f', princess: '#1f3fbf' },
+  // Black; blue black; cold dark grey near black.
+  ע: { queen: PALETTE.black, prince: SCALE.blueBlack, princess: '#2a2c30' },
+  // Red; Venetian red; bright red, rayed azure or emerald.
+  פ: { queen: SCALE.red, prince: '#c0452c', princess: '#ff2a2a' },
+  // Sky blue; bluish mauve; white, tinged purple.
+  צ: { queen: SCALE.skyBlue, prince: '#8f84c9', princess: '#e6dcf0' },
+  // Buff, flecked silver-white; light translucent pinkish brown; stone.
+  ק: { queen: '#dbc59a', prince: '#c8a08c', princess: '#8f8a80' },
+  // Gold yellow; rich amber; amber, rayed red.
+  ר: { queen: '#f2c230', prince: '#e09a1a', princess: PALETTE.amber },
+  // Vermilion; scarlet, flecked gold; vermilion, flecked crimson and
+  // emerald.
+  ש: { queen: '#e34234', prince: PALETTE.scarlet, princess: '#e34234' },
+  // Black; blue black; black, rayed blue.
+  ת: { queen: PALETTE.black, prince: SCALE.blueBlack, princess: PALETTE.black },
+}
+
+// The flecks and rays of the compound colours above, by letter and scale:
+// "emerald, flecked gold" is Aleph's Princess colour, emerald, with gold
+// flecks. Where 777 gives a choice ("rayed azure or emerald"), the first
+// is taken. Tinges ("white, tinged purple") are not marks: the colour
+// above is the tinged one.
+export type Scale = 'king' | 'queen' | 'prince' | 'princess'
+
+export interface Mark {
+  kind: 'fleck' | 'ray'
+  colors: string[]
+}
+
+export const LETTER_MARKS: Record<string, Partial<Record<Scale, Mark>>> = {
+  א: { princess: { kind: 'fleck', colors: [PALETTE.gold] } },
+  ב: { princess: { kind: 'ray', colors: [PALETTE.violet] } },
+  ג: { princess: { kind: 'ray', colors: [SCALE.skyBlue] } },
+  ד: { princess: { kind: 'ray', colors: ['#a8e0a0'] } },
+  כ: { princess: { kind: 'ray', colors: [PALETTE.yellow] } },
+  מ: { princess: { kind: 'fleck', colors: [SCALE.purple] } },
+  פ: { princess: { kind: 'ray', colors: ['#3fa9f5'] } },
+  ק: { queen: { kind: 'fleck', colors: ['#eef0f4'] } },
+  ר: { princess: { kind: 'ray', colors: [PALETTE.scarlet] } },
+  ש: {
+    prince: { kind: 'fleck', colors: [PALETTE.gold] },
+    princess: { kind: 'fleck', colors: [PALETTE.crimson, PALETTE.emerald] },
+  },
+  ת: { princess: { kind: 'ray', colors: [PALETTE.blue] } },
+}
 
 // ---- The BOTA colour wheel ------------------------------------------------------
 

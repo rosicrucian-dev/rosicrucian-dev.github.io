@@ -237,6 +237,7 @@ function HintPhrases({ hint, list = false }: { hint: Hint; list?: boolean }) {
 
 export function ModelShell({
   title,
+  back,
   background,
   headerRef,
   headerControls,
@@ -250,6 +251,8 @@ export function ModelShell({
 }: {
   // The model's name, beside the emblem that leads back to the models.
   title: string
+  // Where the emblem leads instead, for a page that isn't a model.
+  back?: { href: string; label: string }
   // The colour behind the scene, as a hex; the header is a veil of it.
   background: string
   // For a model that needs to know how much of the scene the header
@@ -322,7 +325,7 @@ export function ModelShell({
           backgroundColor: `${background}80`,
         }}
       >
-        <ModelTitle>{title}</ModelTitle>
+        <ModelTitle back={back}>{title}</ModelTitle>
         <div className="flex shrink-0 items-center gap-2 sm:gap-4">
           {headerControls}
           <HeaderButton
