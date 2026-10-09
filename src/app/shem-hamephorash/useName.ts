@@ -2,9 +2,11 @@ import { useCallback, useState, useSyncExternalStore } from 'react'
 
 import { nameFromSearch } from '@/lib/shemHaMephorash'
 
-// The Name the star is set on when the page opens with no other: the
-// first, where the sequence (and the Zodiac, at 0° Aries) begins.
-export const DEFAULT_NAME = 1
+// The Name the star is set on when the page opens with no other: 55, on
+// which it stands upright in the wheel as Moore draws it ("Pentagram
+// within the Zodiac", Spirit at the top on the start of Name 55), so that
+// the page opens as his diagram looks.
+export const DEFAULT_NAME = 55
 
 // The Name the star is set on. A link can ask for one, as `?name=33`, and
 // the page opens on it; the bare address opens on the default. After

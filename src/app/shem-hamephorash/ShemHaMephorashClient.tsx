@@ -1,6 +1,7 @@
 'use client'
 
-import { useCallback, useState } from 'react'
+import clsx from 'clsx'
+import { useCallback, useState, useSyncExternalStore } from 'react'
 
 import { ChevronIcon } from '@/components/model/icons'
 import {
@@ -33,6 +34,24 @@ const SOURCE = 'https://pansophers.com/shemhamphorash-72-angelic-names/'
 // formula takes the rest, scrolling for whatever doesn't fit. The wheel's
 // height, min(100vw, 100% − header − 7rem), is written out in both, as
 // Tailwind only finds class names spelled out whole.
+// Whether the page has started in the browser. Until it has, it is the
+// page as the server drew it, with the default settings and the default
+// Name, for it can see neither the settings remembered in the browser nor
+// the Name a link asks for; drawn like that and then put right, the star
+// would be seen to jump. So the wheel and the formula are kept out of
+// sight until then, and fade in already right.
+const noSubscription = () => () => {}
+function useStarted(): boolean {
+  return useSyncExternalStore(
+    noSubscription,
+    () => true,
+    () => false,
+  )
+}
+
+// The fade for what waits until the page has started.
+const fade = 'transition-opacity duration-150 motion-reduce:transition-none'
+
 const LAYOUT = {
   wheel:
     'absolute inset-x-0 top-[calc(env(safe-area-inset-top)+3.5rem)] h-[min(100vw,calc(100%-env(safe-area-inset-top)-10.5rem))] p-1 sm:p-4 lg:right-[26rem] lg:bottom-0 lg:h-auto lg:p-8',
@@ -70,6 +89,7 @@ export function ShemHaMephorashClient() {
   const [settings, update] = useSettings()
   const { turn, angels, colours, zodiac, gematria } = settings
   const [name, setName] = useName()
+  const started = useStarted()
 
   // Left turns what turns anticlockwise, right clockwise, whether the
   // arrow keys or the buttons. The Names run anticlockwise round the
@@ -165,7 +185,7 @@ export function ShemHaMephorashClient() {
       }
       canvasLabel={`The 72 Names of the Shem HaMephorash on a wheel, with a pentagram set on Name ${essential.number}, ${essential.meaning}. Its formula and the Names are listed below for screen readers.`}
       canvas={
-        <div className={LAYOUT.wheel}>
+        <div className={clsx(LAYOUT.wheel, fade, !started && 'opacity-0')}>
           <Wheel
             name={name}
             turn={turn}
@@ -184,7 +204,7 @@ export function ShemHaMephorashClient() {
         angels={angels}
         gematria={gematria}
         onOpen={setCard}
-        className={LAYOUT.formula}
+        className={clsx(LAYOUT.formula, fade, !started && 'opacity-0')}
       />
 
       {card !== null && (
