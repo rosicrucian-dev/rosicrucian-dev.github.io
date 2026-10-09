@@ -25,15 +25,19 @@ const BACKGROUND = '#04050a'
 // the chart.
 const SOURCE = 'https://pansophers.com/shemhamphorash-72-angelic-names/'
 
-// Where the wheel and the formula sit, which depend on each other: on a
-// narrow screen the formula below, taking at most a third of the height,
-// and the wheel above it; on a wide one the formula to the right, 24rem
-// wide (w-96) and 2rem from the edge, and the wheel to its left.
+// Where the wheel and the formula sit, which depend on each other. On a
+// wide screen the formula is to the right, 24rem wide (w-96) and 2rem from
+// the edge, and the wheel to its left. On a narrow one the wheel is on
+// top, as large as the screen's width allows (any smaller and its Names
+// are too small to read), though leaving at least 7rem below it; the
+// formula takes the rest, scrolling for whatever doesn't fit. The wheel's
+// height, min(100vw, 100% − header − 7rem), is written out in both, as
+// Tailwind only finds class names spelled out whole.
 const LAYOUT = {
   wheel:
-    'absolute inset-x-0 top-[calc(env(safe-area-inset-top)+3.5rem)] bottom-[min(34%,20rem)] p-2 sm:p-4 lg:right-[26rem] lg:bottom-0 lg:p-8',
+    'absolute inset-x-0 top-[calc(env(safe-area-inset-top)+3.5rem)] h-[min(100vw,calc(100%-env(safe-area-inset-top)-10.5rem))] p-1 sm:p-4 lg:right-[26rem] lg:bottom-0 lg:h-auto lg:p-8',
   formula:
-    'absolute inset-x-2 bottom-2 max-h-[min(34%,20rem)] sm:inset-x-4 lg:top-[calc(env(safe-area-inset-top)+4.5rem)] lg:right-8 lg:bottom-auto lg:left-auto lg:max-h-[calc(100%-6rem)] lg:w-96',
+    'absolute inset-x-1.5 top-[calc(env(safe-area-inset-top)+3.5rem+min(100vw,calc(100%-env(safe-area-inset-top)-10.5rem)))] bottom-1.5 sm:inset-x-4 sm:bottom-2 lg:top-[calc(env(safe-area-inset-top)+4.5rem)] lg:right-8 lg:bottom-auto lg:left-auto lg:max-h-[calc(100%-6rem)] lg:w-96',
 }
 
 // The whole wheel as text, for screen readers: the formula, with what
@@ -121,8 +125,8 @@ export function ShemHaMephorashClient() {
               fill
               value={turn}
               options={[
-                { value: 'wheel', label: 'The wheel' },
                 { value: 'star', label: 'The star' },
+                { value: 'wheel', label: 'The wheel' },
               ]}
               onChange={(next) => update({ turn: next })}
             />

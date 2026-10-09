@@ -11,10 +11,9 @@ import { NAME_COUNT } from '@/lib/shemHaMephorash'
 export interface Settings {
   // The Essential Name the star is set on, 1 to 72.
   name: number
-  // What turns: the wheel under an upright star, or the star inside a
-  // still wheel (as the technique describes it). The wheel by default: it
-  // is what a hand on the page takes hold of, and with the star still, its
-  // five points keep their places on the screen while the Names move.
+  // What turns: the star inside a still wheel (as the technique describes
+  // it, and so by default), or the wheel under an upright star, its five
+  // points keeping their places on the screen while the Names move.
   turn: 'star' | 'wheel'
   // The angels' names beside the Names in the formula.
   angels: boolean
@@ -29,7 +28,7 @@ export interface Settings {
 // Name 5, Healing: the instructions' own example.
 export const DEFAULT_SETTINGS: Settings = {
   name: 5,
-  turn: 'wheel',
+  turn: 'star',
   angels: false,
   gematria: true,
   colours: true,

@@ -207,7 +207,8 @@ export const POINTS: Point[] = [
     element: 'Spirit',
     letter: 'ש',
     letterName: 'Shin',
-    role: 'The Most Essential',
+    // The diagram's "The Most Essential", shortened.
+    role: 'Essential',
     eternity: 'Quintessence',
     sense: 'The power, virtue or quality you wish to work with.',
     offset: 0,
