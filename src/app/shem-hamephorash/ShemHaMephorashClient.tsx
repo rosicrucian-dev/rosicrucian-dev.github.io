@@ -15,7 +15,7 @@ import { FormulaPanel } from '@/components/shem-hamephorash/FormulaPanel'
 import { Wheel } from '@/components/shem-hamephorash/Wheel'
 import { formula, nameAt, NAMES, signOf } from '@/lib/shemHaMephorash'
 
-import { useNameInUrl } from './useNameInUrl'
+import { useName } from './useName'
 import { useSettings } from './useSettings'
 import { useTurnKeys, type Direction } from './useTurnKeys'
 
@@ -68,25 +68,21 @@ function Structure({ name }: { name: number }) {
 
 export function ShemHaMephorashClient() {
   const [settings, update] = useSettings()
-  const { name, turn, angels, colours, zodiac, gematria } = settings
+  const { turn, angels, colours, zodiac, gematria } = settings
+  const [name, setName] = useName()
 
   // Left turns what turns anticlockwise, right clockwise, whether the
   // arrow keys or the buttons. The Names run anticlockwise round the
   // wheel, so turning the star anticlockwise goes on to the next Name,
   // and turning the wheel anticlockwise back to the one before.
   const turnBy = useCallback(
-    (direction: Direction) =>
-      update((current) => {
-        const forward =
-          (current.turn === 'star') === (direction === 'anticlockwise')
-        return { name: nameAt(current.name + (forward ? 1 : -1)).number }
-      }),
-    [update],
+    (direction: Direction) => {
+      const forward = (turn === 'star') === (direction === 'anticlockwise')
+      setName((n) => nameAt(n + (forward ? 1 : -1)).number)
+    },
+    [turn, setName],
   )
   useTurnKeys(turnBy)
-
-  const setName = useCallback((n: number) => update({ name: n }), [update])
-  useNameInUrl(name, setName)
 
   const entries = formula(name)
   const essential = entries[0].name

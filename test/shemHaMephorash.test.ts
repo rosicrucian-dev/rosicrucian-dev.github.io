@@ -20,7 +20,6 @@ import {
   nearestTurn,
   POINTS,
   pointAngle,
-  searchWithName,
   snapTurn,
   coast,
   signOf,
@@ -134,14 +133,12 @@ test('every letter of every Name has its four colours, the King’s first', () =
   }
 })
 
-test('a link carries the Name, and only one of the 72', () => {
+test('a link can ask for a Name, and only one of the 72', () => {
   assert.equal(nameFromSearch('?name=33'), 33)
   assert.equal(nameFromSearch('?x=1&name=72'), 72)
   assert.equal(nameFromSearch(''), null)
   for (const bad of ['0', '73', '99', 'abc', '3.5', '-4', ''])
     assert.equal(nameFromSearch(`?name=${bad}`), null, bad)
-  assert.equal(searchWithName('', 33), '?name=33')
-  assert.equal(searchWithName('?name=5&x=1', 33), '?name=33&x=1')
 })
 
 test("gematria: Moore's chart, read from its first column", () => {

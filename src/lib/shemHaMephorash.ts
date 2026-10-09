@@ -139,8 +139,8 @@ export function nameAt(n: number): ShemName {
 
 // ---- Sharing a Name by its link --------------------------------------------------
 
-// The page's address carries the Name the star is set on, as `?name=33`,
-// so that a formula can be shared by its link.
+// A link can open the page on a Name, as `?name=33`, so that a formula can
+// be shared by its link.
 export const NAME_PARAM = 'name'
 
 // The Name a page address asks for (its query string, as
@@ -151,13 +151,6 @@ export function nameFromSearch(search: string): number | null {
   if (value === null || !/^\d+$/.test(value)) return null
   const n = Number(value)
   return n >= 1 && n <= NAME_COUNT ? n : null
-}
-
-// The query string with the Name set to `n`, keeping anything else in it.
-export function searchWithName(search: string, n: number): string {
-  const params = new URLSearchParams(search)
-  params.set(NAME_PARAM, String(n))
-  return `?${params}`
 }
 
 // ---- The five points -------------------------------------------------------------

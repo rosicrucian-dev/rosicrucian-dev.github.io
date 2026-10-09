@@ -5,12 +5,11 @@ import {
   type Change,
   type SettingsSpec,
 } from '@/lib/settings'
-import { NAME_COUNT } from '@/lib/shemHaMephorash'
 
-// What the Shem HaMephorash page remembers between visits.
+// What the Shem HaMephorash page remembers between visits: how it looks.
+// Not the Name the star is set on, which is in the page's address (see
+// useName).
 export interface Settings {
-  // The Essential Name the star is set on, 1 to 72.
-  name: number
   // What turns: the star inside a still wheel (as the technique describes
   // it, and so by default), or the wheel under an upright star, its five
   // points keeping their places on the screen while the Names move.
@@ -25,22 +24,12 @@ export interface Settings {
   zodiac: boolean
 }
 
-// Name 5, Healing: the instructions' own example.
 export const DEFAULT_SETTINGS: Settings = {
-  name: 5,
   turn: 'star',
   angels: false,
   gematria: true,
   colours: true,
   zodiac: true,
-}
-
-function nameNumber(value: unknown, fallback: number): number {
-  return Number.isInteger(value) &&
-    (value as number) >= 1 &&
-    (value as number) <= NAME_COUNT
-    ? (value as number)
-    : fallback
 }
 
 const SPEC: SettingsSpec<Settings> = {
@@ -49,7 +38,6 @@ const SPEC: SettingsSpec<Settings> = {
   parse(stored, defaults) {
     const s = stored as Partial<Record<keyof Settings, unknown>>
     return {
-      name: nameNumber(s.name, defaults.name),
       turn: oneOf(s.turn, ['star', 'wheel'], defaults.turn),
       angels: bool(s.angels, defaults.angels),
       gematria: bool(s.gematria, defaults.gematria),
