@@ -15,11 +15,14 @@ import {
   NAMES,
   nameAt,
   nameAtAngle,
+  nameAtTurn,
   nameFromSearch,
   nearestTurn,
   POINTS,
   pointAngle,
   searchWithName,
+  snapTurn,
+  coast,
   signOf,
   sliceMiddle,
   spiritAngle,
@@ -190,4 +193,35 @@ test('the compound colours carry their marks', () => {
     ],
   )
   assert.deepEqual(letterMarks('ה'), [])
+})
+
+test('a turn by hand comes back to the Name it stands on', () => {
+  for (let n = 1; n <= 72; n++) {
+    for (const k of [-2, 0, 3]) {
+      const turn = starTurn(n) + 360 * k
+      assert.equal(nameAtTurn(turn), n, `Name ${n}, ${k} turns`)
+      assert.equal(snapTurn(turn), turn)
+      // Up to half a Name either side still stands on it.
+      assert.equal(nameAtTurn(turn + 2.4), n)
+      assert.equal(nameAtTurn(turn - 2.4), n)
+    }
+  }
+  assert.equal(snapTurn(starTurn(10) + 2), starTurn(10))
+  assert.equal(snapTurn(starTurn(10) + 3), starTurn(11))
+})
+
+test('let go slowly, the wheel settles; flicked, it coasts to a Name', () => {
+  const at = starTurn(5) + 1.5
+  const slow = coast(at, 0.1)
+  assert.equal(slow.to, starTurn(5))
+
+  const fast = coast(at, 1.5)
+  // About 1.5 × 325 ≈ 490° on, and on a Name.
+  assert.ok(fast.to - at > 450 && fast.to - at < 530, String(fast.to - at))
+  assert.equal(snapTurn(fast.to), fast.to)
+  assert.ok(fast.duration > 250 && fast.duration <= 2500)
+
+  const back = coast(at, -1.5)
+  assert.ok(back.to < at)
+  assert.equal(snapTurn(back.to), back.to)
 })

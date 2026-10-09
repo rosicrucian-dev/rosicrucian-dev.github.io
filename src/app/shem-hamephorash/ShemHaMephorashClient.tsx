@@ -121,8 +121,8 @@ export function ShemHaMephorashClient() {
               fill
               value={turn}
               options={[
-                { value: 'star', label: 'The star' },
                 { value: 'wheel', label: 'The wheel' },
+                { value: 'star', label: 'The star' },
               ]}
               onChange={(next) => update({ turn: next })}
             />
@@ -172,6 +172,7 @@ export function ShemHaMephorashClient() {
             colours={colours}
             zodiac={zodiac}
             onSelect={setName}
+            onTurn={turnBy}
           />
         </div>
       }

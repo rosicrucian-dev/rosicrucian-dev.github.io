@@ -329,6 +329,52 @@ export function nearestTurn(from: number, to: number): number {
   return to + 360 * Math.round((from - to) / 360)
 }
 
+// ---- Spinning it by hand ----------------------------------------------------------
+
+// A turn, as starTurn gives it but unwrapped (any number of times round),
+// stands on a Name when it is starTurn of that Name, give or take whole
+// turns: 90° plus five degrees a Name. These are the way back, for a
+// wheel or star turned by hand to any angle.
+
+// The Name a turn stands on, or is nearest to.
+export function nameAtTurn(turn: number): number {
+  const steps = Math.round((turn - 90) / SLICE)
+  return (((steps % NAME_COUNT) + NAME_COUNT) % NAME_COUNT) + 1
+}
+
+// The nearest turn that stands on a Name.
+export function snapTurn(turn: number): number {
+  return 90 + SLICE * Math.round((turn - 90) / SLICE)
+}
+
+// Below this speed, in degrees a millisecond, a released wheel settles on
+// the nearest Name rather than coasting: a hand that lets go slowly means
+// to place it, not to throw it.
+export const FLICK_SPEED = 0.25
+
+// How quickly a coasting wheel slows: its speed falls by e every this many
+// milliseconds, so it goes on for this long times its speed, in degrees,
+// before it would stop. Heavy, as tools of this kind go: a hard flick
+// (some 1,500° a second) carries it about one and a third turns.
+export const COAST_MS = 325
+
+// Where a wheel let go at `turn`, moving at `speed` (degrees a
+// millisecond, either way), comes to rest, and in how long: on a Name
+// always, the nearest to where it would have stopped. The time is set so
+// that an ease-out curve over it starts at the speed it was let go at.
+export function coast(
+  turn: number,
+  speed: number,
+): { to: number; duration: number } {
+  if (Math.abs(speed) < FLICK_SPEED) {
+    return { to: snapTurn(turn), duration: 250 }
+  }
+  const to = snapTurn(turn + speed * COAST_MS)
+  // An ease-out cubic leaves at three times its average speed.
+  const duration = (3 * Math.abs(to - turn)) / Math.abs(speed)
+  return { to, duration: Math.min(2500, Math.max(250, duration)) }
+}
+
 // ---- The Zodiac around it --------------------------------------------------------
 
 // Six Names to a sign, from Aries at Name 1, after the Golden Dawn's
