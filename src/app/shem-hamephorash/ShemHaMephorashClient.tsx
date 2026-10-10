@@ -22,6 +22,9 @@ import {
   signOf,
 } from '@/lib/shemHaMephorash'
 
+import { PALETTES } from '@/lib/palettes'
+import { PALETTE_OFFERED, useSitePalette } from '@/lib/sitePalette'
+
 import { useName } from './useName'
 import { usePlanets, type WheelPlanet } from './usePlanets'
 import { useSettings } from './useSettings'
@@ -59,7 +62,9 @@ const fade = 'transition-opacity duration-150 motion-reduce:transition-none'
 // Its right edge lines up with the header's buttons, which sit 1.5rem
 // from the edge, or 2rem from lg up, and its top with the controls panel
 // that opens from the gear, 3.75rem down. It runs the full height, its
-// foot as far from the bottom as its side is from the edge, so that it
+// foot as far from the bottom as its side is from the edge (the phone's
+// safe area below added once, by the panel's own margin), or, on a short
+// screen (a phone on its side), as low as the wheel beside it goes, so that it
 // stands as a column beside the wheel, of a size that never changes; its
 // rows sit at the top of it. On
 // a tall, narrow one the wheel is on top and the formula takes the rest,
@@ -76,7 +81,7 @@ const LAYOUT = {
   wheel:
     'absolute inset-x-0 top-[calc(env(safe-area-inset-top)+3.5rem)] h-[min(100vw,36rem,calc(100%-env(safe-area-inset-top)-10.5rem))] pointer-fine:h-[min(100vw,36rem,calc(100%-env(safe-area-inset-top)-19.5rem))] p-1 sm:p-4 side:right-[26rem] side:compact:right-[21.5rem] side:bottom-0 side:h-auto side:p-8 side:compact:p-2',
   formula:
-    'absolute inset-x-1.5 top-[calc(env(safe-area-inset-top)+3.5rem+min(100vw,36rem,calc(100%-env(safe-area-inset-top)-10.5rem)))] pointer-fine:top-[calc(env(safe-area-inset-top)+3.5rem+min(100vw,36rem,calc(100%-env(safe-area-inset-top)-19.5rem)))] bottom-1.5 sm:inset-x-4 sm:bottom-2 side:top-[calc(env(safe-area-inset-top)+3.75rem)] side:right-6 lg:side:right-8 side:bottom-[calc(1.5rem+env(safe-area-inset-bottom))] lg:side:bottom-[calc(2rem+env(safe-area-inset-bottom))] side:left-auto side:w-96 side:compact:w-80',
+    'absolute inset-x-1.5 top-[calc(env(safe-area-inset-top)+3.5rem+min(100vw,36rem,calc(100%-env(safe-area-inset-top)-10.5rem)))] pointer-fine:top-[calc(env(safe-area-inset-top)+3.5rem+min(100vw,36rem,calc(100%-env(safe-area-inset-top)-19.5rem)))] bottom-1.5 sm:inset-x-4 sm:bottom-2 side:top-[calc(env(safe-area-inset-top)+3.75rem)] side:right-6 lg:side:right-8 side:bottom-6 lg:side:bottom-8 side:compact:bottom-2 side:left-auto side:w-96 side:compact:w-80',
 }
 
 // The whole wheel as text, for screen readers: the formula, with what
@@ -127,7 +132,9 @@ export function ShemHaMephorashClient() {
   const [settings, update] = useSettings()
   const { turn, zodiac, reckoning } = settings
   // The planets come with the Zodiac: they are where they are in it.
-  const planets = usePlanets(zodiac, reckoning)
+  // The colour palette, chosen for the whole site (see palettes.ts).
+  const [palette, setPalette] = useSitePalette()
+  const planets = usePlanets(zodiac, reckoning, palette)
   const [name, setName] = useName()
   const started = useStarted()
 
@@ -175,6 +182,17 @@ export function ShemHaMephorashClient() {
       }
       controls={
         <>
+          {PALETTE_OFFERED && (
+            <Section title="Colours">
+              <HeaderTabs
+                label="Colour palette"
+                fill
+                value={palette}
+                options={PALETTES.map((p) => ({ value: p.id, label: p.label }))}
+                onChange={setPalette}
+              />
+            </Section>
+          )}
           <Section title="Turning">
             <HeaderTabs
               label="What turns"

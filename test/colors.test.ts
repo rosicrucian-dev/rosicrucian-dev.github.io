@@ -74,5 +74,5 @@ test('ink reads on its colour: black on the light, white on the dark', () => {
   assert.equal(inkOn('#ffffff'), '#000000')
   assert.equal(inkOn('#000000'), '#ffffff')
   assert.equal(inkOn(PALETTE.yellow), '#000000')
-  assert.equal(inkOn(PALETTE.indigo), '#ffffff')
+  assert.equal(inkOn(PALETTE.deepBlue), '#ffffff')
 })

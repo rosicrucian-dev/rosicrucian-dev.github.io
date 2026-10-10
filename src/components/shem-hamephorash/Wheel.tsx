@@ -27,7 +27,9 @@ import clsx from 'clsx'
 import { memo, useCallback, useEffect, useRef, useState } from 'react'
 
 import { astroGlyph, HEBREW_FONT, useFonts } from '@/components/model/fonts'
-import { inkOn, PALETTE, SIGN_COLORS } from '@/lib/colors'
+import { inkOn, PALETTE } from '@/lib/colors'
+import { colorOf, SIGN_WORDS, type PaletteId } from '@/lib/palettes'
+import { useSitePalette } from '@/lib/sitePalette'
 import {
   coast,
   aspectsAmong,
@@ -147,9 +149,13 @@ function reducedMotion(): boolean {
 // is centred on the line itself: Safari, following SVG 1.1, doesn't pass
 // the <text>'s dominant-baseline down to its <tspan>s, and would set them
 // on the baseline instead, a third of a letter off the middle.
-function Letters({ hebrew }: { hebrew: string }) {
+function Letters({ hebrew, palette }: { hebrew: string; palette: PaletteId }) {
   return [...hebrew].map((letter, i) => (
-    <tspan key={i} dominantBaseline="central" fill={letterColor(letter)}>
+    <tspan
+      key={i}
+      dominantBaseline="central"
+      fill={letterColor(letter, palette)}
+    >
       {letter}
     </tspan>
   ))
@@ -165,12 +171,14 @@ const Ring = memo(function Ring({
   current,
   flipTurn,
   zodiac,
+  palette,
   onPick,
 }: {
   // The Name the star stands on, whose formula is lit.
   current: number
   flipTurn: number
   zodiac: boolean
+  palette: PaletteId
   onPick: (name: number) => void
 }) {
   // Astronomicon, for the sign glyphs; registered by useFonts.
@@ -217,7 +225,7 @@ const Ring = memo(function Ring({
               fontWeight={point ? 700 : 400}
               transform={alongSpoke(middle, flipTurn, letters)}
             >
-              <Letters hebrew={n.hebrew} />
+              <Letters hebrew={n.hebrew} palette={palette} />
             </text>
             <text
               x={number[0]}
@@ -240,10 +248,8 @@ const Ring = memo(function Ring({
         SIGNS.map((sign, i) => {
           const a = sliceStart(i * 6 + 1)
           const [x, y] = at((ZODIAC_INNER + NAMES_INNER) / 2, a + 15)
-          const color =
-            PALETTE[
-              SIGN_COLORS[sign.name.toLowerCase() as keyof typeof SIGN_COLORS]
-            ]
+          // Its colour in the King scale, in the palette chosen.
+          const color = colorOf(SIGN_WORDS[i], palette)
           return (
             <g key={sign.name}>
               <path
@@ -320,6 +326,8 @@ export function Wheel({
 }) {
   // Astronomicon, for the planets' glyphs.
   const fonts = useFonts()
+  // The colours, in the palette chosen for the site.
+  const [palette] = useSitePalette()
 
   // The turn, as starTurn gives it but unwrapped, so that going past
   // Name 72 goes on round rather than spinning back. It changes at every
@@ -573,6 +581,7 @@ export function Wheel({
           current={current}
           flipTurn={snapTurn(wheelRotation)}
           zodiac={zodiac}
+          palette={palette}
           onPick={onPick}
         />
 
@@ -697,7 +706,7 @@ export function Wheel({
           fontSize={60}
           fill={INK}
         >
-          <Letters hebrew={essential.hebrew} />
+          <Letters hebrew={essential.hebrew} palette={palette} />
         </text>
         <text
           x={0}

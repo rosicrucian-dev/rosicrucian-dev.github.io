@@ -95,10 +95,11 @@ export function FormulaPanel({
     <div
       className={clsx(
         panel,
-        'overflow-y-auto p-1.5 select-text roomy:p-3',
+        // Clear of the phone's home indicator below, but beside the wheel
+        // on a short screen, as low as the wheel goes.
+        'mb-[env(safe-area-inset-bottom)] overflow-y-auto p-1.5 select-text side:compact:mb-0 roomy:p-3',
         className,
       )}
-      style={{ marginBottom: 'env(safe-area-inset-bottom)' }}
     >
       {/* The Essential Name heads the list itself, as Spirit, so the panel
           needs no title of its own but one for screen readers. */}

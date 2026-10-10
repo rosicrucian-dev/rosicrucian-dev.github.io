@@ -21,13 +21,13 @@
 // mathematics; the drawing turns them into the screen's own.
 
 import {
-  LETTER_COLORS,
+  colorOf,
   LETTER_MARKS,
-  LETTER_SCALES,
-  PALETTE,
+  LETTER_SCALE_NAMES,
+  SCALES,
   type Mark,
-  type Scale,
-} from './colors'
+  type PaletteId,
+} from './palettes'
 
 export interface ShemName {
   // 1 to 72.
@@ -406,7 +406,8 @@ export function signOf(n: number) {
 // shading down through all four, King at the top to Princess at the
 // bottom: "the out-flowing of power from the Source of vitality to
 // actualization". letterColor gives the King's alone, for letters too
-// small to show the four; letterScales all four, top to bottom.
+// small to show the four; letterScales all four, top to bottom; each in
+// the palette chosen (see palettes.ts).
 const FINALS: Record<string, string> = {
   ך: 'כ',
   ם: 'מ',
@@ -417,25 +418,33 @@ const FINALS: Record<string, string> = {
 
 const base = (letter: string) => FINALS[letter] ?? letter
 
-export function letterColor(letter: string): string {
-  return PALETTE[LETTER_COLORS[base(letter)]]
+export function letterColor(letter: string, palette: PaletteId): string {
+  return colorOf(LETTER_SCALE_NAMES[base(letter)][0], palette)
 }
 
-export function letterScales(letter: string): string[] {
-  const { queen, prince, princess } = LETTER_SCALES[base(letter)]
-  return [letterColor(letter), queen, prince, princess]
+export function letterScales(letter: string, palette: PaletteId): string[] {
+  return LETTER_SCALE_NAMES[base(letter)].map((word) => colorOf(word, palette))
 }
-
-// The scales in the order they run down a letter.
-export const SCALES: Scale[] = ['king', 'queen', 'prince', 'princess']
 
 // A letter's flecks and rays, by the scale (0 to 3, top to bottom) they
-// mark.
-export function letterMarks(letter: string): { scale: number; mark: Mark }[] {
+// mark, in the palette chosen.
+export function letterMarks(
+  letter: string,
+  palette: PaletteId,
+): { scale: number; kind: Mark['kind']; colors: string[] }[] {
   const marks = LETTER_MARKS[base(letter)] ?? {}
-  return SCALES.flatMap((scale, i) =>
-    marks[scale] ? [{ scale: i, mark: marks[scale] }] : [],
-  )
+  return SCALES.flatMap((scale, i) => {
+    const mark = marks[scale]
+    return mark
+      ? [
+          {
+            scale: i,
+            kind: mark.kind,
+            colors: mark.colors.map((w) => colorOf(w, palette)),
+          },
+        ]
+      : []
+  })
 }
 
 // ---- Gematria -------------------------------------------------------------------

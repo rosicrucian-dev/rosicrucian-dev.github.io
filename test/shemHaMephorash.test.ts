@@ -6,6 +6,7 @@
 import assert from 'node:assert/strict'
 import { test } from 'node:test'
 
+import { PALETTES } from '../src/lib/palettes.ts'
 import {
   formula,
   gematria,
@@ -125,13 +126,16 @@ test('six Names to a sign, from Aries', () => {
   assert.equal(signOf(72).name, 'Pisces')
 })
 
-test('every letter of every Name has its four colours, the King’s first', () => {
-  for (const name of NAMES) {
-    for (const letter of name.hebrew) {
-      const scales = letterScales(letter)
-      assert.equal(scales.length, 4, letter)
-      assert.equal(scales[0], letterColor(letter), letter)
-      for (const color of scales) assert.match(color, /^#[0-9a-f]{6}$/i, letter)
+test('every letter of every Name has its four colours, the King’s first, in every palette', () => {
+  for (const { id } of PALETTES) {
+    for (const name of NAMES) {
+      for (const letter of name.hebrew) {
+        const scales = letterScales(letter, id)
+        assert.equal(scales.length, 4, letter)
+        assert.equal(scales[0], letterColor(letter, id), letter)
+        for (const color of scales)
+          assert.match(color, /^#[0-9a-f]{6}$/i, `${letter} in ${id}`)
+      }
     }
   }
 })
@@ -180,19 +184,22 @@ test("gematria: Moore's chart, read from its first column", () => {
 test('the compound colours carry their marks', () => {
   // Mem's Princess colour: white, flecked purple.
   assert.deepEqual(
-    letterMarks('ם').map(({ scale, mark }) => [scale, mark.kind]),
+    letterMarks('ם', 'tailwind').map(({ scale, kind }) => [scale, kind]),
     [[3, 'fleck']],
   )
   // Shin: scarlet flecked gold (Prince); vermilion flecked crimson and
   // emerald (Princess).
   assert.deepEqual(
-    letterMarks('ש').map(({ scale, mark }) => [scale, mark.colors.length]),
+    letterMarks('ש', 'tailwind').map(({ scale, colors }) => [
+      scale,
+      colors.length,
+    ]),
     [
       [2, 1],
       [3, 2],
     ],
   )
-  assert.deepEqual(letterMarks('ה'), [])
+  assert.deepEqual(letterMarks('ה', 'tailwind'), [])
 })
 
 test('a turn by hand comes back to the Name it stands on', () => {

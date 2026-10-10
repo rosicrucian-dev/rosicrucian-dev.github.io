@@ -1,11 +1,12 @@
 import { useEffect, useMemo, useState } from 'react'
 
+import { colorOf, PLANET_WORDS, type PaletteId } from '@/lib/palettes'
 import { placePlanets, type PlacedPlanet } from '@/lib/planets'
 import { tropicalLongitude } from '@/lib/realSky'
 
 // The seven planets as the wheel shows them: where each is in the zodiac
-// today, in the reckoning chosen, with its colour (the Golden Dawn's,
-// shared with the Tree of Life Sphere) and its glyph.
+// today, in the reckoning chosen, with its colour (the King scale's, in the
+// palette chosen) and its glyph.
 export interface WheelPlanet {
   name: string
   glyph: string
@@ -31,6 +32,7 @@ const GLYPHS: Record<string, string> = {
 export function usePlanets(
   on: boolean,
   reckoning: 'sidereal' | 'tropical',
+  palette: PaletteId,
 ): WheelPlanet[] {
   const [placed, setPlaced] = useState<{
     date: Date
@@ -55,7 +57,7 @@ export function usePlanets(
         ? placed.planets.map((p) => ({
             name: p.name,
             glyph: GLYPHS[p.name],
-            color: p.color,
+            color: colorOf(PLANET_WORDS[p.name], palette),
             // The sphere's longitudes are sidereal, from Regulus.
             lon:
               reckoning === 'tropical'
@@ -63,6 +65,6 @@ export function usePlanets(
                 : p.lon,
           }))
         : [],
-    [on, placed, reckoning],
+    [on, placed, reckoning, palette],
   )
 }

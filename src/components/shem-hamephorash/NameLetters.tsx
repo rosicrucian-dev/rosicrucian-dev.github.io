@@ -6,8 +6,10 @@
 import type { CSSProperties } from 'react'
 
 import { HEBREW_FONT } from '@/components/model/fonts'
-import { PALETTE, type Mark } from '@/lib/colors'
+import { PALETTE } from '@/lib/colors'
+import type { PaletteId } from '@/lib/palettes'
 import { letterMarks, letterScales } from '@/lib/shemHaMephorash'
+import { useSitePalette } from '@/lib/sitePalette'
 
 // Where each colour is centred, down the letter's box (its font's
 // ascent and descent, as an inline box has): each on its quarter of the
@@ -33,8 +35,8 @@ const clipToText: CSSProperties = {
   color: 'transparent',
 }
 
-function scaled(letter: string): CSSProperties {
-  const [king, queen, prince, princess] = letterScales(letter)
+function scaled(letter: string, palette: PaletteId): CSSProperties {
+  const [king, queen, prince, princess] = letterScales(letter, palette)
   return {
     ...clipToText,
     backgroundImage: `linear-gradient(to bottom, ${king} ${STOPS[0]}%, ${queen} ${STOPS[1]}%, ${prince} ${STOPS[2]}%, ${princess} ${STOPS[3]}%)`,
@@ -45,7 +47,13 @@ function scaled(letter: string): CSSProperties {
 // The pattern of a mark, in ems so that it scales with the letter: small
 // round flecks scattered on two grids, so that they don't fall in rows;
 // or fine slanting rays.
-function pattern({ kind, colors }: Mark): CSSProperties {
+function pattern({
+  kind,
+  colors,
+}: {
+  kind: 'fleck' | 'ray'
+  colors: string[]
+}): CSSProperties {
   if (kind === 'ray') {
     const c = colors[0]
     return {
@@ -95,13 +103,15 @@ export function NameLetters({
   // them.
   marks?: boolean
 }) {
+  // In the palette chosen for the site.
+  const [palette] = useSitePalette()
   return (
     <span dir="rtl" lang="he" style={{ fontFamily: HEBREW_FONT }}>
       {[...hebrew].map((letter, i) => {
-        const found = marks ? letterMarks(letter) : []
+        const found = marks ? letterMarks(letter, palette) : []
         if (found.length === 0)
           return (
-            <span key={i} style={scaled(letter)}>
+            <span key={i} style={scaled(letter, palette)}>
               {letter}
             </span>
           )
@@ -113,10 +123,10 @@ export function NameLetters({
             className="inline-grid"
             style={{ lineHeight: CONTENT_HEIGHT }}
           >
-            <span className={layer} style={scaled(letter)}>
+            <span className={layer} style={scaled(letter, palette)}>
               {letter}
             </span>
-            {found.map(({ scale, mark }) => (
+            {found.map(({ scale, ...mark }) => (
               <span
                 key={scale}
                 aria-hidden="true"
