@@ -54,7 +54,9 @@ const fade = 'transition-opacity duration-150 motion-reduce:transition-none'
 // Where the wheel and the formula sit, which depend on each other (the
 // `side` and `stacked` layouts are defined in globals.css). On a wide
 // screen, or one wider than it is tall, the formula is to the right,
-// 24rem wide (w-96) and 2rem from the edge, and the wheel to its left. On
+// 24rem wide (w-96) and 2rem from the edge, and the wheel to its left; on
+// a short one (a phone on its side) the formula is narrower (20rem, w-80)
+// with its compact rows, and closer to the edge. On
 // a tall, narrow one the wheel is on top and the formula takes the rest,
 // scrolling for whatever doesn't fit. On a touch screen (a phone) the
 // wheel is as large as the screen's width allows (any smaller and its
@@ -67,9 +69,9 @@ const fade = 'transition-opacity duration-150 motion-reduce:transition-none'
 // Tailwind only finds class names spelled out whole.
 const LAYOUT = {
   wheel:
-    'absolute inset-x-0 top-[calc(env(safe-area-inset-top)+3.5rem)] h-[min(100vw,36rem,calc(100%-env(safe-area-inset-top)-10.5rem))] pointer-fine:h-[min(100vw,36rem,calc(100%-env(safe-area-inset-top)-19.5rem))] p-1 sm:p-4 side:right-[26rem] side:bottom-0 side:h-auto side:p-8',
+    'absolute inset-x-0 top-[calc(env(safe-area-inset-top)+3.5rem)] h-[min(100vw,36rem,calc(100%-env(safe-area-inset-top)-10.5rem))] pointer-fine:h-[min(100vw,36rem,calc(100%-env(safe-area-inset-top)-19.5rem))] p-1 sm:p-4 side:right-[26rem] side:compact:right-[21.5rem] side:bottom-0 side:h-auto side:p-8 side:compact:p-2',
   formula:
-    'absolute inset-x-1.5 top-[calc(env(safe-area-inset-top)+3.5rem+min(100vw,36rem,calc(100%-env(safe-area-inset-top)-10.5rem)))] pointer-fine:top-[calc(env(safe-area-inset-top)+3.5rem+min(100vw,36rem,calc(100%-env(safe-area-inset-top)-19.5rem)))] bottom-1.5 sm:inset-x-4 sm:bottom-2 side:top-[calc(env(safe-area-inset-top)+4.5rem)] side:right-8 side:bottom-auto side:left-auto side:max-h-[calc(100%-6rem)] side:w-96',
+    'absolute inset-x-1.5 top-[calc(env(safe-area-inset-top)+3.5rem+min(100vw,36rem,calc(100%-env(safe-area-inset-top)-10.5rem)))] pointer-fine:top-[calc(env(safe-area-inset-top)+3.5rem+min(100vw,36rem,calc(100%-env(safe-area-inset-top)-19.5rem)))] bottom-1.5 sm:inset-x-4 sm:bottom-2 side:top-[calc(env(safe-area-inset-top)+4.5rem)] side:right-8 side:bottom-auto side:left-auto side:max-h-[calc(100%-6rem)] side:w-96 side:compact:w-80 side:compact:right-4 side:compact:top-[calc(env(safe-area-inset-top)+4rem)] side:compact:max-h-[calc(100%-4.75rem-env(safe-area-inset-bottom))]',
 }
 
 // The whole wheel as text, for screen readers: the formula, with what

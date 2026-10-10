@@ -10,13 +10,21 @@
 /*
  * Two layouts for a page with a figure and a panel beside it (the Shem
  * HaMephorash): `side` puts the panel (26rem with its margins) beside the
- * figure, where the screen is wide (64rem and up), or at least wider than
- * it is tall and wide enough that the panel takes no more than half of it
- * (52rem and up); `stacked` puts it underneath. By shape as well as width,
- * so that a short, wide window isn't given the phone's layout.
+ * figure, `stacked` underneath it. Side where the screen is wide (64rem
+ * and up); or wider than it is tall and wide enough that the panel takes
+ * no more than half of it (52rem and up); or, however narrow (40rem and
+ * up), so much wider than tall (3:2) that height is what is short, as on a
+ * phone on its side. By shape as well as width, so that a short, wide
+ * window isn't given the upright phone's layout.
+ *
+ * `roomy` is the side layout with the height for the panel's full-sized
+ * rows (32rem and up); `compact` is everywhere else, where the rows are
+ * smaller and the side panel narrower.
  */
-@custom-variant side (@media (min-width: 64rem) or ((min-width: 52rem) and (min-aspect-ratio: 1 / 1)));
-@custom-variant stacked (@media not ((min-width: 64rem) or ((min-width: 52rem) and (min-aspect-ratio: 1 / 1))));
+@custom-variant side (@media (min-width: 64rem) or ((min-width: 52rem) and (min-aspect-ratio: 1 / 1)) or ((min-width: 40rem) and (min-aspect-ratio: 3 / 2)));
+@custom-variant stacked (@media not ((min-width: 64rem) or ((min-width: 52rem) and (min-aspect-ratio: 1 / 1)) or ((min-width: 40rem) and (min-aspect-ratio: 3 / 2))));
+@custom-variant roomy (@media ((min-width: 64rem) or ((min-width: 52rem) and (min-aspect-ratio: 1 / 1)) or ((min-width: 40rem) and (min-aspect-ratio: 3 / 2))) and (min-height: 32rem));
+@custom-variant compact (@media not (((min-width: 64rem) or ((min-width: 52rem) and (min-aspect-ratio: 1 / 1)) or ((min-width: 40rem) and (min-aspect-ratio: 3 / 2))) and (min-height: 32rem)));
 
 @theme {
   --font-display: var(--font-instrument-serif), serif;
