@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 
 export type Direction = 'anticlockwise' | 'clockwise'
 
-// The arrow keys turn what turns: left (or up) anticlockwise, right (or
+// The arrow keys turn the star: left (or up) anticlockwise, right (or
 // down) clockwise. A key already handled, by a card that is up, is left
 // alone.
 export function useTurnKeys(turnBy: (direction: Direction) => void) {

@@ -130,7 +130,7 @@ function Structure({
 
 export function ShemHaMephorashClient() {
   const [settings, update] = useSettings()
-  const { turn, zodiac, reckoning } = settings
+  const { zodiac, reckoning } = settings
   // The planets come with the Zodiac: they are where they are in it.
   // The colour palette, chosen for the whole site (see palettes.ts).
   const [palette, setPalette] = useSitePalette()
@@ -138,16 +138,16 @@ export function ShemHaMephorashClient() {
   const [name, setName] = useName()
   const started = useStarted()
 
-  // Left turns what turns anticlockwise, right clockwise, whether the
-  // arrow keys or the buttons. The Names run anticlockwise round the
-  // wheel, so turning the star anticlockwise goes on to the next Name,
-  // and turning the wheel anticlockwise back to the one before.
+  // Left turns the star anticlockwise, right clockwise, whether the arrow
+  // keys or the buttons (the wheel turns only by hand). The Names run
+  // anticlockwise round the wheel, so turning the star anticlockwise goes
+  // on to the next Name.
   const turnBy = useCallback(
     (direction: Direction) => {
-      const forward = (turn === 'star') === (direction === 'anticlockwise')
+      const forward = direction === 'anticlockwise'
       setName((n) => nameAt(n + (forward ? 1 : -1)).number)
     },
-    [turn, setName],
+    [setName],
   )
   useTurnKeys(turnBy)
 
@@ -167,13 +167,13 @@ export function ShemHaMephorashClient() {
       headerControls={
         <>
           <HeaderButton
-            label={`Turn the ${turn} anticlockwise`}
+            label="Turn the star anticlockwise"
             onClick={() => turnBy('anticlockwise')}
           >
             <ChevronIcon rotate={-90} />
           </HeaderButton>
           <HeaderButton
-            label={`Turn the ${turn} clockwise`}
+            label="Turn the star clockwise"
             onClick={() => turnBy('clockwise')}
           >
             <ChevronIcon rotate={90} />
@@ -193,18 +193,6 @@ export function ShemHaMephorashClient() {
               />
             </Section>
           )}
-          <Section title="Turning">
-            <HeaderTabs
-              label="What turns"
-              fill
-              value={turn}
-              options={[
-                { value: 'star', label: 'Star' },
-                { value: 'wheel', label: 'Wheel' },
-              ]}
-              onChange={(next) => update({ turn: next })}
-            />
-          </Section>
           <Section title="Show">
             <SwitchRow
               checked={zodiac}
@@ -242,7 +230,6 @@ export function ShemHaMephorashClient() {
         <div className={clsx(LAYOUT.wheel, fade, !started && 'opacity-0')}>
           <Wheel
             name={name}
-            turn={turn}
             zodiac={zodiac}
             planetsRing={zodiac}
             planets={planets}

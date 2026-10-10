@@ -1,17 +1,21 @@
 'use client'
 
 // The wheel of the 72 Names with the pentagram inside it, drawn as SVG:
-// a flat figure has no need of three.js. Either the wheel turns under an
-// upright star or the star turns inside the wheel, as the technique
-// describes it; both are the same turn, one way or the other. The labels
-// on the wheel lie along its spokes and turn with it; those on the star's
-// points are counter-turned to stay upright.
+// a flat figure has no need of three.js. Both turn: the star inside the
+// wheel, as the technique describes it, and the wheel itself, carrying
+// the star with it, or under the star where the star is held still. The
+// Name under Spirit is set by the one against the other alone. The
+// labels on the wheel lie along its spokes and turn with it; those on the
+// star's points are counter-turned to stay upright.
 //
-// It can be turned by hand, like a dial: dragged round its centre, it
-// follows the finger or the mouse; let go slowly, it settles on the
-// nearest Name; flicked, it coasts and slows to land on one (see coast in
-// src/lib/shemHaMephorash.ts). A scroll wheel or trackpad turns it a Name
-// at a time.
+// Each can be turned by hand, like a dial: what is grabbed turns. The
+// ring (the Names, the Zodiac and the planets) turns the wheel, under a
+// still star; inside it, the star turns in a still wheel. Dragged round
+// the centre, it follows the finger or the mouse; let go slowly, it
+// settles with Spirit on the nearest Name; flicked, it coasts and slows to
+// land on one (see coast in src/lib/shemHaMephorash.ts). A scroll wheel or
+// trackpad turns what is under it a Name at a time. Everything else (a
+// key, a button, a tap on a Name) turns the star.
 //
 // Units are those of the viewBox, centred on the wheel. Angles come from
 // src/lib/shemHaMephorash.ts, anticlockwise from the right; SVG turns
@@ -300,7 +304,6 @@ const Ring = memo(function Ring({
 
 export function Wheel({
   name,
-  turn: what,
   zodiac,
   planetsRing,
   planets,
@@ -309,8 +312,6 @@ export function Wheel({
   onTurn,
 }: {
   name: number
-  // What turns: the wheel under the star, or the star in the wheel.
-  turn: 'star' | 'wheel'
   zodiac: boolean
   // Whether the planets have their ring, and where they are (none until
   // they are worked out: the ring is kept for them meanwhile, so that the
@@ -321,7 +322,7 @@ export function Wheel({
   aspects: boolean
   // A Name reached on the wheel: tapped, or turned to by hand.
   onSelect: (name: number) => void
-  // A step round, by a scroll wheel or trackpad.
+  // A step round of the star, by a scroll wheel or trackpad over it.
   onTurn: (direction: 'anticlockwise' | 'clockwise') => void
 }) {
   // Astronomicon, for the planets' glyphs.
@@ -330,10 +331,24 @@ export function Wheel({
   const [palette] = useSitePalette()
 
   // The turn, as starTurn gives it but unwrapped, so that going past
-  // Name 72 goes on round rather than spinning back. It changes at every
-  // frame of a spin; the ref has it as it is now, for the handlers.
-  const [turn, setTurnState] = useState(() => starTurn(name))
+  // Name 72 goes on round rather than spinning back: how far the star is
+  // turned in the wheel, which sets the Name it stands on. And how far the
+  // wheel is turned on the screen, clockwise, from Aries at the left. Both
+  // change at every frame of a spin; the refs have them as they are now,
+  // for the handlers.
+  const [{ turn, wheelTurn }, setTurns] = useState(() => ({
+    turn: starTurn(name),
+    wheelTurn: 0,
+  }))
   const turnNow = useRef(turn)
+  const wheelNow = useRef(0)
+  // Which is moving: the star, in a still wheel, or the wheel, under a
+  // still star (so that the star's turn in it changes as much as the
+  // wheel's on the screen).
+  const moving = useRef<'star' | 'wheel'>('star')
+  // Where the turn is going, for a scroll that comes before the last has
+  // finished, to go on from.
+  const target = useRef(turn)
 
   // Whether the wheel is in a hand, or coasting from one; and the Name
   // last passed on to the page, so that when the page hands it back it
@@ -346,18 +361,28 @@ export function Wheel({
   // Moves the turn to `value`. While the wheel is in hand, the Name it
   // reaches is passed on, at most every REPORT_MS and always at the end,
   // with a tick under the finger (where the device can) as each passes.
+  // At the end it is passed on even if it was the last passed on: the page
+  // may have moved on meanwhile (a key pressed as the wheel settled, which
+  // the wheel, in hand, didn't follow), and the two must agree where it
+  // comes to rest.
   const moveTo = useCallback(
     (value: number, last = false) => {
       const before = nameAtTurn(turnNow.current)
+      if (moving.current === 'wheel') {
+        wheelNow.current += value - turnNow.current
+        // At rest, rid of the slight error that summing small steps
+        // leaves.
+        if (last) wheelNow.current = Math.round(wheelNow.current * 1e6) / 1e6
+      }
       turnNow.current = value
-      setTurnState(value)
+      setTurns({ turn: value, wheelTurn: wheelNow.current })
       if (!handled.current) return
       const now = nameAtTurn(value)
       if (now !== before) navigator.vibrate?.(4)
       const time = performance.now()
       if (
-        now !== reported.current &&
-        (last || time - reportedAt.current > REPORT_MS)
+        last ||
+        (now !== reported.current && time - reportedAt.current > REPORT_MS)
       ) {
         reported.current = now
         reportedAt.current = time
@@ -372,6 +397,7 @@ export function Wheel({
   const easeTo = useCallback(
     (to: number, duration: number) => {
       cancelAnimationFrame(frame.current)
+      target.current = to
       const from = turnNow.current
       const start = performance.now()
       const still = duration <= 0 || reducedMotion()
@@ -388,8 +414,8 @@ export function Wheel({
   )
   useEffect(() => () => cancelAnimationFrame(frame.current), [])
 
-  // A Name chosen some other way (a key, a button, a tap, a link): turned
-  // to, the short way round. Not while the wheel is in hand, and not the
+  // A Name chosen some other way (a key, a button, a tap, a link): the
+  // star turned to it, the short way round. Not while the wheel is in hand, and not the
   // Name it passed on itself. A change just after the page loads is the
   // remembered Name replacing the default, so it is taken at once.
   const loadedAt = useRef(0)
@@ -400,17 +426,40 @@ export function Wheel({
     if (handled.current || name === reported.current) return
     reported.current = name
     const soon = performance.now() - loadedAt.current < 300
+    moving.current = 'star'
     easeTo(nearestTurn(turnNow.current, starTurn(name)), soon ? 0 : TURN_MS)
   }, [name, easeTo])
 
   // ---- By hand --------------------------------------------------------------
 
   const svg = useRef<SVGSVGElement>(null)
+  // The rings inside the Names: the Zodiac's, then the planets'.
+  const planetsOuter = zodiac ? ZODIAC_INNER : NAMES_INNER
+  const planetsInner = planetsOuter - PLANETS_WIDTH
+  const innermost = planetsRing ? planetsInner : planetsOuter
+  // The part under a pointer: the wheel, out from the innermost of its
+  // rings, or the star inside them. In the viewBox's units, which the
+  // drawing is scaled to fit the shorter side of its box.
+  const partAt = useCallback(
+    (e: { clientX: number; clientY: number }): 'star' | 'wheel' => {
+      const box = svg.current!.getBoundingClientRect()
+      const scale = Math.min(box.width, box.height) / 1000
+      const r = Math.hypot(
+        e.clientX - (box.left + box.width / 2),
+        e.clientY - (box.top + box.height / 2),
+      )
+      return r / scale >= innermost ? 'wheel' : 'star'
+    },
+    [innermost],
+  )
+
   const press = useRef<{
     id: number
     x: number
     y: number
     angle: number
+    // What was grabbed.
+    part: 'star' | 'wheel'
     dragging: boolean
     // Where the turn was, and when, over the last moments of the drag,
     // for the speed it is let go at.
@@ -427,19 +476,16 @@ export function Wheel({
     return (Math.atan2(y, x) * 180) / Math.PI
   }
 
-  // Dragged clockwise, the wheel turns clockwise (its turn grows), and
-  // the star too (its turn shrinks: it is turned the other way, see
-  // below), so that what turns follows the hand.
-  const sign = what === 'wheel' ? 1 : -1
-
   const onPointerDown = (e: React.PointerEvent<SVGSVGElement>) => {
     if (e.pointerType === 'mouse' && e.button !== 0) return
     // A hand on a coasting wheel stops it where it is, as on a real one;
     // let go without turning it, it settles on the nearest Name. Not a tap
     // on a Name, either.
     const caught = handled.current
+    const part = partAt(e)
     if (caught) {
       cancelAnimationFrame(frame.current)
+      moving.current = part
       try {
         svg.current!.setPointerCapture(e.pointerId)
       } catch {
@@ -452,6 +498,7 @@ export function Wheel({
       x: e.clientX,
       y: e.clientY,
       angle: angleOf(e),
+      part,
       dragging: caught,
       trail: [{ time: performance.now(), turn: turnNow.current }],
     }
@@ -467,6 +514,7 @@ export function Wheel({
       p.dragging = true
       dragged.current = true
       handled.current = true
+      moving.current = p.part
       cancelAnimationFrame(frame.current)
       try {
         svg.current!.setPointerCapture(e.pointerId)
@@ -478,7 +526,12 @@ export function Wheel({
     // The way round the angle went since the last move, the short way.
     const delta = ((angle - p.angle + 540) % 360) - 180
     p.angle = angle
-    const value = turnNow.current + sign * delta
+    // Dragged clockwise, the wheel turns clockwise, and the star in it
+    // with it (its turn grows); or the star turns clockwise in the wheel
+    // (its turn shrinks: it is turned the other way, see below). Either
+    // way, what is grabbed follows the hand.
+    const value =
+      turnNow.current + (moving.current === 'wheel' ? 1 : -1) * delta
     moveTo(value)
     const time = performance.now()
     p.trail.push({ time, turn: value })
@@ -510,14 +563,32 @@ export function Wheel({
     [onSelect],
   )
 
-  // A scroll wheel or trackpad turns it a Name at a time: down (or right)
-  // clockwise. Listened for directly, not through React, which listens
-  // passively and so can't keep the page from scrolling.
+  // The wheel turned a Name round, clockwise (1) or back (−1), under the
+  // star, as by hand: on from where a turn already under way is going.
+  const stepWheel = useCallback(
+    (by: 1 | -1) => {
+      const from =
+        handled.current && moving.current === 'wheel'
+          ? target.current
+          : snapTurn(turnNow.current)
+      handled.current = true
+      moving.current = 'wheel'
+      easeTo(from + by * SLICE, TURN_MS)
+    },
+    [easeTo],
+  )
+
+  // A scroll wheel or trackpad turns what is under it a Name at a time:
+  // down (or right) clockwise. Listened for directly, not through React, which listens
+  // passively and so can't keep the page from scrolling. A pinch on a
+  // trackpad (or a scroll with Ctrl held) comes as a scroll with ctrlKey,
+  // and is left to the browser, to zoom.
   const scrolled = useRef(0)
   useEffect(() => {
     const element = svg.current
     if (!element) return
     const onWheel = (e: WheelEvent) => {
+      if (e.ctrlKey) return
       e.preventDefault()
       // Lines and pages, from a mouse's wheel, as pixels.
       const scale = e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? 400 : 1
@@ -525,27 +596,23 @@ export function Wheel({
       while (Math.abs(scrolled.current) >= 40) {
         const down = scrolled.current > 0
         scrolled.current -= down ? 40 : -40
-        onTurn(down ? 'clockwise' : 'anticlockwise')
+        if (partAt(e) === 'wheel') stepWheel(down ? 1 : -1)
+        else onTurn(down ? 'clockwise' : 'anticlockwise')
       }
     }
     element.addEventListener('wheel', onWheel, { passive: false })
     return () => element.removeEventListener('wheel', onWheel)
-  }, [onTurn])
+  }, [onTurn, partAt, stepWheel])
 
   // ---- Drawing -----------------------------------------------------------------
 
   // The Name the star stands on now, mid-turn or at rest.
   const current = nameAtTurn(turn)
 
-  // On screen, clockwise: the wheel turns clockwise by the turn, or the
-  // star anticlockwise.
-  const wheelRotation = what === 'wheel' ? turn : 0
-  const starRotation = what === 'star' ? -turn : 0
-
-  // The rings inside the Names: the Zodiac's, then the planets'.
-  const planetsOuter = zodiac ? ZODIAC_INNER : NAMES_INNER
-  const planetsInner = planetsOuter - PLANETS_WIDTH
-  const innermost = planetsRing ? planetsInner : planetsOuter
+  // On screen, clockwise: the wheel by its own turn, and the star by the
+  // wheel's, less its turn (anticlockwise) in the wheel.
+  const wheelRotation = wheelTurn
+  const starRotation = wheelTurn - turn
 
   // Each planet on its degree, in the middle of the ring. Two close
   // together (a conjunction) simply overlap, the quicker drawn over the
