@@ -2,40 +2,24 @@
 // order they are traced, each with its point's element and role, the
 // Name's letters and its number. Choosing one opens its card.
 //
-// On a wide screen every row keeps the same height whichever Name is on
-// it, so that stepping round the wheel doesn't make the rows jump: see
-// Entry. Where room is short (the `compact` layout: under the wheel on a
-// tall, narrow screen, or beside it on a short one) room counts for more: the rows are smaller, and each
-// is as tall as its own Name makes it.
+// Each row is as tall as its own Name makes it, a line more where a
+// meaning wraps onto a second. Where room is short (the `compact` layout:
+// under the wheel on a tall, narrow screen, or beside it on a short one)
+// the rows are smaller.
 
 import clsx from 'clsx'
 
 import { HEBREW_FONT } from '@/components/model/fonts'
 import { panel } from '@/components/model/ModelShell'
-import { formatGematria, NAMES, type FormulaEntry } from '@/lib/shemHaMephorash'
+import { formatGematria, type FormulaEntry } from '@/lib/shemHaMephorash'
 
 import { NameLetters } from './NameLetters'
 
-// Every meaning, laid invisibly under each row so that the row is as
-// tall as the tallest of them makes it. Not only the longest: on a narrow
-// screen a shorter one can wrap onto more lines, depending on where its
-// words break.
-const MEANINGS = [...new Set(NAMES.map((n) => n.meaning))]
-
 // What a row says: the point, its element and its role, then the Name on
 // it.
-function EntryText({
-  entry: { point, name },
-  hidden = false,
-}: {
-  entry: FormulaEntry
-  hidden?: boolean
-}) {
+function EntryText({ entry: { point, name } }: { entry: FormulaEntry }) {
   return (
-    <span
-      aria-hidden={hidden || undefined}
-      className={clsx('col-start-1 row-start-1', hidden && 'invisible')}
-    >
+    <span className="min-w-0 flex-1">
       <span className="block text-[0.625rem]/4 font-medium tracking-widest text-olive-400 uppercase roomy:text-[0.6875rem]/5">
         {point.element} · {point.role}
       </span>
@@ -72,28 +56,10 @@ function Entry({ entry, onOpen }: { entry: FormulaEntry; onOpen: () => void }) {
         >
           {point.letter}
         </span>
-        {/* The text, over invisible copies of it holding every meaning:
-            they all share one cell, so the row is always as tall as the
-            tallest of them makes it, and any room to spare falls at the
-            bottom. On a narrow screen the copies are left out, and the row
-            is as tall as its own text. */}
-        <span className="grid min-w-0 flex-1">
-          <EntryText entry={entry} />
-          {MEANINGS.map((meaning) => (
-            <span
-              key={meaning}
-              className="col-start-1 row-start-1 compact:hidden"
-            >
-              <EntryText
-                entry={{ ...entry, name: { ...name, meaning } }}
-                hidden
-              />
-            </span>
-          ))}
-        </span>
-        {/* A fixed width, whatever the letters', so that the text beside
-            them always wraps the same way and the row keeps its height.
-            The letters' tops line up with the capitals of the label beside
+        <EntryText entry={entry} />
+        {/* A fixed width, whatever the letters', so that the Names line
+            up down the panel and the text beside them wraps alike. The
+            letters' tops line up with the capitals of the label beside
             them: trimmed to the top of their capitals, then set down to
             where the label's capitals stand in its line (0.375rem, or
             0.275rem in the smaller label of a narrow screen), less the
