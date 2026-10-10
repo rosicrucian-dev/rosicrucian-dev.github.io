@@ -15,6 +15,8 @@ import {
   NAMES,
   nameAt,
   nameAtAngle,
+  nameAtLongitude,
+  longitudeAngle,
   nameAtTurn,
   nameFromSearch,
   nearestTurn,
@@ -221,4 +223,18 @@ test('let go slowly, the wheel settles; flicked, it coasts to a Name', () => {
   const back = coast(at, -1.5)
   assert.ok(back.to < at)
   assert.equal(snapTurn(back.to), back.to)
+})
+
+test('each Name rules five degrees of the zodiac, from 0° Aries', () => {
+  assert.equal(nameAtLongitude(0), 1)
+  assert.equal(nameAtLongitude(4.99), 1)
+  assert.equal(nameAtLongitude(5), 2)
+  // 16° Libra: Libra starts at 180°, Name 37.
+  assert.equal(nameAtLongitude(196), 40)
+  assert.equal(nameAtLongitude(359.9), 72)
+  assert.equal(nameAtLongitude(-1), 72)
+  // A longitude falls in its Name's slice on the wheel.
+  for (const lon of [0.5, 123.4, 359.5]) {
+    assert.equal(nameAtAngle(longitudeAngle(lon)), nameAtLongitude(lon))
+  }
 })

@@ -27,11 +27,13 @@ import clsx from 'clsx'
 import { memo, useCallback, useEffect, useRef, useState } from 'react'
 
 import { astroGlyph, HEBREW_FONT, useFonts } from '@/components/model/fonts'
-import { PALETTE, SIGN_COLORS } from '@/lib/colors'
+import { inkOn, PALETTE, SIGN_COLORS } from '@/lib/colors'
 import {
   coast,
   formula,
   letterColor,
+  longitudeAngle,
+  nameAtLongitude,
   nameAtTurn,
   nearestTurn,
   NAMES,
@@ -53,6 +55,20 @@ const NUMBERS_AT = 412
 // The circles holding the letters on the star's points.
 const POINT_RADIUS = 20
 const POINT_STROKE = 3
+// The ring of the planets, inside the Zodiac (or the Names, without it):
+// its width, and the size of each planet's disc.
+const PLANETS_WIDTH = 46
+const PLANET_RADIUS = 15
+// The planets from the slowest across the sky to the quickest.
+const SLOWEST_FIRST = [
+  'Saturn',
+  'Jupiter',
+  'Mars',
+  'Sun',
+  'Venus',
+  'Mercury',
+  'Moon',
+]
 
 // The site's sans-serif, for the numbers.
 const SANS = 'var(--font-inter), system-ui, sans-serif'
@@ -167,7 +183,6 @@ const Ring = memo(function Ring({
   const touched = new Map<number, PointId>(
     formula(current).map((e) => [e.name.number, e.point.id]),
   )
-  const colorOf = (id: PointId) => POINTS.find((p) => p.id === id)!.color
 
   return (
     <>
@@ -190,8 +205,9 @@ const Ring = memo(function Ring({
                 sliceStart(n.number),
                 sliceStart(n.number) + SLICE,
               )}
-              fill={point ? colorOf(point) : 'transparent'}
-              fillOpacity={point ? 0.28 : 1}
+              // The five Names of the formula lit, the Essential one most.
+              fill={point ? INK : 'transparent'}
+              fillOpacity={point === 'spirit' ? 0.32 : point ? 0.16 : 1}
               className={clsx(!point && 'group-hover:fill-white/10')}
             />
             <text
@@ -285,6 +301,8 @@ export function Wheel({
   turn: what,
   colours,
   zodiac,
+  planetsRing,
+  planets,
   onSelect,
   onTurn,
 }: {
@@ -293,11 +311,19 @@ export function Wheel({
   turn: 'star' | 'wheel'
   colours: boolean
   zodiac: boolean
+  // Whether the planets have their ring, and where they are (none until
+  // they are worked out: the ring is kept for them meanwhile, so that the
+  // star doesn't shrink when they arrive).
+  planetsRing: boolean
+  planets: { name: string; glyph: string; color: string; lon: number }[]
   // A Name reached on the wheel: tapped, or turned to by hand.
   onSelect: (name: number) => void
   // A step round, by a scroll wheel or trackpad.
   onTurn: (direction: 'anticlockwise' | 'clockwise') => void
 }) {
+  // Astronomicon, for the planets' glyphs.
+  const fonts = useFonts()
+
   // The turn, as starTurn gives it but unwrapped, so that going past
   // Name 72 goes on round rather than spinning back. It changes at every
   // frame of a spin; the ref has it as it is now, for the handlers.
@@ -511,10 +537,22 @@ export function Wheel({
   const wheelRotation = what === 'wheel' ? turn : 0
   const starRotation = what === 'star' ? -turn : 0
 
+  // The rings inside the Names: the Zodiac's, then the planets'.
+  const planetsOuter = zodiac ? ZODIAC_INNER : NAMES_INNER
+  const planetsInner = planetsOuter - PLANETS_WIDTH
+  const innermost = planetsRing ? planetsInner : planetsOuter
+
+  // Each planet on its degree, in the middle of the ring. Two close
+  // together (a conjunction) simply overlap, the quicker drawn over the
+  // slower, as it passes it.
+  const planetsAt = planetsOuter - PLANETS_WIDTH / 2
+  const bySpeed = [...planets].sort(
+    (a, b) => SLOWEST_FIRST.indexOf(a.name) - SLOWEST_FIRST.indexOf(b.name),
+  )
+
   // The star's points stop short of the ring around them, so that their
   // circles sit just inside it rather than over the signs or the Names.
-  const starRadius =
-    (zodiac ? ZODIAC_INNER : NAMES_INNER) - POINT_RADIUS - POINT_STROKE - 4
+  const starRadius = innermost - POINT_RADIUS - POINT_STROKE - 4
   // The star drawn as it is traced: Spirit, Fire, Air, Water, Earth.
   const vertices = POINTS.map((p) => at(starRadius, 90 + p.vertex * 72))
   const star = `M ${vertices.map(([x, y]) => `${x} ${y}`).join(' L ')} Z`
@@ -541,6 +579,47 @@ export function Wheel({
           zodiac={zodiac}
           onPick={onPick}
         />
+
+        {/* The planets, each a disc in its Golden Dawn colour with its
+            glyph in black or white, whichever reads better on it, at its
+            degree. Turned with the wheel, their glyphs kept upright.
+            Tapped, the star is set on the Name it is in. */}
+        {planetsRing && (
+          <circle
+            r={planetsInner}
+            stroke={FAINT}
+            fill="none"
+            pointerEvents="none"
+          />
+        )}
+        {bySpeed.map((planet) => {
+          const angle = longitudeAngle(planet.lon)
+          const [x, y] = at(planetsAt, angle)
+          const n = nameAtLongitude(planet.lon)
+          return (
+            <g
+              key={planet.name}
+              className="cursor-pointer"
+              onClick={() => onPick(n)}
+            >
+              <title>{`${planet.name}, in Name ${n}`}</title>
+              <circle cx={x} cy={y} r={PLANET_RADIUS} fill={planet.color} />
+              <text
+                x={x}
+                y={y}
+                textAnchor="middle"
+                dominantBaseline="central"
+                fontSize={20}
+                fontFamily={fonts ? fonts.astro : undefined}
+                fill={inkOn(planet.color)}
+                opacity={fonts ? 1 : 0}
+                transform={upright(wheelRotation, [x, y])}
+              >
+                {fonts ? astroGlyph(planet.glyph) : ''}
+              </text>
+            </g>
+          )
+        })}
       </g>
 
       {/* The pentagram, with the letters of Yeheshuah on its points. */}
@@ -555,16 +634,18 @@ export function Wheel({
           // stands out at the top.
           opacity={0.75}
         />
+        {/* White, Spirit (the Essential Name) a filled disc. */}
         {POINTS.map((p, i) => {
           const [x, y] = vertices[i]
+          const essential = p.id === 'spirit'
           return (
             <g key={p.id}>
               <circle
                 cx={x}
                 cy={y}
                 r={POINT_RADIUS}
-                fill="#04050a"
-                stroke={p.color}
+                fill={essential ? PALETTE.white : '#04050a'}
+                stroke={PALETTE.white}
                 strokeWidth={POINT_STROKE}
               />
               <text
@@ -573,7 +654,7 @@ export function Wheel({
                 textAnchor="middle"
                 dominantBaseline="central"
                 fontSize={24}
-                fill={p.color}
+                fill={essential ? '#04050a' : PALETTE.white}
                 transform={upright(starRotation, [x, y])}
               >
                 {p.letter}

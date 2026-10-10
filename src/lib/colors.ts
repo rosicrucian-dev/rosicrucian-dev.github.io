@@ -267,6 +267,21 @@ export const LETTER_MARKS: Record<string, Partial<Record<Scale, Mark>>> = {
   ת: { princess: { kind: 'ray', colors: [PALETTE.blue] } },
 }
 
+// ---- Ink on a colour ---------------------------------------------------------------
+
+// Black or white, whichever reads better on `background` (a hex colour):
+// the one with the greater contrast ratio, as WCAG measures it.
+export function inkOn(background: string): '#000000' | '#ffffff' {
+  const [r, g, b] = [1, 3, 5].map((i) => {
+    const v = parseInt(background.slice(i, i + 2), 16) / 255
+    return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4
+  })
+  const luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b
+  const onBlack = (luminance + 0.05) / 0.05
+  const onWhite = 1.05 / (luminance + 0.05)
+  return onBlack > onWhite ? '#000000' : '#ffffff'
+}
+
 // ---- The BOTA colour wheel ------------------------------------------------------
 
 // Paul Foster Case's twelve-step colour wheel, as the Builders of the

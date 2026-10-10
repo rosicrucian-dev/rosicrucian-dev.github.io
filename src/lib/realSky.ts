@@ -44,6 +44,16 @@ function timeOf(date: Date): { centuries: number; gmst: number } {
   return { centuries, gmst }
 }
 
+// The ordinary (tropical) ecliptic longitude, counted from the equinox of
+// `date`, of a longitude on the sphere, which is counted from Regulus as
+// 0° Leo (sidereal). The two differ by Regulus's tropical longitude less
+// 120°, about 30° now, growing by the precession of the equinoxes.
+export function tropicalLongitude(lon: number, date: Date): number {
+  const { centuries } = timeOf(date)
+  const value = lon + SPHERE_TO_ECLIPTIC + PRECESSION * centuries
+  return ((value % 360) + 360) % 360
+}
+
 // A direction on the sphere (its own longitude and latitude, degrees) as a
 // unit vector in the observer's local frame: X east, Y up, Z south.
 export function toLocalSky(

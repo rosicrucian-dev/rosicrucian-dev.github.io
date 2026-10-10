@@ -7,6 +7,17 @@
  * `prefers-color-scheme`, with no toggle and no JavaScript. The font
  * families are wired to the next/font CSS variables set in layout.tsx.
  */
+/*
+ * Two layouts for a page with a figure and a panel beside it (the Shem
+ * HaMephorash): `side` puts the panel (26rem with its margins) beside the
+ * figure, where the screen is wide (64rem and up), or at least wider than
+ * it is tall and wide enough that the panel takes no more than half of it
+ * (52rem and up); `stacked` puts it underneath. By shape as well as width,
+ * so that a short, wide window isn't given the phone's layout.
+ */
+@custom-variant side (@media (min-width: 64rem) or ((min-width: 52rem) and (min-aspect-ratio: 1 / 1)));
+@custom-variant stacked (@media not ((min-width: 64rem) or ((min-width: 52rem) and (min-aspect-ratio: 1 / 1))));
+
 @theme {
   --font-display: var(--font-instrument-serif), serif;
   --font-sans: var(--font-inter), system-ui, sans-serif;

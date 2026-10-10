@@ -12,6 +12,7 @@
 // and → go round the five in the order they are traced; the page's own
 // arrow keys (which turn the star) see them as already handled.
 
+import clsx from 'clsx'
 import { useEffect, useRef } from 'react'
 
 import { ChevronIcon, XMarkIcon } from '@/components/model/icons'
@@ -122,16 +123,15 @@ export function Card({
         >
           <ChevronIcon rotate={-90} />
         </HeaderButton>
-        {/* Where this card is among the five, in their colours. */}
+        {/* Where this card is among the five. */}
         <div className="flex gap-2" aria-hidden="true">
           {entries.map((e, i) => (
             <span
               key={e.point.id}
-              className="size-2 rounded-full ring-1"
-              style={{
-                backgroundColor: i === index ? e.point.color : 'transparent',
-                ['--tw-ring-color' as string]: e.point.color,
-              }}
+              className={clsx(
+                'size-2 rounded-full ring-1 ring-olive-50',
+                i === index && 'bg-olive-50',
+              )}
             />
           ))}
         </div>

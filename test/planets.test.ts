@@ -8,7 +8,11 @@ import { test } from 'node:test'
 import * as Astronomy from 'astronomy-engine'
 
 import { placePlanets, PLANETS } from '../src/lib/planets.ts'
-import { fromHorizon, toLocalSky } from '../src/lib/realSky.ts'
+import {
+  fromHorizon,
+  toLocalSky,
+  tropicalLongitude,
+} from '../src/lib/realSky.ts'
 import { type Vec3 } from '../src/lib/treeOfLifeSphere.ts'
 import { PATH_BY_NUMBER } from '../src/lib/tree.ts'
 
@@ -78,4 +82,16 @@ test('each is found where an observer would actually see it', async () => {
     const allowed = planet.name === 'Moon' ? 1.1 : 0.02
     assert.ok(gap < allowed, `${planet.name} is ${gap}° off`)
   }
+})
+
+test('the sphere’s sidereal longitudes turn back into tropical ones', async () => {
+  // At the March equinox the Sun is at 0° Aries, tropically.
+  const equinox = Astronomy.Seasons(2026).mar_equinox.date
+  const sun = (await placePlanets(equinox)).find((p) => p.name === 'Sun')!
+  const tropical = tropicalLongitude(sun.lon, equinox)
+  assert.ok(Math.min(tropical, 360 - tropical) < 0.02, `longitude ${tropical}`)
+  // And at the June solstice at 0° Cancer.
+  const solstice = Astronomy.Seasons(2026).jun_solstice.date
+  const june = (await placePlanets(solstice)).find((p) => p.name === 'Sun')!
+  assert.ok(Math.abs(tropicalLongitude(june.lon, solstice) - 90) < 0.02)
 })

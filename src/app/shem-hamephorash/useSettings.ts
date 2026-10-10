@@ -22,6 +22,13 @@ export interface Settings {
   colours: boolean
   // The ring of the Zodiac inside the Names.
   zodiac: boolean
+  // The seven planets where they are today, each on the Name it is in.
+  planets: boolean
+  // Which zodiac they are reckoned in: sidereal, counted from Regulus as
+  // 0° Leo (the Golden Dawn's, and the Tree of Life Sphere's), or
+  // tropical, counted from the spring equinox. About 30° (six Names)
+  // apart now.
+  reckoning: 'sidereal' | 'tropical'
 }
 
 export const DEFAULT_SETTINGS: Settings = {
@@ -30,6 +37,8 @@ export const DEFAULT_SETTINGS: Settings = {
   gematria: true,
   colours: true,
   zodiac: true,
+  planets: true,
+  reckoning: 'sidereal',
 }
 
 const SPEC: SettingsSpec<Settings> = {
@@ -43,6 +52,12 @@ const SPEC: SettingsSpec<Settings> = {
       gematria: bool(s.gematria, defaults.gematria),
       colours: bool(s.colours, defaults.colours),
       zodiac: bool(s.zodiac, defaults.zodiac),
+      planets: bool(s.planets, defaults.planets),
+      reckoning: oneOf(
+        s.reckoning,
+        ['sidereal', 'tropical'],
+        defaults.reckoning,
+      ),
     }
   },
 }

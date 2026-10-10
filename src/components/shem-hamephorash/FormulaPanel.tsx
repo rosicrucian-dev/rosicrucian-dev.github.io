@@ -4,8 +4,8 @@
 //
 // On a wide screen every row keeps the same height whichever Name is on
 // it, so that stepping round the wheel doesn't make the rows jump: see
-// Entry. On a narrow one (below the lg breakpoint, where the formula sits
-// under the wheel) room counts for more: the rows are smaller, and each
+// Entry. Where it sits under the wheel (the `stacked` layout, on tall,
+// narrow screens) room counts for more: the rows are smaller, and each
 // is as tall as its own Name makes it.
 
 import clsx from 'clsx'
@@ -38,10 +38,10 @@ function EntryText({
       aria-hidden={hidden || undefined}
       className={clsx('col-start-1 row-start-1', hidden && 'invisible')}
     >
-      <span className="block text-[0.625rem]/4 font-medium tracking-widest text-olive-400 uppercase lg:text-[0.6875rem]/5">
+      <span className="block text-[0.625rem]/4 font-medium tracking-widest text-olive-400 uppercase side:text-[0.6875rem]/5">
         {point.element} · {point.role}
       </span>
-      <span className="block text-[0.8125rem]/5 text-white lg:text-base/6">
+      <span className="block text-[0.8125rem]/5 text-white side:text-base/6">
         {name.number} · {name.meaning}
       </span>
       {angels && (
@@ -73,16 +73,18 @@ function Entry({
         type="button"
         onClick={onOpen}
         title={`The card of ${name.meaning}`}
-        className="flex w-full items-start gap-2.5 rounded-xl px-1.5 py-1.5 text-left transition hover:bg-white/5 lg:gap-3 lg:px-2 lg:py-2"
+        className="flex w-full items-start gap-2.5 rounded-xl px-1.5 py-1.5 text-left transition hover:bg-white/5 side:gap-3 side:px-2 side:py-2"
       >
+        {/* The point's letter, as on the star: white, Spirit's filled. */}
         <span
           aria-hidden="true"
-          className="mt-0.5 flex size-7 shrink-0 items-center justify-center rounded-full border-2 text-base lg:size-8 lg:text-lg"
-          style={{
-            borderColor: point.color,
-            color: point.color,
-            fontFamily: HEBREW_FONT,
-          }}
+          className={clsx(
+            'mt-0.5 flex size-7 shrink-0 items-center justify-center rounded-full border-2 border-olive-50 text-base side:size-8 side:text-lg',
+            point.id === 'spirit'
+              ? 'bg-olive-50 text-[#04050a]'
+              : 'text-olive-50',
+          )}
+          style={{ fontFamily: HEBREW_FONT }}
         >
           {point.letter}
         </span>
@@ -96,7 +98,7 @@ function Entry({
           {MEANINGS.map((meaning) => (
             <span
               key={meaning}
-              className="col-start-1 row-start-1 max-lg:hidden"
+              className="col-start-1 row-start-1 stacked:hidden"
             >
               <EntryText
                 entry={{ ...entry, name: { ...name, meaning } }}
@@ -114,13 +116,13 @@ function Entry({
             0.275rem in the smaller label of a narrow screen), less the
             sixth of their size by which Hebrew letters stand lower than
             Latin capitals in Times. */}
-        <span className="w-12 shrink-0 text-right lg:w-20">
-          <span className="mt-[calc(0.275rem-0.17em)] block text-2xl/none [text-box:trim-start_cap_alphabetic] lg:mt-[calc(0.375rem-0.17em)] lg:text-5xl/none">
+        <span className="w-12 shrink-0 text-right side:w-20">
+          <span className="mt-[calc(0.275rem-0.17em)] block text-2xl/none [text-box:trim-start_cap_alphabetic] side:mt-[calc(0.375rem-0.17em)] side:text-5xl/none">
             <NameLetters hebrew={name.hebrew} colours={colours} />
           </span>
           {/* Its number, as Moore's chart gives it. */}
           {gematria && (
-            <span className="mt-0.5 block text-[0.625rem]/3 text-olive-400 tabular-nums lg:mt-1.5 lg:text-xs/5">
+            <span className="mt-0.5 block text-[0.625rem]/3 text-olive-400 tabular-nums side:mt-1.5 side:text-xs/5">
               {formatGematria(name.hebrew)}
             </span>
           )}
@@ -152,7 +154,7 @@ export function FormulaPanel({
     <div
       className={clsx(
         panel,
-        'overflow-y-auto p-1.5 select-text lg:p-3',
+        'overflow-y-auto p-1.5 select-text side:p-3',
         className,
       )}
       style={{ marginBottom: 'env(safe-area-inset-bottom)' }}

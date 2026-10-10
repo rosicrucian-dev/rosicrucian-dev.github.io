@@ -6,7 +6,7 @@
 import assert from 'node:assert/strict'
 import { test } from 'node:test'
 
-import { LETTER_COLORS, PALETTE } from '../src/lib/colors.ts'
+import { inkOn, LETTER_COLORS, PALETTE } from '../src/lib/colors.ts'
 import { PLANETS as SKY_PLANETS } from '../src/lib/planets.ts'
 import { PATHS, SEPHIROTH } from '../src/lib/tree.ts'
 import { VAULT_PLANETS, WALL_SQUARES } from '../src/lib/vault.ts'
@@ -68,4 +68,11 @@ test('the Sephiroth on the Vault walls match the Tree', () => {
     const sephirah = SEPHIROTH.find((s) => s.name === square.name)!
     assert.equal(square.force, sephirah.color, square.name)
   }
+})
+
+test('ink reads on its colour: black on the light, white on the dark', () => {
+  assert.equal(inkOn('#ffffff'), '#000000')
+  assert.equal(inkOn('#000000'), '#ffffff')
+  assert.equal(inkOn(PALETTE.yellow), '#000000')
+  assert.equal(inkOn(PALETTE.indigo), '#ffffff')
 })

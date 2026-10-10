@@ -180,7 +180,6 @@ export interface Point {
   // 0 is the top, 1 upper left, 2 lower left, 3 lower right, 4 upper
   // right.
   vertex: number
-  color: string
 }
 
 // The points in the order the instructions take them, which is the order
@@ -188,12 +187,13 @@ export interface Point {
 // Water, down to Earth and back up to Spirit.
 //
 // The offsets are the chart's: in every one of its 72 rows Air is 14
-// Names on, Earth 28, Fire 43 and Water 57. The colours are its column
-// headings' (Fire red, Water blue, Air yellow, Earth green), read in the
-// site's palette. Spirit, the Quintessence that runs through the other
-// four, is the white of the star itself: no element's colour. (Moore's
-// diagram paints its Shin red, but red here is Fire's; gold was too near
-// Air's yellow.)
+// Names on, Earth 28, Fire 43 and Water 57.
+//
+// The points carry no element colours. Moore's own two are at odds (his
+// chart heads Earth's column green, his diagram paints its Heh black, the
+// Golden Dawn's colour for Earth), and with the letters, the Zodiac and
+// the planets in colour, the points read more clearly without: they are
+// white, Spirit, the Essential Name, set apart as a filled disc.
 export const POINTS: Point[] = [
   {
     id: 'spirit',
@@ -206,7 +206,6 @@ export const POINTS: Point[] = [
     sense: 'The power, virtue or quality you wish to work with.',
     offset: 0,
     vertex: 0,
-    color: PALETTE.white,
   },
   {
     id: 'fire',
@@ -218,7 +217,6 @@ export const POINTS: Point[] = [
     sense: 'The inner-living essence of the Essential Name.',
     offset: 43,
     vertex: 3,
-    color: PALETTE.scarlet,
   },
   {
     id: 'air',
@@ -231,7 +229,6 @@ export const POINTS: Point[] = [
       'The pattern or ‘blueprint’… the theory explaining the dynamics at work.',
     offset: 14,
     vertex: 1,
-    color: PALETTE.yellow,
   },
   {
     id: 'water',
@@ -243,7 +240,6 @@ export const POINTS: Point[] = [
     sense: 'The structure and process working in the background.',
     offset: 57,
     vertex: 4,
-    color: PALETTE.blue,
   },
   {
     id: 'earth',
@@ -256,7 +252,6 @@ export const POINTS: Point[] = [
       'The manifestation of and the application to all aspects of one’s life.',
     offset: 28,
     vertex: 2,
-    color: PALETTE.emerald,
   },
 ]
 
@@ -301,6 +296,18 @@ export function spiritAngle(n: number): number {
 // Where a point of the star is, when it is set on Name `n`.
 export function pointAngle(n: number, point: Point): number {
   return spiritAngle(n) + point.vertex * 72
+}
+
+// The Name a zodiac longitude falls in (degrees from 0° Aries): each
+// rules five degrees, from Name 1 at the start of Aries.
+export function nameAtLongitude(lon: number): number {
+  const turned = ((lon % 360) + 360) % 360
+  return Math.floor(turned / SLICE) + 1
+}
+
+// Where a zodiac longitude is on the wheel, as an angle.
+export function longitudeAngle(lon: number): number {
+  return START + lon
 }
 
 // Which Name's slice an angle falls in.

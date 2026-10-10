@@ -14,9 +14,16 @@ import {
 import { Card } from '@/components/shem-hamephorash/Card'
 import { FormulaPanel } from '@/components/shem-hamephorash/FormulaPanel'
 import { Wheel } from '@/components/shem-hamephorash/Wheel'
-import { formula, nameAt, NAMES, signOf } from '@/lib/shemHaMephorash'
+import {
+  formula,
+  nameAt,
+  nameAtLongitude,
+  NAMES,
+  signOf,
+} from '@/lib/shemHaMephorash'
 
 import { useName } from './useName'
+import { usePlanets, type WheelPlanet } from './usePlanets'
 import { useSettings } from './useSettings'
 import { useTurnKeys, type Direction } from './useTurnKeys'
 
@@ -26,14 +33,6 @@ const BACKGROUND = '#04050a'
 // the chart.
 const SOURCE = 'https://pansophers.com/shemhamphorash-72-angelic-names/'
 
-// Where the wheel and the formula sit, which depend on each other. On a
-// wide screen the formula is to the right, 24rem wide (w-96) and 2rem from
-// the edge, and the wheel to its left. On a narrow one the wheel is on
-// top, as large as the screen's width allows (any smaller and its Names
-// are too small to read), though leaving at least 7rem below it; the
-// formula takes the rest, scrolling for whatever doesn't fit. The wheel's
-// height, min(100vw, 100% − header − 7rem), is written out in both, as
-// Tailwind only finds class names spelled out whole.
 // Whether the page has started in the browser. Until it has, it is the
 // page as the server drew it, with the default settings and the default
 // Name, for it can see neither the settings remembered in the browser nor
@@ -52,16 +51,36 @@ function useStarted(): boolean {
 // The fade for what waits until the page has started.
 const fade = 'transition-opacity duration-150 motion-reduce:transition-none'
 
+// Where the wheel and the formula sit, which depend on each other (the
+// `side` and `stacked` layouts are defined in globals.css). On a wide
+// screen, or one wider than it is tall, the formula is to the right,
+// 24rem wide (w-96) and 2rem from the edge, and the wheel to its left. On
+// a tall, narrow one the wheel is on top and the formula takes the rest,
+// scrolling for whatever doesn't fit. On a touch screen (a phone) the
+// wheel is as large as the screen's width allows (any smaller and its
+// Names are too small to read), leaving at least 7rem below it; with a
+// mouse (a window on a computer, however narrow), where it can be smaller
+// and still read well, it leaves 16rem, room for all five rows. Told apart
+// by the pointer, not the width: a narrow window and a phone can be the
+// same width. It is never larger than 36rem. Its height, min(100vw,
+// 36rem, 100% − header − 7rem or 16rem), is written out in both, as
+// Tailwind only finds class names spelled out whole.
 const LAYOUT = {
   wheel:
-    'absolute inset-x-0 top-[calc(env(safe-area-inset-top)+3.5rem)] h-[min(100vw,calc(100%-env(safe-area-inset-top)-10.5rem))] p-1 sm:p-4 lg:right-[26rem] lg:bottom-0 lg:h-auto lg:p-8',
+    'absolute inset-x-0 top-[calc(env(safe-area-inset-top)+3.5rem)] h-[min(100vw,36rem,calc(100%-env(safe-area-inset-top)-10.5rem))] pointer-fine:h-[min(100vw,36rem,calc(100%-env(safe-area-inset-top)-19.5rem))] p-1 sm:p-4 side:right-[26rem] side:bottom-0 side:h-auto side:p-8',
   formula:
-    'absolute inset-x-1.5 top-[calc(env(safe-area-inset-top)+3.5rem+min(100vw,calc(100%-env(safe-area-inset-top)-10.5rem)))] bottom-1.5 sm:inset-x-4 sm:bottom-2 lg:top-[calc(env(safe-area-inset-top)+4.5rem)] lg:right-8 lg:bottom-auto lg:left-auto lg:max-h-[calc(100%-6rem)] lg:w-96',
+    'absolute inset-x-1.5 top-[calc(env(safe-area-inset-top)+3.5rem+min(100vw,36rem,calc(100%-env(safe-area-inset-top)-10.5rem)))] pointer-fine:top-[calc(env(safe-area-inset-top)+3.5rem+min(100vw,36rem,calc(100%-env(safe-area-inset-top)-19.5rem)))] bottom-1.5 sm:inset-x-4 sm:bottom-2 side:top-[calc(env(safe-area-inset-top)+4.5rem)] side:right-8 side:bottom-auto side:left-auto side:max-h-[calc(100%-6rem)] side:w-96',
 }
 
 // The whole wheel as text, for screen readers: the formula, with what
 // each point stands for in Moore's words, and the 72 Names.
-function Structure({ name }: { name: number }) {
+function Structure({
+  name,
+  planets,
+}: {
+  name: number
+  planets: WheelPlanet[]
+}) {
   return (
     <>
       <h2>The formula of Name {name}</h2>
@@ -73,6 +92,18 @@ function Structure({ name }: { name: number }) {
           </li>
         ))}
       </ol>
+      {planets.length > 0 && (
+        <>
+          <h2>The planets today</h2>
+          <ul>
+            {planets.map((p) => (
+              <li key={p.name}>
+                {p.name}, in Name {nameAtLongitude(p.lon)}
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
       <h2>The 72 Names</h2>
       <ol>
         {NAMES.map((n) => (
@@ -87,7 +118,8 @@ function Structure({ name }: { name: number }) {
 
 export function ShemHaMephorashClient() {
   const [settings, update] = useSettings()
-  const { turn, angels, colours, zodiac, gematria } = settings
+  const { turn, angels, colours, zodiac, gematria, reckoning } = settings
+  const planets = usePlanets(settings.planets, reckoning)
   const [name, setName] = useName()
   const started = useStarted()
 
@@ -173,6 +205,24 @@ export function ShemHaMephorashClient() {
               Gematria
             </SwitchRow>
           </Section>
+          <Section title="Planets">
+            <SwitchRow
+              checked={settings.planets}
+              onChange={(next) => update({ planets: next })}
+            >
+              Planets today
+            </SwitchRow>
+            <HeaderTabs
+              label="Zodiac"
+              fill
+              value={reckoning}
+              options={[
+                { value: 'sidereal', label: 'Sidereal' },
+                { value: 'tropical', label: 'Tropical' },
+              ]}
+              onChange={(next) => update({ reckoning: next })}
+            />
+          </Section>
           <Section title="Source">
             <a
               href={SOURCE}
@@ -191,12 +241,14 @@ export function ShemHaMephorashClient() {
             turn={turn}
             colours={colours}
             zodiac={zodiac}
+            planetsRing={settings.planets}
+            planets={planets}
             onSelect={setName}
             onTurn={turnBy}
           />
         </div>
       }
-      structure={<Structure name={name} />}
+      structure={<Structure name={name} planets={planets} />}
     >
       <FormulaPanel
         entries={entries}
