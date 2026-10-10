@@ -22,12 +22,15 @@ export interface Settings {
   // or tropical, counted from the spring equinox. About 30° (six Names)
   // apart now.
   reckoning: 'sidereal' | 'tropical'
+  // Lines between the planets for their aspects: off unless asked for.
+  aspects: boolean
 }
 
 export const DEFAULT_SETTINGS: Settings = {
   turn: 'star',
   zodiac: true,
   reckoning: 'sidereal',
+  aspects: false,
 }
 
 const SPEC: SettingsSpec<Settings> = {
@@ -43,6 +46,7 @@ const SPEC: SettingsSpec<Settings> = {
         ['sidereal', 'tropical'],
         defaults.reckoning,
       ),
+      aspects: bool(s.aspects, defaults.aspects),
     }
   },
 }

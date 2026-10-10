@@ -16,6 +16,7 @@ import {
   nameAt,
   nameAtAngle,
   nameAtLongitude,
+  aspectsAmong,
   longitudeAngle,
   nameAtTurn,
   nameFromSearch,
@@ -237,4 +238,24 @@ test('each Name rules five degrees of the zodiac, from 0° Aries', () => {
   for (const lon of [0.5, 123.4, 359.5]) {
     assert.equal(nameAtAngle(longitudeAngle(lon)), nameAtLongitude(lon))
   }
+})
+
+test('aspects: each pair once, in its closest aspect within its orb', () => {
+  const found = aspectsAmong([
+    { name: 'Sun', lon: 10 },
+    { name: 'Moon', lon: 128 }, // 118° from the Sun: a trine, 2° off
+    { name: 'Mars', lon: 191 }, // 181° from the Sun: an opposition, 1° off
+    { name: 'Venus', lon: 15 }, // 5° from the Sun: a conjunction
+    { name: 'Saturn', lon: 357 }, // 13° from the Sun: nothing
+  ])
+  const by = (a: string, b: string) =>
+    found.find((x) => x.between.join() === [a, b].join())
+  assert.equal(by('Sun', 'Moon')?.name, 'trine')
+  assert.equal(by('Sun', 'Mars')?.name, 'opposition')
+  assert.equal(by('Sun', 'Venus')?.name, 'conjunction')
+  assert.equal(by('Sun', 'Saturn'), undefined)
+  // Moon at 128°, Mars at 191°: 63° apart, a sextile 3° off.
+  assert.equal(by('Moon', 'Mars')?.name, 'sextile')
+  // Across 0° Aries: 357° and 15° are 18° apart, nothing.
+  assert.equal(by('Venus', 'Saturn'), undefined)
 })

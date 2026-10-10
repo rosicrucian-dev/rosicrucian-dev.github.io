@@ -197,16 +197,24 @@ export function ShemHaMephorashClient() {
             {/* The Zodiac comes with the planets on it, reckoned one way or
                 the other. */}
             {zodiac && (
-              <HeaderTabs
-                label="Zodiac reckoning"
-                fill
-                value={reckoning}
-                options={[
-                  { value: 'sidereal', label: 'Sidereal' },
-                  { value: 'tropical', label: 'Tropical' },
-                ]}
-                onChange={(next) => update({ reckoning: next })}
-              />
+              <>
+                <SwitchRow
+                  checked={settings.aspects}
+                  onChange={(next) => update({ aspects: next })}
+                >
+                  Aspects
+                </SwitchRow>
+                <HeaderTabs
+                  label="Zodiac reckoning"
+                  fill
+                  value={reckoning}
+                  options={[
+                    { value: 'sidereal', label: 'Sidereal' },
+                    { value: 'tropical', label: 'Tropical' },
+                  ]}
+                  onChange={(next) => update({ reckoning: next })}
+                />
+              </>
             )}
           </Section>
         </>
@@ -220,6 +228,7 @@ export function ShemHaMephorashClient() {
             zodiac={zodiac}
             planetsRing={zodiac}
             planets={planets}
+            aspects={zodiac && settings.aspects}
             onSelect={setName}
             onTurn={turnBy}
           />

@@ -30,6 +30,7 @@ import { astroGlyph, HEBREW_FONT, useFonts } from '@/components/model/fonts'
 import { inkOn, PALETTE, SIGN_COLORS } from '@/lib/colors'
 import {
   coast,
+  aspectsAmong,
   formula,
   letterColor,
   longitudeAngle,
@@ -297,6 +298,7 @@ export function Wheel({
   zodiac,
   planetsRing,
   planets,
+  aspects,
   onSelect,
   onTurn,
 }: {
@@ -309,6 +311,8 @@ export function Wheel({
   // star doesn't shrink when they arrive).
   planetsRing: boolean
   planets: { name: string; glyph: string; color: string; lon: number }[]
+  // Lines between the planets for their aspects.
+  aspects: boolean
   // A Name reached on the wheel: tapped, or turned to by hand.
   onSelect: (name: number) => void
   // A step round, by a scroll wheel or trackpad.
@@ -584,6 +588,32 @@ export function Wheel({
             pointerEvents="none"
           />
         )}
+        {/* Their aspects, as lines between them: the harmonious (trine,
+            sextile) blue, the hard (square, opposition) red, as charts
+            commonly draw them. Under the discs; none for a conjunction,
+            whose planets already sit together. */}
+        {aspects &&
+          aspectsAmong(planets)
+            .filter((a) => a.name !== 'conjunction')
+            .map(({ between: [a, b], name }) => {
+              const lon = (n: string) => planets.find((p) => p.name === n)!.lon
+              const [x1, y1] = at(planetsAt, longitudeAngle(lon(a)))
+              const [x2, y2] = at(planetsAt, longitudeAngle(lon(b)))
+              const hard = name === 'square' || name === 'opposition'
+              return (
+                <line
+                  key={`${a}-${b}`}
+                  x1={x1}
+                  y1={y1}
+                  x2={x2}
+                  y2={y2}
+                  stroke={hard ? PALETTE.scarlet : PALETTE.blue}
+                  strokeWidth={name === 'sextile' ? 1.5 : 2.5}
+                  opacity={0.7}
+                  pointerEvents="none"
+                />
+              )
+            })}
         {bySpeed.map((planet) => {
           const angle = longitudeAngle(planet.lon)
           const [x, y] = at(planetsAt, angle)

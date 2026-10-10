@@ -499,3 +499,55 @@ export function formatGematria(hebrew: string): string {
   const { value, final } = gematria(hebrew)
   return final === undefined ? String(value) : `${value}–${final}`
 }
+
+// ---- Aspects ------------------------------------------------------------------
+
+// The major aspects of traditional astrology, the angles between two
+// planets that count: how far apart, and how far off exact (the orb) an
+// angle may be and still count, after the usual traditional orbs. A
+// conjunction (0°) is among them, though on the wheel two planets in
+// conjunction already sit together.
+export const ASPECTS = [
+  { name: 'conjunction', angle: 0, orb: 8 },
+  { name: 'sextile', angle: 60, orb: 5 },
+  { name: 'square', angle: 90, orb: 7 },
+  { name: 'trine', angle: 120, orb: 8 },
+  { name: 'opposition', angle: 180, orb: 8 },
+] as const
+
+export type AspectName = (typeof ASPECTS)[number]['name']
+
+export interface Aspect {
+  // The two planets, by name, in the order they were given.
+  between: [string, string]
+  name: AspectName
+  // How far off exact, in degrees.
+  off: number
+}
+
+// The aspects among planets at the given longitudes (degrees): each pair
+// at most once, in its closest aspect.
+export function aspectsAmong(
+  planets: { name: string; lon: number }[],
+): Aspect[] {
+  const found: Aspect[] = []
+  planets.forEach((a, i) => {
+    for (const b of planets.slice(i + 1)) {
+      // The angle between them, the short way round: 0° to 180°.
+      const apart = Math.abs(((b.lon - a.lon + 540) % 360) - 180)
+      const aspect = ASPECTS.map((x) => ({
+        ...x,
+        off: Math.abs(apart - x.angle),
+      }))
+        .filter((x) => x.off <= x.orb)
+        .sort((x, y) => x.off - y.off)[0]
+      if (aspect)
+        found.push({
+          between: [a.name, b.name],
+          name: aspect.name,
+          off: aspect.off,
+        })
+    }
+  })
+  return found
+}
