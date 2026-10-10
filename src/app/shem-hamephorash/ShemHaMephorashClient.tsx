@@ -120,8 +120,9 @@ function Structure({
 
 export function ShemHaMephorashClient() {
   const [settings, update] = useSettings()
-  const { turn, angels, colours, zodiac, gematria, reckoning } = settings
-  const planets = usePlanets(settings.planets, reckoning)
+  const { turn, zodiac, reckoning } = settings
+  // The planets come with the Zodiac: they are where they are in it.
+  const planets = usePlanets(zodiac, reckoning)
   const [name, setName] = useName()
   const started = useStarted()
 
@@ -175,63 +176,33 @@ export function ShemHaMephorashClient() {
               fill
               value={turn}
               options={[
-                { value: 'star', label: 'The star' },
-                { value: 'wheel', label: 'The wheel' },
+                { value: 'star', label: 'Star' },
+                { value: 'wheel', label: 'Wheel' },
               ]}
               onChange={(next) => update({ turn: next })}
             />
           </Section>
           <Section title="Show">
             <SwitchRow
-              checked={colours}
-              onChange={(next) => update({ colours: next })}
-            >
-              Coloured letters
-            </SwitchRow>
-            <SwitchRow
               checked={zodiac}
               onChange={(next) => update({ zodiac: next })}
             >
               Zodiac
             </SwitchRow>
-            <SwitchRow
-              checked={angels}
-              onChange={(next) => update({ angels: next })}
-            >
-              Angel names
-            </SwitchRow>
-            <SwitchRow
-              checked={gematria}
-              onChange={(next) => update({ gematria: next })}
-            >
-              Gematria
-            </SwitchRow>
-          </Section>
-          <Section title="Planets">
-            <SwitchRow
-              checked={settings.planets}
-              onChange={(next) => update({ planets: next })}
-            >
-              Show planet ring
-            </SwitchRow>
-            <HeaderTabs
-              label="Zodiac"
-              fill
-              value={reckoning}
-              options={[
-                { value: 'sidereal', label: 'Sidereal' },
-                { value: 'tropical', label: 'Tropical' },
-              ]}
-              onChange={(next) => update({ reckoning: next })}
-            />
-          </Section>
-          <Section title="Source">
-            <a
-              href={SOURCE}
-              className="text-sm/6 text-white underline decoration-white/30 underline-offset-4 transition-colors hover:decoration-white"
-            >
-              Dan Moore
-            </a>
+            {/* The Zodiac comes with the planets on it, reckoned one way or
+                the other. */}
+            {zodiac && (
+              <HeaderTabs
+                label="Zodiac reckoning"
+                fill
+                value={reckoning}
+                options={[
+                  { value: 'sidereal', label: 'Sidereal' },
+                  { value: 'tropical', label: 'Tropical' },
+                ]}
+                onChange={(next) => update({ reckoning: next })}
+              />
+            )}
           </Section>
         </>
       }
@@ -241,22 +212,29 @@ export function ShemHaMephorashClient() {
           <Wheel
             name={name}
             turn={turn}
-            colours={colours}
             zodiac={zodiac}
-            planetsRing={settings.planets}
+            planetsRing={zodiac}
             planets={planets}
             onSelect={setName}
             onTurn={turnBy}
           />
         </div>
       }
+      about={
+        <p className="text-sm/6 text-olive-300">
+          Designed by{' '}
+          <a
+            href={SOURCE}
+            className="text-white underline decoration-white/30 underline-offset-4 transition-colors hover:decoration-white"
+          >
+            Dan Moore
+          </a>
+        </p>
+      }
       structure={<Structure name={name} planets={planets} />}
     >
       <FormulaPanel
         entries={entries}
-        colours={colours}
-        angels={angels}
-        gematria={gematria}
         onOpen={setCard}
         className={clsx(LAYOUT.formula, fade, !started && 'opacity-0')}
       />
@@ -265,9 +243,6 @@ export function ShemHaMephorashClient() {
         <Card
           entries={entries}
           index={card}
-          colours={colours}
-          angels={angels}
-          gematria={gematria}
           // Worked out from the card as it is at that moment, so that two
           // steps in quick succession make two.
           onStep={(by) =>

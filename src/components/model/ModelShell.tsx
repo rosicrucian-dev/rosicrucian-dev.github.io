@@ -247,6 +247,7 @@ export function ModelShell({
   canvasLabel,
   canvas,
   structure,
+  about,
   children,
 }: {
   // The model's name, beside the emblem that leads back to the models.
@@ -279,6 +280,8 @@ export function ModelShell({
   // The model's structure in words, for screen readers: the canvas is
   // invisible to them and this is the real content.
   structure?: ReactNode
+  // The page's own credits, shown under About above the site's link.
+  about?: ReactNode
   // Anything else floating over the scene: labels, trays, a walking pad.
   children?: ReactNode
 }) {
@@ -417,6 +420,7 @@ export function ModelShell({
           )}
 
           <Section title="About">
+            {about}
             <a
               href={SITE_URL}
               className="text-sm/6 text-white underline decoration-white/30 underline-offset-4 transition-colors hover:decoration-white"

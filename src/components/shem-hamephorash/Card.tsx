@@ -24,18 +24,12 @@ import { NameLetters } from './NameLetters'
 export function Card({
   entries,
   index,
-  colours,
-  angels,
-  gematria,
   onStep,
   onClose,
 }: {
   // The formula, in tracing order, and which of its five is shown.
   entries: FormulaEntry[]
   index: number
-  colours: boolean
-  angels: boolean
-  gematria: boolean
   // Go on (1) or back (−1) round the five.
   onStep: (by: 1 | -1) => void
   onClose: () => void
@@ -100,7 +94,7 @@ export function Card({
           as they fill Moore's, on any screen. */}
       <div className="@container flex aspect-[2/1] w-[min(100%,56rem,calc((100dvh-18rem)*2))] items-center justify-center rounded-2xl bg-black ring-1 ring-white/10">
         <span className="text-[30cqw]/none">
-          <NameLetters hebrew={name.hebrew} colours={colours} marks />
+          <NameLetters hebrew={name.hebrew} marks />
         </span>
       </div>
 
@@ -109,9 +103,7 @@ export function Card({
           {name.number} · {name.meaning}
         </p>
         <p className="text-sm/6 text-olive-400">
-          {[angels && name.angel, gematria && formatGematria(name.hebrew)]
-            .filter(Boolean)
-            .join(' · ')}
+          {name.angel} · {formatGematria(name.hebrew)}
         </p>
       </div>
 

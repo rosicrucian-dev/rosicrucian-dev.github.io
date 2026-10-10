@@ -26,11 +26,9 @@ const MEANINGS = [...new Set(NAMES.map((n) => n.meaning))]
 // it.
 function EntryText({
   entry: { point, name },
-  angels,
   hidden = false,
 }: {
   entry: FormulaEntry
-  angels: boolean
   hidden?: boolean
 }) {
   return (
@@ -44,28 +42,14 @@ function EntryText({
       <span className="block text-[0.8125rem]/5 text-white roomy:text-base/6">
         {name.number} · {name.meaning}
       </span>
-      {angels && (
-        <span className="block truncate text-xs/5 text-olive-400">
-          {name.angel}
-        </span>
-      )}
+      <span className="block truncate text-xs/5 text-olive-400">
+        {name.angel}
+      </span>
     </span>
   )
 }
 
-function Entry({
-  entry,
-  colours,
-  angels,
-  gematria,
-  onOpen,
-}: {
-  entry: FormulaEntry
-  colours: boolean
-  angels: boolean
-  gematria: boolean
-  onOpen: () => void
-}) {
+function Entry({ entry, onOpen }: { entry: FormulaEntry; onOpen: () => void }) {
   const { point, name } = entry
   return (
     <li>
@@ -94,7 +78,7 @@ function Entry({
             bottom. On a narrow screen the copies are left out, and the row
             is as tall as its own text. */}
         <span className="grid min-w-0 flex-1">
-          <EntryText entry={entry} angels={angels} />
+          <EntryText entry={entry} />
           {MEANINGS.map((meaning) => (
             <span
               key={meaning}
@@ -102,7 +86,6 @@ function Entry({
             >
               <EntryText
                 entry={{ ...entry, name: { ...name, meaning } }}
-                angels={angels}
                 hidden
               />
             </span>
@@ -118,14 +101,12 @@ function Entry({
             Latin capitals in Times. */}
         <span className="w-12 shrink-0 text-right roomy:w-20">
           <span className="mt-[calc(0.275rem-0.17em)] block text-2xl/none [text-box:trim-start_cap_alphabetic] roomy:mt-[calc(0.375rem-0.17em)] roomy:text-5xl/none">
-            <NameLetters hebrew={name.hebrew} colours={colours} />
+            <NameLetters hebrew={name.hebrew} />
           </span>
           {/* Its number, as Moore's chart gives it. */}
-          {gematria && (
-            <span className="mt-0.5 block text-[0.625rem]/3 text-olive-400 tabular-nums roomy:mt-1.5 roomy:text-xs/5">
-              {formatGematria(name.hebrew)}
-            </span>
-          )}
+          <span className="mt-0.5 block text-[0.625rem]/3 text-olive-400 tabular-nums roomy:mt-1.5 roomy:text-xs/5">
+            {formatGematria(name.hebrew)}
+          </span>
         </span>
       </button>
     </li>
@@ -134,17 +115,11 @@ function Entry({
 
 export function FormulaPanel({
   entries,
-  colours,
-  angels,
-  gematria,
   onOpen,
   className,
 }: {
   // The formula, in tracing order.
   entries: FormulaEntry[]
-  colours: boolean
-  angels: boolean
-  gematria: boolean
   // Open the card of the entry at this place in the formula.
   onOpen: (index: number) => void
   // Where the panel sits on the page.
@@ -164,14 +139,7 @@ export function FormulaPanel({
       <h2 className="sr-only">The formula of {entries[0].name.meaning}</h2>
       <ol className="space-y-0.5">
         {entries.map((entry, i) => (
-          <Entry
-            key={entry.point.id}
-            entry={entry}
-            colours={colours}
-            angels={angels}
-            gematria={gematria}
-            onOpen={() => onOpen(i)}
-          />
+          <Entry key={entry.point.id} entry={entry} onOpen={() => onOpen(i)} />
         ))}
       </ol>
     </div>

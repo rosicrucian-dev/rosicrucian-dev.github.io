@@ -142,17 +142,13 @@ function reducedMotion(): boolean {
   return window.matchMedia('(prefers-reduced-motion: reduce)').matches
 }
 
-// A Name's three letters, each in its colour if `colours`. Each letter
+// A Name's three letters, each in its colour. Each letter
 // is centred on the line itself: Safari, following SVG 1.1, doesn't pass
 // the <text>'s dominant-baseline down to its <tspan>s, and would set them
 // on the baseline instead, a third of a letter off the middle.
-function Letters({ hebrew, colours }: { hebrew: string; colours: boolean }) {
+function Letters({ hebrew }: { hebrew: string }) {
   return [...hebrew].map((letter, i) => (
-    <tspan
-      key={i}
-      dominantBaseline="central"
-      fill={colours ? letterColor(letter) : undefined}
-    >
+    <tspan key={i} dominantBaseline="central" fill={letterColor(letter)}>
       {letter}
     </tspan>
   ))
@@ -167,14 +163,12 @@ function Letters({ hebrew, colours }: { hebrew: string; colours: boolean }) {
 const Ring = memo(function Ring({
   current,
   flipTurn,
-  colours,
   zodiac,
   onPick,
 }: {
   // The Name the star stands on, whose formula is lit.
   current: number
   flipTurn: number
-  colours: boolean
   zodiac: boolean
   onPick: (name: number) => void
 }) {
@@ -221,7 +215,7 @@ const Ring = memo(function Ring({
               fontWeight={point ? 700 : 400}
               transform={alongSpoke(middle, flipTurn, letters)}
             >
-              <Letters hebrew={n.hebrew} colours={colours} />
+              <Letters hebrew={n.hebrew} />
             </text>
             <text
               x={number[0]}
@@ -261,7 +255,7 @@ const Ring = memo(function Ring({
                 dominantBaseline="central"
                 fontSize={26}
                 fontFamily={fonts ? fonts.astro : undefined}
-                fill={colours ? color : INK}
+                fill={color}
                 opacity={fonts ? 0.85 : 0}
                 transform={alongSpoke(a + 15, flipTurn, [x, y])}
               >
@@ -299,7 +293,6 @@ const Ring = memo(function Ring({
 export function Wheel({
   name,
   turn: what,
-  colours,
   zodiac,
   planetsRing,
   planets,
@@ -309,7 +302,6 @@ export function Wheel({
   name: number
   // What turns: the wheel under the star, or the star in the wheel.
   turn: 'star' | 'wheel'
-  colours: boolean
   zodiac: boolean
   // Whether the planets have their ring, and where they are (none until
   // they are worked out: the ring is kept for them meanwhile, so that the
@@ -575,7 +567,6 @@ export function Wheel({
         <Ring
           current={current}
           flipTurn={snapTurn(wheelRotation)}
-          colours={colours}
           zodiac={zodiac}
           onPick={onPick}
         />
@@ -675,7 +666,7 @@ export function Wheel({
           fontSize={60}
           fill={INK}
         >
-          <Letters hebrew={essential.hebrew} colours={colours} />
+          <Letters hebrew={essential.hebrew} />
         </text>
         <text
           x={0}

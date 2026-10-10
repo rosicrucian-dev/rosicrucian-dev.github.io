@@ -88,11 +88,9 @@ const layer = 'col-start-1 row-start-1'
 
 export function NameLetters({
   hebrew,
-  colours,
   marks = false,
 }: {
   hebrew: string
-  colours: boolean
   // The flecks and rays: only where the letters are large enough to show
   // them.
   marks?: boolean
@@ -100,7 +98,6 @@ export function NameLetters({
   return (
     <span dir="rtl" lang="he" style={{ fontFamily: HEBREW_FONT }}>
       {[...hebrew].map((letter, i) => {
-        if (!colours) return <span key={i}>{letter}</span>
         const found = marks ? letterMarks(letter) : []
         if (found.length === 0)
           return (
