@@ -238,12 +238,13 @@ export function VaultClient() {
       }
       structure={<Structure />}
     >
-      {/* What has been taken away, to put back. */}
+      {/* What has been taken away, to put back: on the bottom line, with
+          the hint and the walking pad. */}
       {taken.length > 0 && (
         <div
           className={clsx(
             panel,
-            'absolute bottom-16 left-4 flex gap-1 p-1 sm:bottom-[4.5rem] sm:left-6 lg:left-8',
+            'absolute bottom-4 left-4 flex gap-1 p-1 sm:bottom-6 sm:left-6 lg:left-8',
           )}
           style={{ marginBottom: 'env(safe-area-inset-bottom)' }}
         >
