@@ -199,9 +199,10 @@ const Ring = memo(function Ring({
                 sliceStart(n.number),
                 sliceStart(n.number) + SLICE,
               )}
-              // The five Names of the formula lit, the Essential one most.
+              // The five Names of the formula lit alike: the Essential one
+              // is marked by Spirit's white disc on the star.
               fill={point ? INK : 'transparent'}
-              fillOpacity={point === 'spirit' ? 0.32 : point ? 0.16 : 1}
+              fillOpacity={point ? 0.16 : 1}
               className={clsx(!point && 'group-hover:fill-white/10')}
             />
             <text
