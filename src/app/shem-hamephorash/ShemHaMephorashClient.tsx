@@ -210,7 +210,7 @@ export function ShemHaMephorashClient() {
               checked={settings.planets}
               onChange={(next) => update({ planets: next })}
             >
-              Planets today
+              Show planet ring
             </SwitchRow>
             <HeaderTabs
               label="Zodiac"
