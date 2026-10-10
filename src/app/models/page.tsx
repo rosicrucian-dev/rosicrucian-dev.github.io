@@ -18,7 +18,7 @@ export default function Models() {
 
       <Link
         href="/"
-        className="mt-6 inline-block self-start text-sm font-medium tracking-widest text-olive-500 uppercase transition-colors hover:text-olive-700 dark:hover:text-olive-300"
+        className="mt-6 inline-block self-start text-sm font-medium tracking-widest text-olive-500 uppercase underline decoration-olive-300 decoration-1 underline-offset-4 transition-colors hover:text-olive-700 hover:decoration-olive-700 dark:decoration-olive-700 dark:hover:text-olive-300 dark:hover:decoration-olive-300"
       >
         Rosicrucian Developers
       </Link>

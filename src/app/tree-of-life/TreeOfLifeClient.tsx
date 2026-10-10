@@ -81,6 +81,12 @@ function Structure({ starMoon }: { starMoon: boolean }) {
 // Inside/Outside tabs, which set `view`.
 const INSIDE_OFFERED: boolean = false
 
+// The Tree laid on a human figure is likewise built but not offered for
+// now: its button and settings are hidden, and a figure remembered as
+// shown from an earlier visit is not drawn. The setting itself is kept, so
+// that, set to true again, the figure returns for those who had it.
+const BODY_OFFERED: boolean = false
+
 export function TreeOfLifeClient() {
   // Everything the page shows is remembered between visits.
   const [
@@ -92,11 +98,12 @@ export function TreeOfLifeClient() {
       cards,
       cardStyle,
       starMoon,
-      body,
+      body: chosenBody,
       figure,
     },
     update,
   ] = useSettings()
+  const body = BODY_OFFERED && chosenBody
   const view: View = INSIDE_OFFERED ? chosenView : 'overview'
   const [location, setLocation] = useState<Location | null>(null)
   const [strides] = useState<Strides>(() => ({
@@ -111,13 +118,15 @@ export function TreeOfLifeClient() {
       background="#05040a"
       headerControls={
         <>
-          <HeaderButton
-            label={body ? 'Show the Tree alone' : 'Show the Tree on the body'}
-            pressed={body}
-            onClick={() => update({ body: !body })}
-          >
-            <FigureIcon />
-          </HeaderButton>
+          {BODY_OFFERED && (
+            <HeaderButton
+              label={body ? 'Show the Tree alone' : 'Show the Tree on the body'}
+              pressed={body}
+              onClick={() => update({ body: !body })}
+            >
+              <FigureIcon />
+            </HeaderButton>
+          )}
           <HeaderButton
             label="Reset the view"
             onClick={() => setResets((n) => n + 1)}
