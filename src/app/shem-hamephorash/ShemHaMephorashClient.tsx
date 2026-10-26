@@ -154,7 +154,8 @@ export function ShemHaMephorashClient() {
 
   const entries = formula(name)
   const essential = entries[0].name
-  // The card that is up, as its place in the formula, or none.
+  // The page of the cards that is up, or none: 0 the star with the five
+  // Names on it, then 1 to 5 the cards of the Names in the formula.
   const [card, setCard] = useState<number | null>(null)
 
   return (
@@ -260,20 +261,22 @@ export function ShemHaMephorashClient() {
     >
       <FormulaPanel
         entries={entries}
-        onOpen={setCard}
+        onOpen={(i) => setCard(i + 1)}
+        onStart={() => setCard(0)}
         className={clsx(LAYOUT.formula, fade, !started && 'opacity-0')}
       />
 
       {card !== null && (
         <Card
           entries={entries}
-          index={card}
-          // Worked out from the card as it is at that moment, so that two
+          page={card}
+          // Worked out from the page as it is at that moment, so that two
           // steps in quick succession make two.
           onStep={(by) =>
-            setCard((i) =>
-              i === null ? i : (i + by + entries.length) % entries.length,
-            )
+            setCard((i) => {
+              const pages = entries.length + 1
+              return i === null ? i : (i + by + pages) % pages
+            })
           }
           onClose={() => setCard(null)}
         />

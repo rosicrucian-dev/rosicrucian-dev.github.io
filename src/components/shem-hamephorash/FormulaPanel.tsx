@@ -1,6 +1,7 @@
 // The formula beside the wheel: the five Names the star is set on, in the
 // order they are traced, each with its point's element and role, the
-// Name's letters and its number. Choosing one opens its card.
+// Name's letters and its number. Choosing one opens its card; Start, under
+// them, opens the cards from the beginning, the star with all five on it.
 //
 // Each row is as tall as its own Name makes it, a line more where a
 // meaning wraps onto a second. Where room is short (the `compact` layout:
@@ -82,12 +83,15 @@ function Entry({ entry, onOpen }: { entry: FormulaEntry; onOpen: () => void }) {
 export function FormulaPanel({
   entries,
   onOpen,
+  onStart,
   className,
 }: {
   // The formula, in tracing order.
   entries: FormulaEntry[]
   // Open the card of the entry at this place in the formula.
   onOpen: (index: number) => void
+  // Open the cards at their first page, the star.
+  onStart: () => void
   // Where the panel sits on the page.
   className: string
 }) {
@@ -109,6 +113,13 @@ export function FormulaPanel({
           <Entry key={entry.point.id} entry={entry} onOpen={() => onOpen(i)} />
         ))}
       </ol>
+      <button
+        type="button"
+        onClick={onStart}
+        className="mt-1.5 w-full rounded-xl px-3 py-2 text-sm/6 font-medium text-white ring-1 ring-white/15 transition hover:bg-white/5 roomy:mt-2"
+      >
+        Start
+      </button>
     </div>
   )
 }
