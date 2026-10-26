@@ -40,10 +40,13 @@ export function Section({
 export function SwitchRow({
   checked,
   onChange,
+  disabled = false,
   children,
 }: {
   checked: boolean
   onChange: (checked: boolean) => void
+  // Greyed out and not to be turned, while what it hangs on is off.
+  disabled?: boolean
   children: ReactNode
 }) {
   return (
@@ -51,8 +54,9 @@ export function SwitchRow({
       type="button"
       role="switch"
       aria-checked={checked}
+      disabled={disabled}
       onClick={() => onChange(!checked)}
-      className="flex w-full items-center justify-between gap-4 py-1.5 text-left text-sm/6"
+      className="flex w-full items-center justify-between gap-4 py-1.5 text-left text-sm/6 disabled:cursor-not-allowed disabled:opacity-40"
     >
       {/* The name stays the same either way: off is not disabled. */}
       <span className="text-white">{children}</span>
@@ -83,20 +87,25 @@ export function HeaderTabs<T extends string>({
   options,
   onChange,
   fill = false,
+  disabled = false,
 }: {
   label: string
   value: T
   options: { value: T; label: string; short?: string }[]
   onChange: (value: T) => void
   fill?: boolean
+  // Greyed out and not to be changed, while what it hangs on is off.
+  disabled?: boolean
 }) {
   return (
     <div
       role="radiogroup"
       aria-label={label}
+      aria-disabled={disabled || undefined}
       className={clsx(
         'flex h-9 gap-0.5 rounded-lg p-0.5 ring-1 ring-current/20',
         fill && 'w-full',
+        disabled && 'opacity-40',
       )}
     >
       {options.map((option) => (
@@ -108,11 +117,14 @@ export function HeaderTabs<T extends string>({
           aria-label={option.label}
           // The full name, where a phone shows only the short one.
           title={option.short ? option.label : undefined}
+          disabled={disabled}
           onClick={() => onChange(option.value)}
           className={clsx(
-            'rounded-md px-3 text-sm font-medium whitespace-nowrap transition',
+            'rounded-md px-3 text-sm font-medium whitespace-nowrap transition disabled:cursor-not-allowed',
             fill && 'flex-1',
-            value === option.value ? 'bg-current/15' : 'hover:bg-current/10',
+            value === option.value
+              ? 'bg-current/15'
+              : !disabled && 'hover:bg-current/10',
           )}
         >
           <span className="sm:hidden">{option.short ?? option.label}</span>

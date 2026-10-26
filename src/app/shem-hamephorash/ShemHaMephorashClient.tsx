@@ -131,10 +131,11 @@ function Structure({
 export function ShemHaMephorashClient() {
   const [settings, update] = useSettings()
   const { zodiac, reckoning } = settings
-  // The planets come with the Zodiac: they are where they are in it.
+  // The planets come only with the Zodiac: they are where they are in it.
+  const showPlanets = zodiac && settings.planets
   // The colour palette, chosen for the whole site (see palettes.ts).
   const [palette, setPalette] = useSitePalette()
-  const planets = usePlanets(zodiac, reckoning, palette)
+  const planets = usePlanets(showPlanets, reckoning, palette)
   const [name, setName] = useName()
   const started = useStarted()
 
@@ -200,28 +201,33 @@ export function ShemHaMephorashClient() {
             >
               Zodiac
             </SwitchRow>
-            {/* The Zodiac comes with the planets on it, reckoned one way or
-                the other. */}
-            {zodiac && (
-              <>
-                <SwitchRow
-                  checked={settings.aspects}
-                  onChange={(next) => update({ aspects: next })}
-                >
-                  Aspects
-                </SwitchRow>
-                <HeaderTabs
-                  label="Zodiac reckoning"
-                  fill
-                  value={reckoning}
-                  options={[
-                    { value: 'sidereal', label: 'Sidereal' },
-                    { value: 'tropical', label: 'Tropical' },
-                  ]}
-                  onChange={(next) => update({ reckoning: next })}
-                />
-              </>
-            )}
+            {/* The planets go on the Zodiac, so wait on it; and with them
+                their aspects and how they are reckoned. */}
+            <SwitchRow
+              checked={showPlanets}
+              disabled={!zodiac}
+              onChange={(next) => update({ planets: next })}
+            >
+              Planets
+            </SwitchRow>
+            <SwitchRow
+              checked={showPlanets && settings.aspects}
+              disabled={!showPlanets}
+              onChange={(next) => update({ aspects: next })}
+            >
+              Aspects
+            </SwitchRow>
+            <HeaderTabs
+              label="Zodiac reckoning"
+              fill
+              disabled={!showPlanets}
+              value={reckoning}
+              options={[
+                { value: 'sidereal', label: 'Sidereal' },
+                { value: 'tropical', label: 'Tropical' },
+              ]}
+              onChange={(next) => update({ reckoning: next })}
+            />
           </Section>
         </>
       }
@@ -231,9 +237,9 @@ export function ShemHaMephorashClient() {
           <Wheel
             name={name}
             zodiac={zodiac}
-            planetsRing={zodiac}
+            planetsRing={showPlanets}
             planets={planets}
-            aspects={zodiac && settings.aspects}
+            aspects={showPlanets && settings.aspects}
             onSelect={setName}
             onTurn={turnBy}
           />
