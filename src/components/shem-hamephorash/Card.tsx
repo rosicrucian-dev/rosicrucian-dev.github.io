@@ -98,36 +98,40 @@ export function Card({
         </HeaderButton>
       </div>
 
-      {!starPage && (
-        <p className="text-[0.6875rem]/5 font-medium tracking-widest text-olive-400 uppercase">
-          {point.element} · {point.role}
-        </p>
-      )}
+      {/* Every page keeps the same lines, the star's left blank, so that
+          the card and the buttons under it stay where they are from one
+          page to the next. */}
+      <p className="text-[0.6875rem]/5 font-medium tracking-widest text-olive-400 uppercase">
+        {starPage ? '\u00a0' : `${point.element} · ${point.role}`}
+      </p>
 
-      {starPage ? (
-        // As tall as the cards may be, and no wider than it need be.
-        <div className="w-[min(100%,40rem,calc((100dvh-18rem)*1.37))]">
-          <FormulaStar entries={entries} />
-        </div>
-      ) : (
-        // The card. The letters are sized by its width, so they fill it
-        // as they fill Moore's, on any screen.
-        <div className="@container flex aspect-[2/1] w-[min(100%,56rem,calc((100dvh-18rem)*2))] items-center justify-center rounded-2xl bg-black ring-1 ring-white/10">
+      {/* The card, or the star in the same room. The letters are sized by
+          the card's width, so they fill it as they fill Moore's, on any
+          screen. */}
+      <div
+        className={clsx(
+          '@container flex aspect-[2/1] w-[min(100%,56rem,calc((100dvh-18rem)*2))] items-center justify-center',
+          !starPage && 'rounded-2xl bg-black ring-1 ring-white/10',
+        )}
+      >
+        {starPage ? (
+          <FormulaStar entries={entries} className="h-full" />
+        ) : (
           <span className="text-[30cqw]/none">
             <NameLetters hebrew={name.hebrew} marks />
           </span>
-        </div>
-      )}
+        )}
+      </div>
 
       <div className="text-center">
         <p className="text-xl/8 text-white">
           {name.number} · {name.meaning}
         </p>
-        {!starPage && (
-          <p className="text-sm/6 text-olive-400">
-            {name.angel} · {formatGematria(name.hebrew)}
-          </p>
-        )}
+        <p className="text-sm/6 text-olive-400">
+          {starPage
+            ? '\u00a0'
+            : `${name.angel} · ${formatGematria(name.hebrew)}`}
+        </p>
       </div>
 
       <div className="flex items-center gap-4">
