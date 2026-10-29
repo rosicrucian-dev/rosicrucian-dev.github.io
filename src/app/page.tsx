@@ -38,7 +38,7 @@ const tools = [
     name: 'Icons',
     href: '/icons',
     description:
-      'Hand-crafted SVG icons of the symbols of the spiritual traditions, in the manner of Heroicons. Starting with astrology.',
+      'SVG icons for the Rosicrucian Tradition in the style of Heroicons.',
   },
 ]
 

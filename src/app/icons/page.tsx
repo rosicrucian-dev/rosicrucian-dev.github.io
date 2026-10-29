@@ -7,7 +7,7 @@ import { readIcons } from '@/lib/icons'
 export const metadata: Metadata = {
   title: 'Icons',
   description:
-    'Rosicrucian Icons: hand-crafted SVG icons of the symbols of the spiritual traditions, in the manner of Heroicons. Starting with astrology.',
+    'SVG icons for the Rosicrucian Tradition in the style of Heroicons.',
 }
 
 export default function Icons() {
