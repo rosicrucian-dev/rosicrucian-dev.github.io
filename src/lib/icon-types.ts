@@ -9,7 +9,7 @@ export const CATEGORIES = [
   'elements',
   'dignities',
   'numerals',
-  'letters',
+  'angles',
 ] as const
 export type Category = (typeof CATEGORIES)[number]
 

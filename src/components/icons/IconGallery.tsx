@@ -17,7 +17,7 @@ const CATEGORY_LABEL: Record<Category, string> = {
   elements: 'Elements',
   dignities: 'Dignities',
   numerals: 'Numerals',
-  letters: 'Letters',
+  angles: 'Angles',
 }
 
 const CLASS = 'size-6 text-gray-500'
