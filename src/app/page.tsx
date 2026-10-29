@@ -38,7 +38,7 @@ const tools = [
     name: 'Icons',
     href: '/icons',
     description:
-      'SVG icons for the Rosicrucian Tradition in the style of Heroicons.',
+      'SVG icons for the Rosicrucian tradition in the style of Heroicons.',
   },
 ]
 
