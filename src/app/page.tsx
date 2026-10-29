@@ -23,7 +23,7 @@ const projects = [
     name: 'Models',
     href: '/models',
     description:
-      'Interactive 3D models of the symbols of the Rosicrucian Tradition.',
+      'Interactive 3D models of the symbols of the Rosicrucian tradition.',
   },
   {
     name: 'Shem HaMephorash',

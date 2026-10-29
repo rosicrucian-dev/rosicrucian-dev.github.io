@@ -6,7 +6,7 @@ import { MODELS } from '@/lib/models'
 export const metadata: Metadata = {
   title: 'Models',
   description:
-    'Interactive 3D models of the symbols of the Rosicrucian Tradition.',
+    'Interactive 3D models of the symbols of the Rosicrucian tradition.',
 }
 
 export default function Models() {
