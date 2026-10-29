@@ -26,16 +26,19 @@ const projects = [
       'Interactive 3D models of the symbols of the Rosicrucian Tradition.',
   },
   {
-    name: 'Icons',
-    href: '/icons',
-    description:
-      'Hand-crafted SVG icons of the symbols of the spiritual traditions, in the manner of Heroicons. Starting with astrology.',
-  },
-  {
     name: 'Shem HaMephorash',
     href: '/shem-hamephorash',
     description:
       'The 72 Names on a wheel with a turning pentagram: the five-Name formulas of Dan Moore’s Pentagram Technique.',
+  },
+]
+
+const tools = [
+  {
+    name: 'Icons',
+    href: '/icons',
+    description:
+      'Hand-crafted SVG icons of the symbols of the spiritual traditions, in the manner of Heroicons. Starting with astrology.',
   },
 ]
 
@@ -104,6 +107,27 @@ export default function Home() {
               </a>
               <p className="mt-2 text-base/7 text-olive-700 dark:text-olive-400">
                 {project.description}
+              </p>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section className="mt-16">
+        <h2 className="text-sm font-medium tracking-widest text-olive-500 uppercase">
+          Developer Tools
+        </h2>
+        <ul className="mt-6 space-y-8">
+          {tools.map((tool) => (
+            <li key={tool.name}>
+              <a
+                href={tool.href}
+                className="font-display text-2xl text-olive-950 underline decoration-olive-300 decoration-1 underline-offset-4 transition-colors hover:decoration-olive-950 dark:text-white dark:decoration-olive-700 dark:hover:decoration-white"
+              >
+                {tool.name}
+              </a>
+              <p className="mt-2 text-base/7 text-olive-700 dark:text-olive-400">
+                {tool.description}
               </p>
             </li>
           ))}
