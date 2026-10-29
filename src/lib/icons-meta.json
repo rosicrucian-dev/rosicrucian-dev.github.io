@@ -1,0 +1,557 @@
+{
+  "sun": {
+    "category": "planets",
+    "codepoint": "U+2609",
+    "character": "☉",
+    "keywords": [
+      "sol",
+      "luminary",
+      "star"
+    ],
+    "source": "original"
+  },
+  "moon": {
+    "category": "planets",
+    "codepoint": "U+263D",
+    "character": "☽",
+    "keywords": [
+      "luna",
+      "luminary",
+      "crescent"
+    ],
+    "source": "original"
+  },
+  "mercury": {
+    "category": "planets",
+    "codepoint": "U+263F",
+    "character": "☿",
+    "keywords": [
+      "hermes"
+    ],
+    "source": "original"
+  },
+  "venus": {
+    "category": "planets",
+    "codepoint": "U+2640",
+    "character": "♀",
+    "keywords": [
+      "aphrodite",
+      "female"
+    ],
+    "source": "original"
+  },
+  "mars": {
+    "category": "planets",
+    "codepoint": "U+2642",
+    "character": "♂",
+    "keywords": [
+      "ares",
+      "male"
+    ],
+    "source": "original"
+  },
+  "jupiter": {
+    "category": "planets",
+    "codepoint": "U+2643",
+    "character": "♃",
+    "keywords": [
+      "zeus"
+    ],
+    "source": "original"
+  },
+  "saturn": {
+    "category": "planets",
+    "codepoint": "U+2644",
+    "character": "♄",
+    "keywords": [
+      "kronos"
+    ],
+    "source": "original"
+  },
+  "uranus": {
+    "category": "planets",
+    "codepoint": "U+2645",
+    "character": "♅",
+    "keywords": [],
+    "source": "original"
+  },
+  "neptune": {
+    "category": "planets",
+    "codepoint": "U+2646",
+    "character": "♆",
+    "keywords": [
+      "trident"
+    ],
+    "source": "original"
+  },
+  "pluto": {
+    "category": "planets",
+    "codepoint": "U+2647",
+    "character": "♇",
+    "keywords": [],
+    "source": "original"
+  },
+  "north-node": {
+    "category": "points",
+    "codepoint": "U+260A",
+    "character": "☊",
+    "keywords": [
+      "dragon's head",
+      "rahu",
+      "lunar node"
+    ],
+    "source": "original"
+  },
+  "south-node": {
+    "category": "points",
+    "codepoint": "U+260B",
+    "character": "☋",
+    "keywords": [
+      "dragon's tail",
+      "ketu",
+      "lunar node"
+    ],
+    "source": "original"
+  },
+  "chiron": {
+    "category": "points",
+    "codepoint": "U+26B7",
+    "character": "⚷",
+    "keywords": [
+      "key",
+      "wounded healer",
+      "asteroid"
+    ],
+    "source": "original"
+  },
+  "aries": {
+    "category": "signs",
+    "codepoint": "U+2648",
+    "character": "♈",
+    "keywords": [
+      "ram",
+      "fire",
+      "cardinal"
+    ],
+    "source": "original"
+  },
+  "taurus": {
+    "category": "signs",
+    "codepoint": "U+2649",
+    "character": "♉",
+    "keywords": [
+      "bull",
+      "earth",
+      "fixed"
+    ],
+    "source": "original"
+  },
+  "gemini": {
+    "category": "signs",
+    "codepoint": "U+264A",
+    "character": "♊",
+    "keywords": [
+      "twins",
+      "air",
+      "mutable"
+    ],
+    "source": "original"
+  },
+  "cancer": {
+    "category": "signs",
+    "codepoint": "U+264B",
+    "character": "♋",
+    "keywords": [
+      "crab",
+      "water",
+      "cardinal"
+    ],
+    "source": "original"
+  },
+  "leo": {
+    "category": "signs",
+    "codepoint": "U+264C",
+    "character": "♌",
+    "keywords": [
+      "lion",
+      "fire",
+      "fixed"
+    ],
+    "source": "original"
+  },
+  "virgo": {
+    "category": "signs",
+    "codepoint": "U+264D",
+    "character": "♍",
+    "keywords": [
+      "maiden",
+      "earth",
+      "mutable"
+    ],
+    "source": "original"
+  },
+  "libra": {
+    "category": "signs",
+    "codepoint": "U+264E",
+    "character": "♎",
+    "keywords": [
+      "scales",
+      "air",
+      "cardinal"
+    ],
+    "source": "original"
+  },
+  "scorpio": {
+    "category": "signs",
+    "codepoint": "U+264F",
+    "character": "♏",
+    "keywords": [
+      "scorpion",
+      "water",
+      "fixed"
+    ],
+    "source": "original"
+  },
+  "sagittarius": {
+    "category": "signs",
+    "codepoint": "U+2650",
+    "character": "♐",
+    "keywords": [
+      "archer",
+      "fire",
+      "mutable"
+    ],
+    "source": "original"
+  },
+  "capricorn": {
+    "category": "signs",
+    "codepoint": "U+2651",
+    "character": "♑",
+    "keywords": [
+      "sea-goat",
+      "earth",
+      "cardinal"
+    ],
+    "source": "original"
+  },
+  "aquarius": {
+    "category": "signs",
+    "codepoint": "U+2652",
+    "character": "♒",
+    "keywords": [
+      "water-bearer",
+      "air",
+      "fixed"
+    ],
+    "source": "original"
+  },
+  "pisces": {
+    "category": "signs",
+    "codepoint": "U+2653",
+    "character": "♓",
+    "keywords": [
+      "fish",
+      "water",
+      "mutable"
+    ],
+    "source": "original"
+  },
+  "conjunction": {
+    "category": "aspects",
+    "codepoint": "U+260C",
+    "character": "☌",
+    "keywords": [
+      "0°"
+    ],
+    "source": "original"
+  },
+  "opposition": {
+    "category": "aspects",
+    "codepoint": "U+260D",
+    "character": "☍",
+    "keywords": [
+      "180°"
+    ],
+    "source": "original"
+  },
+  "square": {
+    "category": "aspects",
+    "codepoint": "U+25A1",
+    "character": "□",
+    "keywords": [
+      "90°"
+    ],
+    "source": "original"
+  },
+  "trine": {
+    "category": "aspects",
+    "codepoint": "U+25B3",
+    "character": "△",
+    "keywords": [
+      "120°"
+    ],
+    "source": "original"
+  },
+  "quincunx": {
+    "category": "aspects",
+    "codepoint": "U+26BB",
+    "character": "⚻",
+    "keywords": [
+      "150°",
+      "inconjunct"
+    ],
+    "source": "original"
+  },
+  "sextile": {
+    "category": "aspects",
+    "codepoint": "U+26B9",
+    "character": "⚹",
+    "keywords": [
+      "60°"
+    ],
+    "source": "original"
+  },
+  "fire": {
+    "category": "elements",
+    "codepoint": "U+1F702",
+    "character": "🜂",
+    "keywords": [
+      "alchemy",
+      "triangle"
+    ],
+    "source": "original"
+  },
+  "earth": {
+    "category": "elements",
+    "codepoint": "U+1F703",
+    "character": "🜃",
+    "keywords": [
+      "alchemy",
+      "triangle"
+    ],
+    "source": "original"
+  },
+  "air": {
+    "category": "elements",
+    "codepoint": "U+1F701",
+    "character": "🜁",
+    "keywords": [
+      "alchemy",
+      "triangle"
+    ],
+    "source": "original"
+  },
+  "water": {
+    "category": "elements",
+    "codepoint": "U+1F704",
+    "character": "🜄",
+    "keywords": [
+      "alchemy",
+      "triangle"
+    ],
+    "source": "original"
+  },
+  "numeral-0": {
+    "category": "numerals",
+    "codepoint": "U+0030",
+    "character": "0",
+    "keywords": [
+      "digit",
+      "house number"
+    ],
+    "source": "original"
+  },
+  "numeral-1": {
+    "category": "numerals",
+    "codepoint": "U+0031",
+    "character": "1",
+    "keywords": [
+      "digit",
+      "house number"
+    ],
+    "source": "original"
+  },
+  "numeral-2": {
+    "category": "numerals",
+    "codepoint": "U+0032",
+    "character": "2",
+    "keywords": [
+      "digit",
+      "house number"
+    ],
+    "source": "original"
+  },
+  "numeral-3": {
+    "category": "numerals",
+    "codepoint": "U+0033",
+    "character": "3",
+    "keywords": [
+      "digit",
+      "house number"
+    ],
+    "source": "original"
+  },
+  "numeral-4": {
+    "category": "numerals",
+    "codepoint": "U+0034",
+    "character": "4",
+    "keywords": [
+      "digit",
+      "house number"
+    ],
+    "source": "original"
+  },
+  "numeral-5": {
+    "category": "numerals",
+    "codepoint": "U+0035",
+    "character": "5",
+    "keywords": [
+      "digit",
+      "house number"
+    ],
+    "source": "original"
+  },
+  "numeral-6": {
+    "category": "numerals",
+    "codepoint": "U+0036",
+    "character": "6",
+    "keywords": [
+      "digit",
+      "house number"
+    ],
+    "source": "original"
+  },
+  "numeral-7": {
+    "category": "numerals",
+    "codepoint": "U+0037",
+    "character": "7",
+    "keywords": [
+      "digit",
+      "house number"
+    ],
+    "source": "original"
+  },
+  "numeral-8": {
+    "category": "numerals",
+    "codepoint": "U+0038",
+    "character": "8",
+    "keywords": [
+      "digit",
+      "house number"
+    ],
+    "source": "original"
+  },
+  "numeral-9": {
+    "category": "numerals",
+    "codepoint": "U+0039",
+    "character": "9",
+    "keywords": [
+      "digit",
+      "house number"
+    ],
+    "source": "original"
+  },
+  "letter-a": {
+    "category": "letters",
+    "codepoint": "U+0041",
+    "character": "A",
+    "keywords": [
+      "angle",
+      "ascendant",
+      "midheaven"
+    ],
+    "source": "original"
+  },
+  "letter-c": {
+    "category": "letters",
+    "codepoint": "U+0043",
+    "character": "C",
+    "keywords": [
+      "angle",
+      "ascendant",
+      "midheaven"
+    ],
+    "source": "original"
+  },
+  "letter-m": {
+    "category": "letters",
+    "codepoint": "U+004D",
+    "character": "M",
+    "keywords": [
+      "angle",
+      "ascendant",
+      "midheaven"
+    ],
+    "source": "original"
+  },
+  "letter-d": {
+    "category": "letters",
+    "codepoint": "U+0044",
+    "character": "D",
+    "keywords": [
+      "angle",
+      "ascendant",
+      "midheaven"
+    ],
+    "source": "original"
+  },
+  "letter-i": {
+    "category": "letters",
+    "codepoint": "U+0049",
+    "character": "I",
+    "keywords": [
+      "angle"
+    ],
+    "source": "original"
+  },
+  "domicile": {
+    "category": "dignities",
+    "keywords": [
+      "home",
+      "rulership",
+      "house",
+      "dignity"
+    ],
+    "source": "heroicons",
+    "heroicon": "home"
+  },
+  "exaltation": {
+    "category": "dignities",
+    "keywords": [
+      "crown",
+      "dignity"
+    ],
+    "source": "original"
+  },
+  "detriment": {
+    "category": "dignities",
+    "keywords": [
+      "home",
+      "struck",
+      "exile",
+      "debility"
+    ],
+    "source": "heroicons",
+    "heroicon": "home"
+  },
+  "fall": {
+    "category": "dignities",
+    "keywords": [
+      "crown",
+      "turned",
+      "debility"
+    ],
+    "source": "original"
+  },
+  "retrograde": {
+    "category": "dignities",
+    "codepoint": "U+211E",
+    "character": "℞",
+    "keywords": [
+      "rx",
+      "motion",
+      "backward"
+    ],
+    "source": "original"
+  }
+}

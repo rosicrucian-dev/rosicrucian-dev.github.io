@@ -11,6 +11,7 @@ export const dynamic = 'force-static'
 // (lib/models.ts). A new page that isn't a model adds a row here.
 const routes = [
   '/',
+  '/icons',
   '/jonathan',
   '/models',
   '/shem-hamephorash',

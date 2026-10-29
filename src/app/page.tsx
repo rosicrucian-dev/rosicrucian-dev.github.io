@@ -26,6 +26,12 @@ const projects = [
       'Interactive 3D models of the symbols of the Rosicrucian Tradition.',
   },
   {
+    name: 'Icons',
+    href: '/icons',
+    description:
+      'Hand-crafted SVG icons of the symbols of the spiritual traditions, in the manner of Heroicons. Starting with astrology.',
+  },
+  {
     name: 'Shem HaMephorash',
     href: '/shem-hamephorash',
     description:
