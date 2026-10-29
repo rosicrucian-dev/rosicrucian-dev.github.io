@@ -1,24 +1,12 @@
 'use client'
 
 // The icons, to browse, as heroicons.com has it: a search over their
-// names, categories and keywords, the categories to filter by, and every
-// icon on a grid; hovering one (or tabbing to it) shows two buttons over
+// names, categories and keywords, and every icon on a grid; hovering one (or tabbing to it) shows two buttons over
 // it, to copy its source as the SVG file is, or as JSX.
 
 import { useMemo, useState } from 'react'
 
-import { CATEGORIES, type Category, type Icon } from '@/lib/icon-types'
-
-const CATEGORY_LABEL: Record<Category, string> = {
-  planets: 'Planets',
-  points: 'Points',
-  signs: 'Signs',
-  aspects: 'Aspects',
-  elements: 'Elements',
-  dignities: 'Dignities',
-  numerals: 'Numerals',
-  angles: 'Angles',
-}
+import type { Icon } from '@/lib/icon-types'
 
 const CLASS = 'size-6 text-gray-500'
 
@@ -98,21 +86,19 @@ function Tile({ icon }: { icon: Icon }) {
 
 export function IconGallery({ icons }: { icons: Icon[] }) {
   const [query, setQuery] = useState('')
-  const [category, setCategory] = useState<Category | null>(null)
 
   const shown = useMemo(() => {
     const q = query.trim().toLowerCase()
     return icons.filter(
       (i) =>
-        (!category || i.category === category) &&
-        (!q ||
-          i.name.includes(q) ||
-          i.category.includes(q) ||
-          i.keywords.some((k) => k.includes(q)) ||
-          i.component.toLowerCase().includes(q) ||
-          i.character === q),
+        !q ||
+        i.name.includes(q) ||
+        i.category.includes(q) ||
+        i.keywords.some((k) => k.includes(q)) ||
+        i.component.toLowerCase().includes(q) ||
+        i.character === q,
     )
-  }, [icons, query, category])
+  }, [icons, query])
 
   return (
     <div className="mt-12">
@@ -127,23 +113,6 @@ export function IconGallery({ icons }: { icons: Icon[] }) {
         placeholder={`Search ${icons.length} icons`}
         className="w-full rounded-full border border-olive-950/15 bg-white/60 px-4 py-2 text-base text-olive-950 placeholder:text-olive-500 focus:border-olive-950/40 focus:outline-none dark:border-white/15 dark:bg-white/5 dark:text-white dark:placeholder:text-olive-400 dark:focus:border-white/40"
       />
-      <div
-        className="mt-4 flex flex-wrap gap-2"
-        role="group"
-        aria-label="Category"
-      >
-        {[null, ...CATEGORIES].map((c) => (
-          <button
-            key={c ?? 'all'}
-            type="button"
-            aria-pressed={category === c}
-            onClick={() => setCategory(c)}
-            className="rounded-full px-3 py-1 text-sm font-medium text-olive-700 transition-colors hover:bg-olive-950/10 aria-pressed:bg-olive-950 aria-pressed:text-white dark:text-olive-400 dark:hover:bg-white/10 dark:aria-pressed:bg-white dark:aria-pressed:text-olive-950"
-          >
-            {c ? CATEGORY_LABEL[c] : 'All'}
-          </button>
-        ))}
-      </div>
 
       {shown.length === 0 ? (
         <p className="mt-12 text-base/7 text-olive-700 dark:text-olive-400">
