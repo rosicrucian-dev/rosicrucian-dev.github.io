@@ -125,7 +125,7 @@ export function IconGallery({ icons }: { icons: Icon[] }) {
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         placeholder={`Search ${icons.length} icons`}
-        className="w-full rounded-full border border-olive-950/15 bg-white/60 px-4 py-2 text-base text-olive-950 placeholder:text-olive-500 focus:border-olive-950/40 focus:outline-none sm:max-w-xs dark:border-white/15 dark:bg-white/5 dark:text-white dark:placeholder:text-olive-400 dark:focus:border-white/40"
+        className="w-full rounded-full border border-olive-950/15 bg-white/60 px-4 py-2 text-base text-olive-950 placeholder:text-olive-500 focus:border-olive-950/40 focus:outline-none dark:border-white/15 dark:bg-white/5 dark:text-white dark:placeholder:text-olive-400 dark:focus:border-white/40"
       />
       <div
         className="mt-4 flex flex-wrap gap-2"
