@@ -25,34 +25,16 @@ export default function Icons() {
         Rosicrucian Developers
       </Link>
 
-      <a
-        href="https://github.com/rosicrucian-dev/icons"
-        className="mt-8 -ml-4 inline-flex items-center gap-2 self-start rounded-full px-4 py-2 text-sm/7 font-medium text-olive-950 transition-colors hover:bg-olive-950/10 dark:text-white dark:hover:bg-white/10"
-      >
-        View source on GitHub
-        <svg
-          width={13}
-          height={7}
-          viewBox="0 0 13 7"
-          fill="none"
-          strokeWidth={1}
-          aria-hidden="true"
-          className="inline-block"
+      <p className="mt-8 max-w-xl text-lg/8 text-olive-700 dark:text-olive-400">
+        View source on{' '}
+        <a
+          href="https://github.com/rosicrucian-dev/icons"
+          className="underline decoration-olive-300 decoration-1 underline-offset-4 transition-colors hover:text-olive-950 hover:decoration-olive-700 dark:decoration-olive-700 dark:hover:text-white dark:hover:decoration-olive-300"
         >
-          <path
-            d="M12.5049 3.49512L0.504883 3.49512"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          <path
-            d="M9.5 6.5L12.5 3.5L9.5 0.5"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-      </a>
+          GitHub
+        </a>
+        .
+      </p>
 
       <IconGallery icons={icons} />
     </main>
