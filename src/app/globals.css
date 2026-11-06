@@ -1,0 +1,56 @@
+@import 'tailwindcss';
+
+/*
+ * The oatmeal-olive-instrument palette, stripped to just what this
+ * one-page site uses: the olive scale and the two font families.
+ * Dark mode is Tailwind v4's default `dark:` — driven by the visitor's
+ * `prefers-color-scheme`, with no toggle and no JavaScript. The font
+ * families are wired to the next/font CSS variables set in layout.tsx.
+ */
+/*
+ * Two layouts for a page with a figure and a panel beside it (the Shem
+ * HaMephorash): `side` puts the panel (26rem with its margins) beside the
+ * figure, `stacked` underneath it. Side where the screen is wide (64rem
+ * and up); or wider than it is tall and wide enough that the panel takes
+ * no more than half of it (52rem and up); or, however narrow (40rem and
+ * up), so much wider than tall (3:2) that height is what is short, as on a
+ * phone on its side. By shape as well as width, so that a short, wide
+ * window isn't given the upright phone's layout.
+ *
+ * `roomy` is the side layout with the height for the panel's full-sized
+ * rows (32rem and up); `compact` is everywhere else, where the rows are
+ * smaller and the side panel narrower.
+ */
+@custom-variant side (@media (min-width: 64rem) or ((min-width: 52rem) and (min-aspect-ratio: 1 / 1)) or ((min-width: 40rem) and (min-aspect-ratio: 3 / 2)));
+@custom-variant stacked (@media not ((min-width: 64rem) or ((min-width: 52rem) and (min-aspect-ratio: 1 / 1)) or ((min-width: 40rem) and (min-aspect-ratio: 3 / 2))));
+@custom-variant roomy (@media ((min-width: 64rem) or ((min-width: 52rem) and (min-aspect-ratio: 1 / 1)) or ((min-width: 40rem) and (min-aspect-ratio: 3 / 2))) and (min-height: 32rem));
+@custom-variant compact (@media not (((min-width: 64rem) or ((min-width: 52rem) and (min-aspect-ratio: 1 / 1)) or ((min-width: 40rem) and (min-aspect-ratio: 3 / 2))) and (min-height: 32rem)));
+
+@theme {
+  --font-display: var(--font-instrument-serif), serif;
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+
+  --color-olive-50: oklch(98.8% 0.003 106.5);
+  --color-olive-100: oklch(96.6% 0.005 106.5);
+  --color-olive-200: oklch(93% 0.007 106.5);
+  --color-olive-300: oklch(88% 0.011 106.6);
+  --color-olive-400: oklch(73.7% 0.021 106.9);
+  --color-olive-500: oklch(58% 0.031 107.3);
+  --color-olive-600: oklch(46.6% 0.025 107.3);
+  --color-olive-700: oklch(39.4% 0.023 107.4);
+  --color-olive-800: oklch(28.6% 0.016 107.4);
+  --color-olive-900: oklch(22.8% 0.013 107.4);
+  --color-olive-950: oklch(15.3% 0.006 107.1);
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: var(--color-olive-100);
+
+    @variant dark {
+      background-color: var(--color-olive-950);
+    }
+  }
+}
