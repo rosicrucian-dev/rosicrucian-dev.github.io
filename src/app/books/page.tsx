@@ -47,7 +47,7 @@ export default function Books() {
               <BookCover book={book} />
             </a>
             <div className="min-w-0">
-              <h2 className="font-serif text-2xl font-bold text-olive-950 dark:text-white">
+              <h2 className="font-serif text-2xl font-medium text-olive-950 dark:text-white">
                 {book.title}
               </h2>
               {book.subtitle && (
