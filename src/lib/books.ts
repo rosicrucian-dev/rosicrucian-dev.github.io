@@ -22,10 +22,48 @@ export interface Book {
 
 export const BOOKS: Book[] = [
   {
+    file: 'chaldean-oracles-1895-westcott',
+    folder: 'chaldean-oracles/1895-westcott',
+    title: 'The Chaldæan Oracles of Zoroaster',
+    author: 'Edited by W. Wynn Westcott',
+  },
+  {
+    file: 'cloud-upon-the-sanctuary-1909-de-steiger',
+    folder: 'cloud-upon-the-sanctuary/1909-de-steiger',
+    title: 'The Cloud upon the Sanctuary',
+    author: 'Karl von Eckartshausen',
+  },
+  {
+    file: 'confessio-fraternitatis-1887-vaughan-waite',
+    folder: 'confessio-fraternitatis/1887-vaughan-waite',
+    title: 'Confessio Fraternitatis',
+    author: 'Rosicrucian Manifestos',
+  },
+  {
+    file: 'fama-fraternitatis-1887-vaughan-waite',
+    folder: 'fama-fraternitatis/1887-vaughan-waite',
+    title: 'Fama Fraternitatis',
+    subtitle:
+      'or, a Discovery of the Fraternity of the most Laudable Order of the Rosy Cross',
+    author: 'Rosicrucian Manifestos',
+  },
+  {
+    file: 'kybalion-1908',
+    folder: 'kybalion/1908',
+    title: 'The Kybalion',
+    subtitle: 'A Study of the Hermetic Philosophy of Ancient Egypt and Greece',
+    author: 'Three Initiates',
+  },
+  {
+    file: 'oracle-of-tarot',
+    folder: 'oracle-of-tarot/typescript',
+    title: 'The Oracle of Tarot',
+    author: 'Paul Foster Case',
+  },
+  {
     file: 'school-of-ageless-wisdom',
     folder: 'school-of-ageless-wisdom/typescript',
     title: 'The School of Ageless Wisdom',
-    subtitle: 'The early curriculum of Paul Foster Case',
     author: 'Paul Foster Case',
   },
 ]
