@@ -2,10 +2,9 @@
 // Western esoteric tradition, each set from a named edition and read
 // against its print, kept as Markdown in the books repository
 // (github.com/rosicrucian-dev/books; its README is the format) and set as
-// PDFs by its release workflow. The PDFs listed here are its rolling
-// `latest` release, refreshed on every push there; a book is listed once
-// its text is proofread, so this list is shorter than the repository. The
-// Pages deployment copies these listed PDFs from the release to /books/.
+// PDFs by its release workflow. The PDFs listed here are published to
+// Cloudflare R2 on every push there; a book is listed once its text is
+// proofread, so this list is shorter than the repository.
 
 export const BOOKS_REPO = 'https://github.com/rosicrucian-dev/books'
 
@@ -68,6 +67,7 @@ export const BOOKS: Book[] = [
   },
 ]
 
-export const pdfUrl = (book: Book) => `/books/${book.file}.pdf`
+export const pdfUrl = (book: Book) =>
+  `https://pdf.rosicrucian.dev/${book.file}.pdf`
 export const sourceUrl = (book: Book) =>
   `${BOOKS_REPO}/tree/main/books/${book.folder}`

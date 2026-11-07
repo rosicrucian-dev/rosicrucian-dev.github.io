@@ -4,9 +4,6 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
-  schedule:
-    # Refresh the mirrored PDFs when the books release changes.
-    - cron: '17 7 * * *'
 
 permissions:
   contents: read
@@ -28,7 +25,6 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run build
-      - run: node --experimental-strip-types scripts/stage-book-pdfs.mjs
       - uses: actions/upload-pages-artifact@v5
         with:
           path: out
