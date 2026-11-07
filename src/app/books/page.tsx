@@ -41,7 +41,7 @@ export default function Books() {
           <li key={book.file} className="flex gap-6">
             <a
               href={pdfUrl(book)}
-              aria-label={`${book.title}: download the PDF`}
+              aria-label={`${book.title}: read the PDF`}
               className="shrink-0 rounded-sm transition-shadow hover:shadow-md"
             >
               <BookCover book={book} />
@@ -58,7 +58,7 @@ export default function Books() {
               <p className="mt-2 text-sm/6 text-olive-500">{book.author}</p>
               <p className="mt-4 flex flex-wrap gap-x-6 gap-y-1 text-sm/7 font-medium text-olive-700 dark:text-olive-400">
                 <a href={pdfUrl(book)} className={link}>
-                  Download the PDF
+                  Read the PDF
                 </a>
                 <a href={sourceUrl(book)} className={link}>
                   Source
