@@ -172,13 +172,11 @@ const HINT: Hint = {
     },
     { keys: [{ key: 'E' }, { key: 'Q' }], text: 'to rise and fall' },
     { text: 'click things to interact' },
-    { text: 'drag a diagram to move it' },
   ],
   touch: [
     { text: 'drag to look around' },
     { text: 'use the arrows to walk' },
     { text: 'tap things to interact' },
-    { text: 'drag a diagram to move it' },
   ],
 }
 

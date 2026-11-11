@@ -161,9 +161,6 @@ export function ShemHaMephorashClient() {
   return (
     <ModelShell
       title="Shem HaMephorash"
-      // Not one of the models, but a project of its own: the emblem leads
-      // home.
-      back={{ href: '/', label: 'Home' }}
       background={BACKGROUND}
       controlsId="shem-controls"
       headerControls={

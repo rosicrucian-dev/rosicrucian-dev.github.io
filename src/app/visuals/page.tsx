@@ -4,16 +4,16 @@ import Link from 'next/link'
 import { MODELS } from '@/lib/models'
 
 export const metadata: Metadata = {
-  title: 'Models',
+  title: 'Visuals',
   description:
-    'Interactive 3D models of the symbols of the Rosicrucian tradition.',
+    'Interactive models and diagrams of the symbols of the Rosicrucian tradition.',
 }
 
-export default function Models() {
+export default function Visuals() {
   return (
     <main className="mx-auto flex min-h-full max-w-2xl flex-col px-6 py-24">
       <h1 className="font-display text-6xl/none tracking-tight text-balance text-olive-950 sm:text-7xl dark:text-white">
-        Models
+        Visuals
       </h1>
 
       <Link

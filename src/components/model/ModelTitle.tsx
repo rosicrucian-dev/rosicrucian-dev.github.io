@@ -2,11 +2,11 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 // The title in a model's header: the site's emblem, which leads back to
-// the list of models (or, for a page that isn't one, wherever `back`
+// the Visuals page (or, for a page that isn't one, wherever `back`
 // says), and the model's name beside it.
 export function ModelTitle({
   children,
-  back = { href: '/models', label: 'All models' },
+  back = { href: '/visuals', label: 'All visuals' },
 }: {
   children: string
   back?: { href: string; label: string }

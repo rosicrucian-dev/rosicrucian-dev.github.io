@@ -16,11 +16,11 @@ pieces, so once you know one you can find your way around the others.
 A model's scene folder may have a `README.md` mapping its files; the Tree
 of Life's does.
 
-The Shem HaMephorash (`/shem-hamephorash`) is not a model but a project
-of its own, listed on the home page: a flat figure, drawn as SVG. It
-borrows the models' frame (`ModelShell`, with `back` pointing its emblem
-home) and their settings, but has its own metadata and sitemap row, and
-the rules about drawing on demand and loading three.js don't apply to it.
+The Shem HaMephorash (`/shem-hamephorash`) is listed with the models on
+the Visuals page, but it is a flat figure drawn as SVG rather than a 3D
+scene. It uses the models' frame (`ModelShell`), settings and registry
+row, but the rules about drawing on demand and loading three.js don't
+apply to it.
 
 Every model's files are named for its route: the page in `src/app/<slug>/`,
 the scene in `src/components/<slug>/`, and its data in
@@ -28,7 +28,7 @@ the scene in `src/components/<slug>/`, and its data in
 Sphere share the Tree itself (the Sephiroth and the paths) from
 `src/lib/tree.ts`.
 
-Every model is registered in **`src/lib/models.ts`**, which the Models page,
+Every model is registered in **`src/lib/models.ts`**, which the Visuals page (`/visuals`),
 the sitemap and each model's page metadata are built from.
 
 ## How a model is put together
@@ -92,7 +92,7 @@ tested.
 ### `src/components/model/`
 
 - **`ModelShell`**: the page frame. The scene fills the window; over it,
-  the header (the emblem linking back to /models, the title, the model's
+  the header (the emblem linking back to /visuals, the title, the model's
   own buttons and the settings gear) and the settings panel. Its props:
   - `title`, `background` (the scene's background colour; the header is a
     veil of it).

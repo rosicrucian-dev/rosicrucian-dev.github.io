@@ -14,8 +14,7 @@ const routes = [
   '/books',
   '/icons',
   '/jonathan',
-  '/models',
-  '/shem-hamephorash',
+  '/visuals',
   ...MODELS.map((m) => `/${m.slug}`),
 ]
 

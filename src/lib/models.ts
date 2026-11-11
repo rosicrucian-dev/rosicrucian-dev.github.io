@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 
-// Every model on the site, in the order the Models page lists them. This
-// is the one place a model is registered: the Models page, the sitemap
+// Every model on the site, in the order the Visuals page lists them. This
+// is the one place a model is registered: the Visuals page, the sitemap
 // and each model's own page metadata (title, description, link preview)
 // are all built from it. A new model adds its row here.
 
@@ -9,7 +9,7 @@ export interface Model {
   // Its route, without the slash: /<slug>.
   slug: string
   name: string
-  // One or two sentences, for the Models page and for search results and
+  // One or two sentences, for the Visuals page and for search results and
   // link previews.
   description: string
 }
@@ -38,6 +38,12 @@ export const MODELS: Model[] = [
     name: 'Tree of Life Sphere',
     description:
       'The Tree of Life projected onto the sky as a sphere, after the Golden Dawn: stand at the centre and look out at the four Trees, the zodiac and the stars.',
+  },
+  {
+    slug: 'shem-hamephorash',
+    name: 'Shem HaMephorash',
+    description:
+      'The 72 Names of the Shem HaMephorash on a wheel, with a pentagram turning inside it: set its Spirit point on a Name and the other four points give that Name’s formula, after Dan Moore’s Pentagram Technique.',
   },
 ]
 

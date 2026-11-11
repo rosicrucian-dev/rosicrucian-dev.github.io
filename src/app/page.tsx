@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
-const projects = [
+const projects: SiteLink[] = [
   {
     name: 'BOTA Toolbox',
     href: 'https://botatoolbox.org',
@@ -14,32 +14,29 @@ const projects = [
     description: 'The early curriculum of Paul Foster Case.',
   },
   {
+    name: 'PFC List',
+    href: 'https://pfclist.org',
+    description:
+      'A discussion forum for current and former members of the Builders of the Adytum.',
+  },
+]
+
+const library: SiteLink[] = [
+  {
     name: 'Books',
     href: '/books',
     description:
       'Public-domain books of the Western esoteric tradition, set from named editions and published as PDFs.',
   },
   {
-    name: 'PFC List',
-    href: 'https://pfclist.org',
+    name: 'Visuals',
+    href: '/visuals',
     description:
-      'A discussion forum for current and former members of the Builders of the Adytum.',
-  },
-  {
-    name: 'Models',
-    href: '/models',
-    description:
-      'Interactive 3D models of the symbols of the Rosicrucian tradition.',
-  },
-  {
-    name: 'Shem HaMephorash',
-    href: '/shem-hamephorash',
-    description:
-      'The 72 Names on a wheel with a turning pentagram: the five-Name formulas of Dan Moore’s Pentagram Technique.',
+      'Interactive models and diagrams of the symbols of the Rosicrucian tradition.',
   },
 ]
 
-const tools = [
+const tools: SiteLink[] = [
   {
     name: 'Icons',
     href: '/icons',
@@ -53,6 +50,37 @@ const tools = [
       'A TypeScript library for full-text search on static sites, with no server: build an index at build time, search it in the browser, and link each result to its passage.',
   },
 ]
+
+interface SiteLink {
+  name: string
+  href: string
+  description: string
+}
+
+function LinkSection({ title, links }: { title: string; links: SiteLink[] }) {
+  return (
+    <section className="mt-16">
+      <h2 className="text-sm font-medium tracking-widest text-olive-500 uppercase">
+        {title}
+      </h2>
+      <ul className="mt-6 space-y-8">
+        {links.map((link) => (
+          <li key={link.name}>
+            <a
+              href={link.href}
+              className="font-display text-2xl text-olive-950 underline decoration-olive-300 decoration-1 underline-offset-4 transition-colors hover:decoration-olive-950 dark:text-white dark:decoration-olive-700 dark:hover:decoration-white"
+            >
+              {link.name}
+            </a>
+            <p className="mt-2 text-base/7 text-olive-700 dark:text-olive-400">
+              {link.description}
+            </p>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )
+}
 
 export default function Home() {
   return (
@@ -71,8 +99,8 @@ export default function Home() {
       </h1>
 
       <p className="mt-6 max-w-xl text-lg/8 text-olive-700 dark:text-olive-400">
-        A community of developers building open source projects for the aquarian
-        age.
+        A community of developers building open source projects for the Western
+        esoteric tradition.
       </p>
 
       <a
@@ -104,47 +132,9 @@ export default function Home() {
         </svg>
       </a>
 
-      <section className="mt-16">
-        <h2 className="text-sm font-medium tracking-widest text-olive-500 uppercase">
-          Projects
-        </h2>
-        <ul className="mt-6 space-y-8">
-          {projects.map((project) => (
-            <li key={project.name}>
-              <a
-                href={project.href}
-                className="font-display text-2xl text-olive-950 underline decoration-olive-300 decoration-1 underline-offset-4 transition-colors hover:decoration-olive-950 dark:text-white dark:decoration-olive-700 dark:hover:decoration-white"
-              >
-                {project.name}
-              </a>
-              <p className="mt-2 text-base/7 text-olive-700 dark:text-olive-400">
-                {project.description}
-              </p>
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      <section className="mt-16">
-        <h2 className="text-sm font-medium tracking-widest text-olive-500 uppercase">
-          Developer Tools
-        </h2>
-        <ul className="mt-6 space-y-8">
-          {tools.map((tool) => (
-            <li key={tool.name}>
-              <a
-                href={tool.href}
-                className="font-display text-2xl text-olive-950 underline decoration-olive-300 decoration-1 underline-offset-4 transition-colors hover:decoration-olive-950 dark:text-white dark:decoration-olive-700 dark:hover:decoration-white"
-              >
-                {tool.name}
-              </a>
-              <p className="mt-2 text-base/7 text-olive-700 dark:text-olive-400">
-                {tool.description}
-              </p>
-            </li>
-          ))}
-        </ul>
-      </section>
+      <LinkSection title="Projects" links={projects} />
+      <LinkSection title="Library" links={library} />
+      <LinkSection title="Developer Tools" links={tools} />
 
       <section className="mt-16">
         <h2 className="text-sm font-medium tracking-widest text-olive-500 uppercase">
