@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 
-import { BookCover } from '@/components/books/BookCover'
 import { BOOKS, BOOKS_REPO, pdfUrl, screenPdfUrl, sourceUrl } from '@/lib/books'
 
 export const metadata: Metadata = {
@@ -39,36 +38,35 @@ export default function Books() {
 
       <ul className="mt-16 space-y-12">
         {BOOKS.map((book) => (
-          <li key={book.file} className="flex gap-6">
-            <a
-              href={screenPdfUrl(book)}
-              aria-label={`${book.title}: read the PDF`}
-              className="shrink-0 rounded-sm transition-shadow hover:shadow-md"
-            >
-              <BookCover book={book} />
-            </a>
-            <div className="min-w-0">
-              <h2 className="font-serif text-2xl font-medium text-olive-950 dark:text-white">
-                {book.title}
-              </h2>
-              {book.subtitle && (
-                <p className="mt-1 text-base/7 text-olive-700 dark:text-olive-400">
-                  {book.subtitle}
-                </p>
-              )}
-              <p className="mt-2 text-sm/6 text-olive-500">{book.author}</p>
-              <p className="mt-4 flex flex-wrap gap-x-6 gap-y-1 text-sm/7 font-medium text-olive-700 dark:text-olive-400">
-                <a href={screenPdfUrl(book)} className={link}>
-                  Read the PDF
-                </a>
-                <a href={pdfUrl(book)} className={link}>
-                  Printable PDF
-                </a>
-                <a href={sourceUrl(book)} className={link}>
-                  Source
-                </a>
+          <li key={book.file}>
+            <h2 className="font-serif text-2xl/8 font-medium text-olive-950 dark:text-white">
+              {book.title}
+            </h2>
+            {book.subtitle && (
+              <p className="text-base/8 text-olive-700 italic dark:text-olive-400">
+                {book.subtitle}
               </p>
-            </div>
+            )}
+            <p className="text-base/8 text-olive-700 dark:text-olive-400">
+              {book.author}
+            </p>
+            <p className="text-sm/8 font-medium text-olive-700 dark:text-olive-400">
+              <a href={screenPdfUrl(book)} className={link}>
+                PDF for screens
+              </a>
+              <span aria-hidden="true" className="mx-2 text-olive-500">
+                ·
+              </span>
+              <a href={pdfUrl(book)} className={link}>
+                PDF for printing
+              </a>
+              <span aria-hidden="true" className="mx-2 text-olive-500">
+                ·
+              </span>
+              <a href={sourceUrl(book)} className={link}>
+                Source
+              </a>
+            </p>
           </li>
         ))}
       </ul>
