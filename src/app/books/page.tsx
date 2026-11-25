@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 import { BookCover } from '@/components/books/BookCover'
-import { BOOKS, BOOKS_REPO, pdfUrl, sourceUrl } from '@/lib/books'
+import { BOOKS, BOOKS_REPO, pdfUrl, screenPdfUrl, sourceUrl } from '@/lib/books'
 
 export const metadata: Metadata = {
   title: 'Books',
@@ -28,8 +28,9 @@ export default function Books() {
       </Link>
 
       <p className="mt-8 max-w-xl text-lg/8 text-olive-700 dark:text-olive-400">
-        Public-domain books of the Western esoteric tradition. View the source
-        on{' '}
+        Public-domain books of the Western esoteric tradition. Each comes in two
+        PDFs: one sized for reading on screens, and one for printing on US
+        Letter paper. View the source on{' '}
         <a href={BOOKS_REPO} className={link}>
           GitHub
         </a>
@@ -40,7 +41,7 @@ export default function Books() {
         {BOOKS.map((book) => (
           <li key={book.file} className="flex gap-6">
             <a
-              href={pdfUrl(book)}
+              href={screenPdfUrl(book)}
               aria-label={`${book.title}: read the PDF`}
               className="shrink-0 rounded-sm transition-shadow hover:shadow-md"
             >
@@ -57,8 +58,11 @@ export default function Books() {
               )}
               <p className="mt-2 text-sm/6 text-olive-500">{book.author}</p>
               <p className="mt-4 flex flex-wrap gap-x-6 gap-y-1 text-sm/7 font-medium text-olive-700 dark:text-olive-400">
-                <a href={pdfUrl(book)} className={link}>
+                <a href={screenPdfUrl(book)} className={link}>
                   Read the PDF
+                </a>
+                <a href={pdfUrl(book)} className={link}>
+                  Printable PDF
                 </a>
                 <a href={sourceUrl(book)} className={link}>
                   Source

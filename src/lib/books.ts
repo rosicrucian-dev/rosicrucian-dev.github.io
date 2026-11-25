@@ -2,15 +2,17 @@
 // Western esoteric tradition, each set from a named edition and read
 // against its print, kept as Markdown in the books repository
 // (github.com/rosicrucian-dev/books; its README is the format) and set as
-// PDFs by its release workflow. The PDFs listed here are published to
-// Cloudflare R2 on every push there; a book is listed once its text is
+// PDFs by its release workflow, each in two editions: one for screens
+// (a 6 × 8.5in page with narrow margins) and one for printing (US Letter).
+// The PDFs listed here are published to Cloudflare R2 on every push there; a book is listed once its text is
 // proofread, so this list is shorter than the repository.
 
 export const BOOKS_REPO = 'https://github.com/rosicrucian-dev/books'
 
 export interface Book {
   /** The PDF's name in the release: the work, and the edition where the
-   *  work has more than one (the repository's rule). */
+   *  work has more than one (the repository's rule). The screen edition is
+   *  the same name with -screen. */
   file: string
   /** Its folder in the repository, books/<work>/<edition>. */
   folder: string
@@ -67,7 +69,11 @@ export const BOOKS: Book[] = [
   },
 ]
 
+/** The edition for printing, on US Letter. */
 export const pdfUrl = (book: Book) =>
   `https://pdf.rosicrucian.dev/${book.file}.pdf`
+/** The edition for screens: the one to read, and the one the cover opens. */
+export const screenPdfUrl = (book: Book) =>
+  `https://pdf.rosicrucian.dev/${book.file}-screen.pdf`
 export const sourceUrl = (book: Book) =>
   `${BOOKS_REPO}/tree/main/books/${book.folder}`
