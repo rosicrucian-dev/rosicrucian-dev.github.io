@@ -19,6 +19,11 @@ export interface Book {
   title: string
   subtitle?: string
   author: string
+  /** A collection with no single author (the line above names it, or its
+   *  editor): its page's structured data then names no author. */
+  collection?: true
+  /** Where the text can also be read as a website. */
+  site?: { name: string; url: string }
 }
 
 export const BOOKS: Book[] = [
@@ -27,6 +32,7 @@ export const BOOKS: Book[] = [
     folder: 'chaldean-oracles/1895-westcott',
     title: 'The Chaldæan Oracles of Zoroaster',
     author: 'Edited by W. Wynn Westcott',
+    collection: true,
   },
   {
     file: 'cloud-upon-the-sanctuary-1909-de-steiger',
@@ -39,6 +45,7 @@ export const BOOKS: Book[] = [
     folder: 'confessio-fraternitatis/1887-vaughan-waite',
     title: 'Confessio Fraternitatis',
     author: 'Rosicrucian Manifestos',
+    collection: true,
   },
   {
     file: 'fama-fraternitatis-1887-vaughan-waite',
@@ -47,6 +54,7 @@ export const BOOKS: Book[] = [
     subtitle:
       'or, a Discovery of the Fraternity of the most Laudable Order of the Rosy Cross',
     author: 'Rosicrucian Manifestos',
+    collection: true,
   },
   {
     file: 'kybalion-1908',
@@ -66,13 +74,19 @@ export const BOOKS: Book[] = [
     folder: 'school-of-ageless-wisdom/typescript',
     title: 'The School of Ageless Wisdom',
     author: 'Paul Foster Case',
+    site: { name: 'agelesswisdom.school', url: 'https://agelesswisdom.school' },
   },
 ]
+
+/** The book's page on this site, /books/<work>/: the work's name in the
+ *  repository, which the PDF's name and the source's folder begin with. */
+export const bookSlug = (book: Book) => book.folder.split('/')[0]
+export const bookPath = (book: Book) => `/books/${bookSlug(book)}/`
 
 /** The edition for printing, on US Letter. */
 export const pdfUrl = (book: Book) =>
   `https://pdf.rosicrucian.dev/${book.file}.pdf`
-/** The edition for screens: the one to read, and the one the cover opens. */
+/** The edition for screens, for reading on a tablet or computer. */
 export const screenPdfUrl = (book: Book) =>
   `https://pdf.rosicrucian.dev/${book.file}-screen.pdf`
 export const sourceUrl = (book: Book) =>

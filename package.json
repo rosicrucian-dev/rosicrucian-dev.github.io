@@ -12,7 +12,8 @@
     "format:check": "prettier --check \"src/**/*.{ts,tsx,css}\" \"test/**/*.ts\" \"scripts/**/*.ts\" \"docs/**/*.md\" README.md",
     "test": "node --import ./test/loader.ts --test \"test/*.test.ts\"",
     "gen:social": "node --experimental-strip-types scripts/gen-social.ts",
-    "gen:sky": "node --experimental-strip-types scripts/gen-sky.ts"
+    "gen:sky": "node --experimental-strip-types scripts/gen-sky.ts",
+    "sync:books": "node --experimental-strip-types scripts/sync-books.ts"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.9",

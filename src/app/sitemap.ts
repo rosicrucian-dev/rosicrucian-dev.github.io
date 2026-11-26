@@ -1,5 +1,6 @@
 import { type MetadataRoute } from 'next'
 
+import { BOOKS, bookPath } from '@/lib/books'
 import { MODELS } from '@/lib/models'
 import { SITE_URL } from '@/lib/site'
 
@@ -8,10 +9,12 @@ import { SITE_URL } from '@/lib/site'
 export const dynamic = 'force-static'
 
 // Every page on the site: the pages below, and every registered model
-// (lib/models.ts). A new page that isn't a model adds a row here.
+// (lib/models.ts), and every book's page (lib/books.ts). A new page that
+// isn't a model or a book adds a row here.
 const routes = [
   '/',
   '/books',
+  ...BOOKS.map(bookPath),
   '/icons',
   '/jonathan',
   '/visuals',

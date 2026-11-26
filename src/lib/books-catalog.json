@@ -1,0 +1,730 @@
+{
+  "books": [
+    {
+      "work": "chaldean-oracles",
+      "edition": "1895-westcott",
+      "pdfs": {
+        "print": "chaldean-oracles-1895-westcott.pdf",
+        "screen": "chaldean-oracles-1895-westcott-screen.pdf"
+      },
+      "title": "The Chaldæan Oracles of Zoroaster",
+      "author": "Collectanea Hermetica, Volume VI",
+      "editor": "W. Wynn Westcott (Sapere Aude)",
+      "imprint": "Collectanea Hermetica, edited by W. Wynn Westcott, Volume VI. London: Theosophical Publishing Society, 1895",
+      "editionNote": "Westcott’s, Collectanea Hermetica VI, 1895",
+      "language": "English",
+      "publisher": "Rosicrucian Developers",
+      "published": 2026,
+      "publicDomain": true,
+      "parts": [
+        {
+          "entries": [
+            {
+              "label": "Preface"
+            },
+            {
+              "label": "Introduction"
+            },
+            {
+              "label": "The Oracles of Zoroaster"
+            },
+            {
+              "label": "Ideas"
+            },
+            {
+              "label": "Particular Souls"
+            },
+            {
+              "label": "Matter"
+            },
+            {
+              "label": "Magical and Philosophical Precepts"
+            },
+            {
+              "label": "Oracles from Porphyry"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "work": "cloud-upon-the-sanctuary",
+      "edition": "1909-de-steiger",
+      "pdfs": {
+        "print": "cloud-upon-the-sanctuary-1909-de-steiger.pdf",
+        "screen": "cloud-upon-the-sanctuary-1909-de-steiger-screen.pdf"
+      },
+      "title": "The Cloud upon the Sanctuary",
+      "author": "Karl von Eckartshausen",
+      "translator": "Isabel de Steiger",
+      "editor": "A. E. Waite (introduction)",
+      "imprint": "Third issue, revised and enlarged. London: William Rider & Son, 1909",
+      "editionNote": "Third issue, revised and enlarged, Rider, 1909",
+      "language": "English",
+      "publisher": "Rosicrucian Developers",
+      "published": 2026,
+      "publicDomain": true,
+      "parts": [
+        {
+          "entries": [
+            {
+              "label": "Introduction"
+            },
+            {
+              "label": "Letter I"
+            },
+            {
+              "label": "Letter II"
+            },
+            {
+              "label": "Letter III"
+            },
+            {
+              "label": "Letter IV"
+            },
+            {
+              "label": "Letter V"
+            },
+            {
+              "label": "Letter VI and Last"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "work": "confessio-fraternitatis",
+      "edition": "1887-vaughan-waite",
+      "pdfs": {
+        "print": "confessio-fraternitatis-1887-vaughan-waite.pdf",
+        "screen": "confessio-fraternitatis-1887-vaughan-waite-screen.pdf"
+      },
+      "title": "Confessio Fraternitatis",
+      "author": "Rosicrucian Manifestos",
+      "translator": "Thomas Vaughan, 1652; revised by A. E. Waite",
+      "editor": "A. E. Waite",
+      "imprint": "First printed at Cassel, 1615. Translated by Thomas Vaughan, 1652, revised by A. E. Waite; in A. E. Waite, The Real History of the Rosicrucians, London: George Redway, 1887",
+      "editionNote": "Vaughan’s translation (1652), revised by A. E. Waite against the Latin, 1887",
+      "language": "English",
+      "publisher": "Rosicrucian Developers",
+      "published": 2026,
+      "publicDomain": true,
+      "parts": [
+        {
+          "entries": [
+            {
+              "heading": "Chapter I"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "work": "fama-fraternitatis",
+      "edition": "1887-vaughan-waite",
+      "pdfs": {
+        "print": "fama-fraternitatis-1887-vaughan-waite.pdf",
+        "screen": "fama-fraternitatis-1887-vaughan-waite-screen.pdf"
+      },
+      "title": "Fama Fraternitatis",
+      "subtitle": "or, a Discovery of the Fraternity of the most Laudable Order of the Rosy Cross",
+      "author": "Rosicrucian Manifestos",
+      "translator": "Thomas Vaughan, 1652",
+      "editor": "A. E. Waite",
+      "imprint": "First printed at Cassel, 1614. Translated by Thomas Vaughan, 1652; in A. E. Waite, The Real History of the Rosicrucians, London: George Redway, 1887",
+      "editionNote": "Vaughan’s translation (1652) as A. E. Waite printed it, 1887",
+      "language": "English",
+      "publisher": "Rosicrucian Developers",
+      "published": 2026,
+      "publicDomain": true,
+      "parts": [
+        {
+          "entries": [
+            {}
+          ]
+        }
+      ]
+    },
+    {
+      "work": "kybalion",
+      "edition": "1908",
+      "pdfs": {
+        "print": "kybalion-1908.pdf",
+        "screen": "kybalion-1908-screen.pdf"
+      },
+      "title": "The Kybalion",
+      "subtitle": "A Study of the Hermetic Philosophy of Ancient Egypt and Greece",
+      "author": "Three Initiates",
+      "imprint": "The Yogi Publication Society, Masonic Temple, Chicago, 1908",
+      "editionNote": "The first printing, 1908",
+      "language": "English",
+      "publisher": "Rosicrucian Developers",
+      "published": 2026,
+      "publicDomain": true,
+      "parts": [
+        {
+          "entries": [
+            {
+              "label": "Introduction"
+            },
+            {
+              "label": "Chapter I",
+              "heading": "The Hermetic Philosophy"
+            },
+            {
+              "label": "Chapter II",
+              "heading": "The Seven Hermetic Principles"
+            },
+            {
+              "label": "Chapter III",
+              "heading": "Mental Transmutation"
+            },
+            {
+              "label": "Chapter IV",
+              "heading": "The All"
+            },
+            {
+              "label": "Chapter V",
+              "heading": "The Mental Universe"
+            },
+            {
+              "label": "Chapter VI",
+              "heading": "The Divine Paradox"
+            },
+            {
+              "label": "Chapter VII",
+              "heading": "“The All” in All"
+            },
+            {
+              "label": "Chapter VIII",
+              "heading": "The Planes of Correspondence"
+            },
+            {
+              "label": "Chapter IX",
+              "heading": "Vibration"
+            },
+            {
+              "label": "Chapter X",
+              "heading": "Polarity"
+            },
+            {
+              "label": "Chapter XI",
+              "heading": "Rhythm"
+            },
+            {
+              "label": "Chapter XII",
+              "heading": "Causation"
+            },
+            {
+              "label": "Chapter XIII",
+              "heading": "Gender"
+            },
+            {
+              "label": "Chapter XIV",
+              "heading": "Mental Gender"
+            },
+            {
+              "label": "Chapter XV",
+              "heading": "Hermetic Axioms"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "work": "oracle-of-tarot",
+      "edition": "typescript",
+      "pdfs": {
+        "print": "oracle-of-tarot.pdf",
+        "screen": "oracle-of-tarot-screen.pdf"
+      },
+      "title": "The Oracle of Tarot",
+      "author": "Paul Foster Case",
+      "imprint": "From the School’s typed lessons",
+      "editionNote": "The typed lessons, as the School issued them to its students; the typescript is undated",
+      "language": "English",
+      "publisher": "Rosicrucian Developers",
+      "published": 2026,
+      "publicDomain": true,
+      "parts": [
+        {
+          "entries": [
+            {
+              "label": "Lesson 1",
+              "heading": "An Introduction"
+            },
+            {
+              "label": "Lesson 2",
+              "heading": "The Suit Of Wands"
+            },
+            {
+              "label": "Lesson 3",
+              "heading": "The Suit of Cups"
+            },
+            {
+              "label": "Lesson 4",
+              "heading": "The Suit of Swords"
+            },
+            {
+              "label": "Lesson 5",
+              "heading": "The Suit of Coins"
+            },
+            {
+              "label": "Lesson 6",
+              "heading": "The Major Trumps"
+            },
+            {
+              "label": "Lesson 7",
+              "heading": "Further Stages of Divination"
+            },
+            {
+              "label": "Lesson 8",
+              "heading": "Fourth Stage of Divination"
+            },
+            {
+              "label": "Lesson 9",
+              "heading": "Fifth Stage of Divination"
+            },
+            {
+              "label": "Lesson 10",
+              "heading": "Final Stage of Divination"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "work": "school-of-ageless-wisdom",
+      "edition": "typescript",
+      "pdfs": {
+        "print": "school-of-ageless-wisdom.pdf",
+        "screen": "school-of-ageless-wisdom-screen.pdf"
+      },
+      "title": "The School of Ageless Wisdom",
+      "author": "Paul Foster Case",
+      "imprint": "From the School’s typed lessons",
+      "editionNote": "The typed lessons, as the School issued them to its students; the typescript is undated",
+      "language": "English",
+      "publisher": "Rosicrucian Developers",
+      "published": 2026,
+      "publicDomain": true,
+      "parts": [
+        {
+          "title": "Section A",
+          "entries": [
+            {
+              "label": "Lesson 1",
+              "heading": "The Life-Power"
+            },
+            {
+              "label": "Lesson 2",
+              "heading": "The Three Principles"
+            },
+            {
+              "label": "Lesson 3",
+              "heading": "Five Phases of Life Expression"
+            },
+            {
+              "label": "Lesson 4",
+              "heading": "The Seven Forces"
+            },
+            {
+              "label": "Lesson 5",
+              "heading": "Twelve Channels of Life-Expression"
+            },
+            {
+              "label": "Lesson 6",
+              "heading": "Correlation of Sound and Color"
+            },
+            {
+              "label": "Lesson 7",
+              "heading": "Symbolism of Numbers"
+            },
+            {
+              "label": "Lesson 8",
+              "heading": "The Wisdom Alphabet"
+            },
+            {
+              "label": "Lesson 9",
+              "heading": "An Outline of the Qabalah"
+            },
+            {
+              "label": "Lesson 10",
+              "heading": "The Tree of Life"
+            }
+          ]
+        },
+        {
+          "title": "Section B",
+          "entries": [
+            {
+              "label": "Lesson 1",
+              "heading": "Bondage"
+            },
+            {
+              "label": "Lesson 2",
+              "heading": "Awakening"
+            },
+            {
+              "label": "Lesson 3",
+              "heading": "Revelation"
+            },
+            {
+              "label": "Lesson 4",
+              "heading": "Organization"
+            },
+            {
+              "label": "Lesson 5",
+              "heading": "Regeneration"
+            },
+            {
+              "label": "Lesson 6",
+              "heading": "Realization"
+            },
+            {
+              "label": "Lesson 7",
+              "heading": "Cosmic Consciousness"
+            },
+            {
+              "label": "Supplement 1",
+              "heading": "A Note on Color"
+            },
+            {
+              "label": "Supplement 2",
+              "heading": "Spiritual or Physical?"
+            },
+            {
+              "label": "Supplement 3",
+              "heading": "The Pi-Proportion"
+            }
+          ]
+        },
+        {
+          "title": "Section C",
+          "entries": [
+            {
+              "label": "Lesson 1",
+              "heading": "Practice of Concentration"
+            },
+            {
+              "label": "Lesson 2",
+              "heading": "Qabalistic Meditation"
+            },
+            {
+              "label": "Lesson 3",
+              "heading": "The Power of the Mind"
+            },
+            {
+              "label": "Lesson 4",
+              "heading": "Watchful Introspection"
+            },
+            {
+              "label": "Lesson 5",
+              "heading": "Contemplations of the Adepti"
+            },
+            {
+              "label": "Lesson 6",
+              "heading": "Evolution of Homo Spiritualis"
+            },
+            {
+              "label": "Lesson 7",
+              "heading": "Mastership"
+            },
+            {
+              "label": "Lesson 8",
+              "heading": "The True Creative Self"
+            },
+            {
+              "label": "Lesson 9",
+              "heading": "The Perfect Stone"
+            }
+          ]
+        },
+        {
+          "title": "Section D",
+          "entries": [
+            {
+              "label": "Lesson 1",
+              "heading": "The Secret Force"
+            },
+            {
+              "label": "Lesson 2",
+              "heading": "The Magic Circle"
+            },
+            {
+              "label": "Lesson 3",
+              "heading": "The Magical Altar"
+            },
+            {
+              "label": "Lesson 4",
+              "heading": "Platonic Solids"
+            },
+            {
+              "label": "Lesson 5",
+              "heading": "Magical Instruments and Vestments"
+            },
+            {
+              "label": "Lesson 6",
+              "heading": "The Four Maxims"
+            },
+            {
+              "label": "Lesson 7",
+              "heading": "The Great Arcanum"
+            },
+            {
+              "label": "Supplement 1",
+              "heading": "The Chaldean Oracles"
+            }
+          ]
+        },
+        {
+          "title": "Tarot Instruction – First Section",
+          "entries": [
+            {
+              "label": "Lesson 1",
+              "heading": "The Object of Tarot Practice"
+            },
+            {
+              "label": "Lesson 2",
+              "heading": "The Symbolism of Numbers"
+            },
+            {
+              "label": "Lesson 3",
+              "heading": "The Life Power"
+            },
+            {
+              "label": "Lesson 4",
+              "heading": "Self-Consciousness"
+            },
+            {
+              "label": "Lesson 5",
+              "heading": "Sub-Consciousness"
+            },
+            {
+              "label": "Lesson 6",
+              "heading": "Creative Imagination"
+            },
+            {
+              "label": "Lesson 7",
+              "heading": "Reason"
+            },
+            {
+              "label": "Lesson 8",
+              "heading": "Intuition"
+            },
+            {
+              "label": "Lesson 9",
+              "heading": "Discrimination"
+            },
+            {
+              "label": "Lesson 10",
+              "heading": "Will Power"
+            },
+            {
+              "label": "Lesson 11",
+              "heading": "The Secret Power"
+            },
+            {
+              "label": "Lesson 12",
+              "heading": "Response"
+            },
+            {
+              "label": "Lesson 13",
+              "heading": "Rotation"
+            },
+            {
+              "label": "Lesson 14",
+              "heading": "Action-Equilibrium"
+            },
+            {
+              "label": "Lesson 15",
+              "heading": "Reversal"
+            },
+            {
+              "label": "Lesson 16",
+              "heading": "Transformation"
+            },
+            {
+              "label": "Lesson 17",
+              "heading": "Verification"
+            },
+            {
+              "label": "Lesson 18",
+              "heading": "Bondage"
+            },
+            {
+              "label": "Lesson 19",
+              "heading": "Awakening"
+            },
+            {
+              "label": "Lesson 20",
+              "heading": "Revelation"
+            },
+            {
+              "label": "Lesson 21",
+              "heading": "Organization"
+            },
+            {
+              "label": "Lesson 22",
+              "heading": "Regeneration"
+            },
+            {
+              "label": "Lesson 23",
+              "heading": "Realization"
+            },
+            {
+              "label": "Lesson 24",
+              "heading": "Cosmic Consciousness"
+            }
+          ]
+        },
+        {
+          "title": "Tarot Instruction – Second Section",
+          "entries": [
+            {
+              "label": "Lesson 1",
+              "heading": "The Hidden Force"
+            },
+            {
+              "label": "Lesson 2",
+              "heading": "The True Magic"
+            },
+            {
+              "label": "Lesson 3",
+              "heading": "Tableau 1"
+            },
+            {
+              "label": "Lesson 4",
+              "heading": "Tableau 2"
+            },
+            {
+              "label": "Lesson 5",
+              "heading": "Tableau 3"
+            },
+            {
+              "label": "Lesson 6",
+              "heading": "Tableau 4"
+            },
+            {
+              "label": "Lesson 7",
+              "heading": "Tableau 5"
+            },
+            {
+              "label": "Lesson 8",
+              "heading": "Tableau 6"
+            },
+            {
+              "label": "Lesson 9",
+              "heading": "Tableau 7"
+            },
+            {
+              "label": "Lesson 10",
+              "heading": "Tableau 8"
+            },
+            {
+              "label": "Lesson 11",
+              "heading": "Tableau 9"
+            },
+            {
+              "label": "Lesson 12",
+              "heading": "Tableau 10"
+            },
+            {
+              "label": "Lesson 13",
+              "heading": "Tableau 11"
+            },
+            {
+              "label": "Lesson 14",
+              "heading": "Tableau 12"
+            },
+            {
+              "label": "Lesson 15",
+              "heading": "Tableau 13"
+            },
+            {
+              "label": "Lesson 16",
+              "heading": "Tableau 14"
+            },
+            {
+              "label": "Lesson 17",
+              "heading": "Tableau 15"
+            },
+            {
+              "label": "Lesson 18",
+              "heading": "Tableau 16"
+            },
+            {
+              "label": "Lesson 19",
+              "heading": "Tableau 17"
+            },
+            {
+              "label": "Lesson 20",
+              "heading": "Tableau 18"
+            },
+            {
+              "label": "Lesson 21",
+              "heading": "Tableau 19"
+            },
+            {
+              "label": "Lesson 22",
+              "heading": "Tableau 20"
+            },
+            {
+              "label": "Lesson 23",
+              "heading": "Tableau 21"
+            },
+            {
+              "label": "Supplement 1",
+              "heading": "Tarot Groups"
+            }
+          ]
+        },
+        {
+          "title": "Hermetic Science and Practice",
+          "entries": [
+            {
+              "label": "Lesson 1",
+              "heading": "What Alchemy Really Is"
+            },
+            {
+              "label": "Lesson 2",
+              "heading": "The First Matter"
+            },
+            {
+              "label": "Lesson 3",
+              "heading": "The First Matter (continued)"
+            },
+            {
+              "label": "Lesson 4",
+              "heading": "The Three Principles"
+            },
+            {
+              "label": "Lesson 5",
+              "heading": "Fire"
+            },
+            {
+              "label": "Lesson 6",
+              "heading": "Water"
+            },
+            {
+              "label": "Lesson 7",
+              "heading": "The Alchemical Process"
+            },
+            {
+              "label": "Lesson 8",
+              "heading": "The Alchemical Process"
+            },
+            {
+              "label": "Lesson 9",
+              "heading": "The Alchemical Process"
+            },
+            {
+              "label": "Lesson 10",
+              "heading": "The Alchemical Process"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,7 +1,14 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 
-import { BOOKS, BOOKS_REPO, pdfUrl, screenPdfUrl, sourceUrl } from '@/lib/books'
+import {
+  BOOKS,
+  BOOKS_REPO,
+  bookPath,
+  pdfUrl,
+  screenPdfUrl,
+  sourceUrl,
+} from '@/lib/books'
 
 export const metadata: Metadata = {
   title: 'Books',
@@ -40,7 +47,12 @@ export default function Books() {
         {BOOKS.map((book) => (
           <li key={book.file}>
             <h2 className="font-serif text-2xl/8 font-medium text-olive-950 dark:text-white">
-              {book.title}
+              <Link
+                href={bookPath(book)}
+                className="transition-colors hover:text-olive-700 dark:hover:text-olive-300"
+              >
+                {book.title}
+              </Link>
             </h2>
             {book.subtitle && (
               <p className="text-base/8 text-olive-700 italic dark:text-olive-400">
