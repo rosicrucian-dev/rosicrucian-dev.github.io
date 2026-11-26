@@ -133,7 +133,7 @@ export default function Home() {
       </a>
 
       <LinkSection title="Projects" links={projects} />
-      <LinkSection title="Library" links={library} />
+      <LinkSection title="Collections" links={library} />
       <LinkSection title="Developer Tools" links={tools} />
 
       <section className="mt-16">

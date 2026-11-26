@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
+import { Breadcrumbs, HOME } from '@/components/Breadcrumbs'
 
 export const metadata: Metadata = {
   title: 'Jonathan Taylor',
@@ -24,16 +24,14 @@ const links = [
 export default function Jonathan() {
   return (
     <main className="mx-auto flex min-h-full max-w-2xl flex-col px-6 py-24">
-      <h1 className="font-display text-6xl/none tracking-tight text-balance text-olive-950 sm:text-7xl dark:text-white">
+      <Breadcrumbs
+        trail={[HOME]}
+        current={{ name: 'Jonathan Taylor', href: '/jonathan/' }}
+      />
+
+      <h1 className="mt-6 font-display text-6xl/none tracking-tight text-balance text-olive-950 sm:text-7xl dark:text-white">
         Jonathan Taylor
       </h1>
-
-      <Link
-        href="/"
-        className="mt-6 inline-block text-sm font-medium tracking-widest text-olive-500 uppercase transition-colors hover:text-olive-700 dark:hover:text-olive-300"
-      >
-        Rosicrucian Developers
-      </Link>
 
       <p className="mt-2 text-base/7 text-olive-700 dark:text-olive-400">
         Group Organizer

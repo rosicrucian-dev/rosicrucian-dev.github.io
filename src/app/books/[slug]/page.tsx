@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
+import { Breadcrumbs, HOME } from '@/components/Breadcrumbs'
 import { catalogFor, type CatalogEntry } from '@/lib/books-catalog'
 import {
   BOOKS,
@@ -126,12 +126,10 @@ export default async function BookPage({
         }}
       />
 
-      <Link
-        href="/books/"
-        className="inline-block self-start text-sm font-medium tracking-widest text-olive-500 uppercase underline decoration-olive-300 decoration-1 underline-offset-4 transition-colors hover:text-olive-700 hover:decoration-olive-700 dark:decoration-olive-700 dark:hover:text-olive-300 dark:hover:decoration-olive-300"
-      >
-        Books
-      </Link>
+      <Breadcrumbs
+        trail={[HOME, { name: 'Books', href: '/books/' }]}
+        current={{ name: book.title, href: bookPath(book) }}
+      />
 
       <h1 className="mt-6 font-display text-5xl/tight tracking-tight text-balance text-olive-950 sm:text-6xl/tight dark:text-white">
         {book.title}
